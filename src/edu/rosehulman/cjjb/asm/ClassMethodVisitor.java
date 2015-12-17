@@ -1,17 +1,24 @@
 package edu.rosehulman.cjjb.asm;
 
+import java.io.OutputStream;
+
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
 public class ClassMethodVisitor extends ClassVisitor {
-	public ClassMethodVisitor(int api) {
+	
+	private OutputStream out;
+	
+	public ClassMethodVisitor(int api, OutputStream out) {
 		super(api);
+		this.out = out;
 	}
 
-	public ClassMethodVisitor(int api, ClassVisitor decorated) {
+	public ClassMethodVisitor(int api, ClassVisitor decorated, OutputStream out) {
 		super(api, decorated);
+		this.out = out;
 	}
 
 	@Override

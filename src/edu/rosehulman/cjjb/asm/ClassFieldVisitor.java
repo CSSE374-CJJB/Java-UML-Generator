@@ -1,16 +1,23 @@
 package edu.rosehulman.cjjb.asm;
 
+import java.io.OutputStream;
+
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.Type;
 
 public class ClassFieldVisitor extends ClassVisitor {
-	public ClassFieldVisitor(int api) {
+	
+	private OutputStream out;
+	
+	public ClassFieldVisitor(int api, OutputStream out) {
 		super(api);
+		this.out = out;
 	}
 
-	public ClassFieldVisitor(int api, ClassVisitor decorated) {
+	public ClassFieldVisitor(int api, ClassVisitor decorated, OutputStream out) {
 		super(api, decorated);
+		this.out = out;
 	}
 
 	public FieldVisitor visitField(int access, String name, String desc, String signature, Object value) {

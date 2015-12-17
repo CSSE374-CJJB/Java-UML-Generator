@@ -1,11 +1,16 @@
 package edu.rosehulman.cjjb.asm;
 
+import java.io.OutputStream;
 import java.util.Arrays;
 import org.objectweb.asm.ClassVisitor;
 
 public class ClassDeclarationVisitor extends ClassVisitor {
-	public ClassDeclarationVisitor(int api) {
+	
+	private OutputStream out;
+	
+	public ClassDeclarationVisitor(int api, OutputStream out) {
 		super(api);
+		this.out = out;
 	}
 
 	@Override
