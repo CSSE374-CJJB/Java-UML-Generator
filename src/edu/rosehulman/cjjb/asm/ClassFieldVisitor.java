@@ -1,5 +1,6 @@
 package edu.rosehulman.cjjb.asm;
 
+import java.io.IOException;
 import java.io.OutputStream;
 
 import org.objectweb.asm.ClassVisitor;
@@ -28,6 +29,14 @@ public class ClassFieldVisitor extends ClassVisitor {
 		// TODO: add this field to your internal representation of the current
 		// class.
 		// What is a good way to know what the current class is?
+		StringBuffer buf = new StringBuffer();
+		buf.append(access);
+		buf.append(" " + name + " : " + type + "\\l");
+		try {
+			out.write(buf.toString().getBytes());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return toDecorate;
 	};
 }

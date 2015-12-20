@@ -1,5 +1,6 @@
 package edu.rosehulman.cjjb.asm;
 
+import java.io.IOException;
 import java.io.OutputStream;
 
 import org.objectweb.asm.ClassVisitor;
@@ -25,7 +26,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 	public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
 		MethodVisitor toDecorate = super.visitMethod(access, name, desc, signature, exceptions);
 		// TODO: delete the line below
-		System.out.println("----------------------------");
+		System.out.println("----------------------------\\l");
 		System.out.println("method " + name);
 		// TODO: create an internal representation of the current method and
 		// pass it to the methods below
@@ -36,6 +37,15 @@ public class ClassMethodVisitor extends ClassVisitor {
 		// current class
 		// What is a good way for the code to remember what the current class
 		// is?
+		StringBuffer buf = new StringBuffer();
+		buf.append("|");
+		buf.append(access);
+		buf.append(" " + name + " : " + signature + "\\l");
+		try {
+			out.write(buf.toString().getBytes());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return toDecorate;
 	}
 
