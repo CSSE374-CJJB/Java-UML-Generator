@@ -21,7 +21,7 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 		StringBuffer buf = new StringBuffer();
 		buf.append(name);
 		buf.append(" [\n");
-		buf.append("\tlabel = {");
+		buf.append("\tlabel = \"{");
 		buf.append(name);
 		buf.append("|");
 		try {

@@ -15,7 +15,7 @@ import edu.rosehulman.cjjb.asm.ClassMethodVisitor;
 public class Main {
 
 	public static final String[] CLASSES = {
-			"../../../Lab1-1/src/problem"
+			"../edu.rosehulman.cjjb.java"
 		};
 	
 	public static void main(String[] args) throws IOException {
