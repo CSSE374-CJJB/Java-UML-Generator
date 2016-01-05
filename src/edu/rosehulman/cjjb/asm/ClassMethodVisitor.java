@@ -12,76 +12,87 @@ public class ClassMethodVisitor extends ClassVisitor {
 	
 	private OutputStream out;
 	
+	private boolean firstMethod;
+	
 	public ClassMethodVisitor(int api, OutputStream out) {
 		super(api);
 		this.out = out;
+		
+		firstMethod = true;
 	}
 
 	public ClassMethodVisitor(int api, ClassVisitor decorated, OutputStream out) {
 		super(api, decorated);
 		this.out = out;
+		
+		firstMethod = true;
 	}
 
 	@Override
 	public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
 		MethodVisitor toDecorate = super.visitMethod(access, name, desc, signature, exceptions);
-		// TODO: delete the line below
-		System.out.println("----------------------------\\l");
-		System.out.println("method " + name);
 		// TODO: create an internal representation of the current method and
 		// pass it to the methods below
-		addAccessLevel(access);
-		addReturnType(desc);
-		addArguments(desc);
-		// TODO: add the current method to your internal representation of the
-		// current class
-		// What is a good way for the code to remember what the current class
-		// is?
-		StringBuffer buf = new StringBuffer();
-		buf.append("|");
-		buf.append(access);
-		buf.append(" " + name + " : " + signature + "\\l");
-		try {
-			out.write(buf.toString().getBytes());
-		} catch (IOException e) {
-			e.printStackTrace();
+		
+		if(!name.contains("<")) {
+			try {
+				if(firstMethod) {
+					out.write("|".getBytes());
+					firstMethod = false;
+				}
+				addAccessLevel(access);
+				
+				out.write(name.getBytes());
+				out.write("(".getBytes());
+				addArguments(desc);
+				out.write(")".getBytes());
+				
+				addReturnType(desc);
+				
+				out.write("\\l".getBytes());
+			} catch (IOException e) {
+				
+			} 
 		}
 		return toDecorate;
 	}
 
-	void addAccessLevel(int access) {
+	void addAccessLevel(int access) throws IOException {
 		String level = "";
 		if ((access & Opcodes.ACC_PUBLIC) != 0) {
-			level = "public";
+			level = "+ ";
 		} else if ((access & Opcodes.ACC_PROTECTED) != 0) {
-			level = "protected";
+			level = "# ";
 		} else if ((access & Opcodes.ACC_PRIVATE) != 0) {
-			level = "private";
+			level = "- ";
 		} else {
-			level = "default";
+			level = "";
 		}
 		// TODO: delete the next line
-		System.out.println("access level: " + level);
+		out.write(level.getBytes());
 		// TODO: ADD this information to your representation of the current
 		// method.
 	}
 
-	void addReturnType(String desc) {
+	void addReturnType(String desc) throws IOException {
+		if(desc == null)
+			return;
+		
 		String returnType = Type.getReturnType(desc).getClassName();
 		// TODO: delete the next line
-		System.out.println("return type: " + returnType);
+		out.write((" : " + returnType).getBytes());
 		// TODO: ADD this information to your representation of the current
 		// method.
 	}
 
-	void addArguments(String desc) {
+	void addArguments(String desc) throws IOException {
 		Type[] args = Type.getArgumentTypes(desc);
+		String[] argNames = new String[args.length];
+		
 		for (int i = 0; i < args.length; i++) {
-			String arg = args[i].getClassName();
-			// TODO: delete the next line
-			System.out.println("arg " + i + ": " + arg);
-			// TODO: ADD this information to your representation of the current
-			// method.
+			argNames[i] = args[i].getClassName();
 		}
+		
+		out.write(String.join(", ", argNames).getBytes());;
 	}
 }
