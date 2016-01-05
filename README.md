@@ -12,3 +12,5 @@ Download and compile the project. Should show up as an eclipse project if you im
 In Main.Java the Static Classes Variable add the classes you want to show up on the UML.
 
 !! The class names you select must also be in the class path.
+
+The output goes to output.txt in the same folder that the program was run from.
