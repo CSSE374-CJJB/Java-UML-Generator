@@ -12,7 +12,8 @@ public class Main {
 			"edu.rosehulman.cjjb.asm.ClassFieldVisitor",
 			"edu.rosehulman.cjjb.asm.ClassMethodVisitor",
 			"edu.rosehulman.cjjb.asm.Relations",
-			"org.objectweb.asm.ClassVisitor"
+			"org.objectweb.asm.ClassVisitor",
+			"edu.rosehulman.cjjb.UMLClassVisitor"
 			/*"problem.AppLauncher",
 			"problem.HtmlWatcher",
 			"problem.JarWatcher",
