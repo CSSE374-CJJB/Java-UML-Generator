@@ -32,7 +32,7 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 		addSuperName(cleanName, superName);
 		addInterfaceName(cleanName, interfaces);
 		
-		buf.append(cleanName);
+		buf.append("\"" + cleanName + "\"");
 		buf.append(" [\n");
 		buf.append("\tlabel = \"{");
 		buf.append(cleanName + "|");
@@ -61,12 +61,6 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 	}
 
 	public String getCleanName(String s) {
-		int index = s.lastIndexOf("/");
-		
-		if(index != -1) {
-			return s.substring(index+1, s.length());
-		}
-		
-		return s;
+		return s.replaceAll("\\/", ".");
 	}
 }

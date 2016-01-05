@@ -13,17 +13,23 @@ public class ClassMethodVisitor extends ClassVisitor {
 	private OutputStream out;
 	
 	private boolean firstMethod;
+	private String className;
+	private Relations relations;
 	
-	public ClassMethodVisitor(int api, OutputStream out) {
+	public ClassMethodVisitor(int api, OutputStream out, String className, Relations relations) {
 		super(api);
 		this.out = out;
+		this.className = className;
+		this.relations = relations;
 		
 		firstMethod = true;
 	}
 
-	public ClassMethodVisitor(int api, ClassVisitor decorated, OutputStream out) {
+	public ClassMethodVisitor(int api, ClassVisitor decorated, OutputStream out, String className, Relations relations) {
 		super(api, decorated);
 		this.out = out;
+		this.className = className;
+		this.relations = relations;
 		
 		firstMethod = true;
 	}
@@ -31,8 +37,6 @@ public class ClassMethodVisitor extends ClassVisitor {
 	@Override
 	public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
 		MethodVisitor toDecorate = super.visitMethod(access, name, desc, signature, exceptions);
-		// TODO: create an internal representation of the current method and
-		// pass it to the methods below
 		
 		if(!name.contains("<")) {
 			try {
@@ -68,10 +72,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 		} else {
 			level = "";
 		}
-		// TODO: delete the next line
 		out.write(level.getBytes());
-		// TODO: ADD this information to your representation of the current
-		// method.
 	}
 
 	void addReturnType(String desc) throws IOException {
@@ -79,10 +80,8 @@ public class ClassMethodVisitor extends ClassVisitor {
 			return;
 		
 		String returnType = Type.getReturnType(desc).getClassName();
-		// TODO: delete the next line
+		addUsesRelations(new String[] {returnType});
 		out.write((" : " + returnType).getBytes());
-		// TODO: ADD this information to your representation of the current
-		// method.
 	}
 
 	void addArguments(String desc) throws IOException {
@@ -93,6 +92,14 @@ public class ClassMethodVisitor extends ClassVisitor {
 			argNames[i] = args[i].getClassName();
 		}
 		
+		addUsesRelations(argNames);
+		
 		out.write(String.join(", ", argNames).getBytes());;
+	}
+	
+	void addUsesRelations(String[] types) {
+		for(String s: types) {
+			this.relations.addUsesRelations(this.className, s);
+		}
 	}
 }
