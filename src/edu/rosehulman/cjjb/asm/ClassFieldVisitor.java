@@ -2,6 +2,7 @@ package edu.rosehulman.cjjb.asm;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.FieldVisitor;
@@ -11,26 +12,38 @@ import org.objectweb.asm.Type;
 public class ClassFieldVisitor extends ClassVisitor {
 	
 	private OutputStream out;
+	private String className;
+	private Relations relations;
 	
 	public ClassFieldVisitor(int api, OutputStream out) {
 		super(api);
 		this.out = out;
 	}
 
-	public ClassFieldVisitor(int api, ClassVisitor decorated, OutputStream out) {
+	public ClassFieldVisitor(int api, ClassVisitor decorated, OutputStream out, String className, Relations relations) {
 		super(api, decorated);
 		this.out = out;
+		this.className = className;
+		this.relations = relations;
 	}
 
 	public FieldVisitor visitField(int access, String name, String desc, String signature, Object value) {
 		FieldVisitor toDecorate = super.visitField(access, name, desc, signature, value);
 		String type = Type.getType(desc).getClassName();
-		// TODO: add this field to your internal representation of the current
-		// class.
-		// What is a good way to know what the current class is?
+		
+		if(signature == null) {
+			relations.addAssociationRelations(this.className, type);			
+		} else {
+			String[] genericsPart = getGenericsPart(signature);
+			type += "<" + String.join(", ", genericsPart) + ">";
+			for(String s: genericsPart){
+				relations.addAssociationRelations(this.className, s);
+			}
+		}
+		
 		StringBuffer buf = new StringBuffer();
 		buf.append(getAccessLevel(access));
-		buf.append(" " + name + " : " + type + "\\l");
+		buf.append(name + " : " + type + "\\l");
 		try {
 			out.write(buf.toString().getBytes());
 		} catch (IOException e) {
@@ -51,5 +64,19 @@ public class ClassFieldVisitor extends ClassVisitor {
 			level = "";
 		}
 		return level;
+	}
+	
+	public String[] getGenericsPart(String signiture) {
+		String[] split = signiture.split("<");
+		
+		ArrayList<String> toReturn = new ArrayList<String>();
+		
+		for(String s: split[1].split(";")) {
+			if(s.equals(">"))
+				break;
+			toReturn.add(Type.getType(s + ";").getClassName());
+		}
+		
+		return toReturn.toArray(new String[toReturn.size()]);
 	}
 }

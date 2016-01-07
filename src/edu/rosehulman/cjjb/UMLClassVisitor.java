@@ -15,6 +15,7 @@ import edu.rosehulman.cjjb.asm.ClassFieldVisitor;
 import edu.rosehulman.cjjb.asm.ClassMethodVisitor;
 import edu.rosehulman.cjjb.asm.Relation;
 import edu.rosehulman.cjjb.asm.Relations;
+import jdk.internal.org.objectweb.asm.signature.SignatureVisitor;
 
 public class UMLClassVisitor {
 
@@ -35,8 +36,9 @@ public class UMLClassVisitor {
 
 			ClassReader reader = new ClassReader(className);
 			ClassVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, out, relations);
-			ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, decVisitor, out);
+			ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, decVisitor, out, className, relations);
 			ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor, out, className, relations);
+
 			// TODO: add more DECORATORS here in later milestones to accomplish
 			// specific tasks
 			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
@@ -48,9 +50,11 @@ public class UMLClassVisitor {
 		Map<String, String> childParrentRelations = relations.getChildParentIncludedRelations();
 		Set<Relation> interfaces = relations.getIncludedInterfaceRelations();
 		Set<Relation> uses = relations.getIncludedUsesRelations();
+		Set<Relation> associations = relations.getIncludedAssociationsRelations();
 		writeChildParrentRelations(childParrentRelations, out);
 		writeInterfaceRelations(interfaces, out);
 		writeUsesRelations(uses, out);
+		writeAssociationRelations(associations, out);
 		out.write("}".getBytes());
 	}
 
@@ -84,4 +88,13 @@ public class UMLClassVisitor {
 		}
 	}
 
+	private void writeAssociationRelations(Set<Relation> uses, OutputStream out) throws IOException {
+		for (Relation r : uses) {
+			String toWrite = "\"" + r.base + "\"" + " -> " + "\"" + r.relatedTo + "\""
+					+ " [arrowhead=\"vee\", style=\"filled\"]";
+
+			out.write(toWrite.getBytes());
+		}
+	}
+	
 }

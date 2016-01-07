@@ -14,6 +14,7 @@ public class Relations {
 	Set<Relation> interfaces = new HashSet<Relation>();
 
 	Set<Relation> uses = new HashSet<Relation>();
+	Set<Relation> association = new HashSet<Relation>();
 
 	public void addElement(String element) {
 		includedELements.add(element);
@@ -52,13 +53,32 @@ public class Relations {
 	}
 
 	public void addUsesRelations(String className, String classOther) {
+		if(className.equals(classOther))
+			return;
 		uses.add(new Relation(className, classOther));
 	}
 
+	public void addAssociationRelations(String className, String classOther) {
+		if(className.equals(classOther))
+			return;
+		association.add(new Relation(className, classOther));
+	}
+	
 	public Set<Relation> getIncludedUsesRelations() {
 		Set<Relation> toReturn = new HashSet<Relation>();
 
 		for (Relation array : uses) {
+			if (includedELements.contains(array.relatedTo))
+				toReturn.add(array);
+		}
+
+		return toReturn;
+	}
+
+	public Set<Relation> getIncludedAssociationsRelations() {
+		Set<Relation> toReturn = new HashSet<Relation>();
+
+		for (Relation array : association) {
 			if (includedELements.contains(array.relatedTo))
 				toReturn.add(array);
 		}
