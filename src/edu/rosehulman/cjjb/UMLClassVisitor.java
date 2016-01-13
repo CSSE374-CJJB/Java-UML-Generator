@@ -2,6 +2,7 @@ package edu.rosehulman.cjjb;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -15,6 +16,7 @@ import edu.rosehulman.cjjb.asm.ClassFieldVisitor;
 import edu.rosehulman.cjjb.asm.ClassMethodVisitor;
 import edu.rosehulman.cjjb.asm.Relation;
 import edu.rosehulman.cjjb.asm.Relations;
+import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
 import jdk.internal.org.objectweb.asm.signature.SignatureVisitor;
 
 public class UMLClassVisitor {
@@ -30,14 +32,15 @@ public class UMLClassVisitor {
 
 	public void buildUML() throws IOException {
 		Relations relations = new Relations();
+		Map<String, AbstractJavaStructure> map = new HashMap<String, AbstractJavaStructure>();
 
 		out.write(boilerPlate.getBytes());
 		for (String className : this.classes) {
-
+			
 			ClassReader reader = new ClassReader(className);
-			ClassVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, out, relations);
-			ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, decVisitor, out, className, relations);
-			ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor, out, className, relations);
+			ClassVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, out, map);
+			ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, decVisitor, out, className, map);
+			ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor, out, className, map);
 
 			// TODO: add more DECORATORS here in later milestones to accomplish
 			// specific tasks

@@ -2,11 +2,14 @@ package edu.rosehulman.cjjb.asm;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
 
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
+
+import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
 
 public class ClassMethodVisitor extends ClassVisitor {
 	
@@ -14,22 +17,13 @@ public class ClassMethodVisitor extends ClassVisitor {
 	
 	private boolean firstMethod;
 	private String className;
-	private Relations relations;
+	private HashMap<String, AbstractJavaStructure> map;
 	
-	public ClassMethodVisitor(int api, OutputStream out, String className, Relations relations) {
-		super(api);
-		this.out = out;
-		this.className = className;
-		this.relations = relations;
-		
-		firstMethod = true;
-	}
-
-	public ClassMethodVisitor(int api, ClassVisitor decorated, OutputStream out, String className, Relations relations) {
+	public ClassMethodVisitor(int api, ClassVisitor decorated, OutputStream out, String className, HashMap<String, AbstractJavaStructure> map) {
 		super(api, decorated);
 		this.out = out;
 		this.className = className;
-		this.relations = relations;
+		this.map = map;
 		
 		firstMethod = true;
 	}

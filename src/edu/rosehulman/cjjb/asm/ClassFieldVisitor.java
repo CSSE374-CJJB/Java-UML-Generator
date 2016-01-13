@@ -3,28 +3,31 @@ package edu.rosehulman.cjjb.asm;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
+import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
+
 public class ClassFieldVisitor extends ClassVisitor {
 	
 	private OutputStream out;
 	private String className;
-	private Relations relations;
+	private HashMap<String, AbstractJavaStructure> map;
 	
 	public ClassFieldVisitor(int api, OutputStream out) {
 		super(api);
 		this.out = out;
 	}
 
-	public ClassFieldVisitor(int api, ClassVisitor decorated, OutputStream out, String className, Relations relations) {
+	public ClassFieldVisitor(int api, ClassVisitor decorated, OutputStream out, String className, HashMap<String, AbstractJavaStructure> map) {
 		super(api, decorated);
 		this.out = out;
 		this.className = className;
-		this.relations = relations;
+		this.map = map;
 	}
 
 	public FieldVisitor visitField(int access, String name, String desc, String signature, Object value) {

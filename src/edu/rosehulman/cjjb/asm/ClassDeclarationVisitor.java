@@ -2,20 +2,23 @@ package edu.rosehulman.cjjb.asm;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
+
 import org.objectweb.asm.ClassVisitor;
 
-import sun.security.util.Length;
+import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
+import edu.rosehulman.cjjb.javaModel.Class;
 
 public class ClassDeclarationVisitor extends ClassVisitor {
 	
 	private OutputStream out;
-	private Relations relations;
+	private HashMap<String, AbstractJavaStructure> map;
 	
-	public ClassDeclarationVisitor(int api, OutputStream out, Relations relations) {
+	public ClassDeclarationVisitor(int api, OutputStream out, HashMap<String, AbstractJavaStructure> map) {
 		super(api);
 		this.out = out;
 		
-		this.relations = relations;
+		this.map = map;
 	}
 
 	@Override
@@ -25,9 +28,19 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 		System.out.println("----------------------------");*/
 		StringBuffer buf = new StringBuffer();
 		
-		String cleanName = getCleanName(name);
+		String cleanName = Utils.getCleanName(name);
 		
-		relations.addElement(cleanName);
+		Class clazz;
+		if(map.containsKey(cleanName)) {
+			clazz.access = Utils.getAccessModifier(access);
+			clazz.modifiers = Utils.getModifiers(access);
+			clazz.superClass = Utils.getInstanceOrDefaultClass(map, Utils.getCleanName(superName));
+			clazz.implement = Utils.getInstanceOrDefaultInterfaces(map, Utils.getCleanNames(interfaces));
+		} else {
+			clazz = new Class(cleanName, Utils.getAccessModifier(access), Utils.getModifiers(access), null, implement, superClass);
+			map.put(cleanName, clazz);
+		}
+		
 		
 		addSuperName(cleanName, superName);
 		addInterfaceName(cleanName, interfaces);
@@ -60,7 +73,4 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 		this.relations.addChildParrentRelation(thisName, getCleanName(superName));
 	}
 
-	public String getCleanName(String s) {
-		return s.replaceAll("\\/", ".");
-	}
 }
