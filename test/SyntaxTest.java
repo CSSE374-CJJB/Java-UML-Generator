@@ -9,7 +9,6 @@ import edu.rosehulman.cjjb.javaModel.Class;
 import edu.rosehulman.cjjb.javaModel.Field;
 import edu.rosehulman.cjjb.javaModel.Interface;
 import edu.rosehulman.cjjb.javaModel.modifier.*;
-import org.objectweb.asm.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -128,13 +127,13 @@ public class SyntaxTest {
 		
 	}
 	
-	@Test
+	/*@Test
 	public void testGetGenericsPart() {
 		String sig = "Ljava/util/List;<edu/rosehulman/cjjb/javaModel/JavaModel;>";
 		String[] arr = new String[1];
 		arr[0] = "JavaModel;";
 		assertArrayEquals(arr, Utils.getGenericsPart(sig));
-	}
+	}*/
 	
 	@Test
 	public void testGetReturnType() {
