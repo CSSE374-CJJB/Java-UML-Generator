@@ -12,6 +12,8 @@ import edu.rosehulman.cjjb.asm.ClassDeclarationVisitor;
 import edu.rosehulman.cjjb.asm.ClassFieldVisitor;
 import edu.rosehulman.cjjb.asm.ClassMethodVisitor;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
+import edu.rosehulman.cjjb.javaModel.visitor.IUMLVisitor;
+import edu.rosehulman.cjjb.javaModel.visitor.SDSequenceVisitor;
 import edu.rosehulman.cjjb.javaModel.visitor.UMLDotVisitor;
 
 public class JavaModelClassVisitor {
@@ -40,7 +42,7 @@ public class JavaModelClassVisitor {
 			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 
 		}
-		UMLDotVisitor visitor = new UMLDotVisitor(out);
+		IUMLVisitor visitor = new UMLDotVisitor(out);
 		model.accept(visitor);
 
 		/*
