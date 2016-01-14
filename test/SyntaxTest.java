@@ -1,6 +1,8 @@
 import static org.junit.Assert.*;
 import edu.rosehulman.cjjb.asm.Utils;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
+import edu.rosehulman.cjjb.javaModel.Relation;
+import edu.rosehulman.cjjb.javaModel.AbstractJavaElement;
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
 import edu.rosehulman.cjjb.javaModel.Class;
 import edu.rosehulman.cjjb.javaModel.Interface;
@@ -41,7 +43,6 @@ public class SyntaxTest {
 		assertTrue(result.contains("\"sampleClasses.Class1\" -> \"sampleClasses.Class2\""));
 		assertTrue(result.contains("\"sampleClasses.Class2\" -> \"sampleClasses.Class1\""));
 		
-		asserA
 		assertEquals(countString("\\{", result), countString("\\}", result));
 		assertEquals(countString("\\[", result), countString("\\]", result));
 	}
@@ -57,26 +58,35 @@ public class SyntaxTest {
 	
 	@Test
 	public void testGetAccessModifier() {
-		assertEquals(new PublicModifier(), Utils.getAccessModifier(Opcodes.ACC_PUBLIC));
-		assertEquals(new PrivateModifier(), Utils.getAccessModifier(Opcodes.ACC_PRIVATE));
-		assertEquals(new ProtectedPrivateModifier(), Utils.getAccessModifier(Opcodes.ACC_PROTECTED));
-		assertEquals(new ProtectedModifier(), Utils.getAccessModifier(Opcodes.ACC_PROTECTED));
+		IModifier mod = new PublicModifier();
+		assertEquals(mod.getClass(), Utils.getAccessModifier(Opcodes.ACC_PUBLIC).getClass());
+		mod = new PrivateModifier();
+		assertEquals(mod.getClass(), Utils.getAccessModifier(Opcodes.ACC_PRIVATE).getClass());
+		mod = new ProtectedModifier();
+		assertEquals(mod.getClass(), Utils.getAccessModifier(Opcodes.ACC_PROTECTED).getClass());
 	}
 	
 	@Test
 	public void testGetModifiers() {
 		List<IModifier> list = new LinkedList<IModifier>();
-		list.add(new StaticModifier());
-		assertEquals(list, Utils.getModifiers(Opcodes.ACC_STATIC));
-		list.remove(0);
-		list.add(new SynchronizedModifier());
-		assertEquals(list, Utils.getModifiers(Opcodes.ACC_SYNCHRONIZED));
-		list.remove(0);
-		list.add(new NativeModifier());
-		assertEquals(list, Utils.getModifiers(Opcodes.ACC_NATIVE));
-		list.remove(0);
-		list.add(new FinalModifier());
-		assertEquals(list, Utils.getModifiers(Opcodes.ACC_FINAL));
+		IModifier mod = new StaticModifier();
+		list.add(mod);
+		mod = new SynchronizedModifier();
+		list.add(mod);
+		mod = new NativeModifier();
+		list.add(mod);
+		mod = new FinalModifier();
+		list.add(mod);
+		
+		List<Integer> list2 = new LinkedList<Integer>();
+		list2.add(Opcodes.ACC_STATIC);
+		list2.add(Opcodes.ACC_SYNCHRONIZED);
+		list2.add(Opcodes.ACC_NATIVE);
+		list2.add(Opcodes.ACC_FINAL);
+		
+		for (int i = 0; i < list.size(); i++) {
+			assertEquals(list.get(i).getClass(), Utils.getModifiers(list2.get(i)).get(0).getClass());
+		}
 	}
 	
 	@Test
@@ -84,8 +94,8 @@ public class SyntaxTest {
 		Set<String> set = new HashSet<String>();
 		set.add("sampleClasses.Class1");
 		JavaModel mod = new JavaModel(set);
-		assertEquals(new Class("sampleClasses.Class1"), Utils.getInstanceOrJavaStructure(mod, "sampleClasses.Class1"));
-		assertEquals(new Class("sampleClasses.Class1"), Utils.getInstanceOrJavaStructure(mod, "sampleClasses.Class1"));
+		AbstractJavaStructure clazz = Utils.getInstanceOrJavaStructure(mod, "sampleClasses.Class1");
+		assertEquals(clazz, Utils.getInstanceOrJavaStructure(mod, "sampleClasses.Class1"));
 	}
 	
 	@Test
@@ -97,10 +107,8 @@ public class SyntaxTest {
 		names[0] = "sampleClasses.Class1";
 		names[1] = "sampleClasses.Inter1";
 		
-		List<AbstractJavaStructure> list = new LinkedList<AbstractJavaStructure>();
-		list.add(new Class("sampleClasses.Class1"));
-		list.add(new Interface("sampleClasses.Inter1"));
-		assertEquals(list, Utils.getInstanceOrJavaStructures(mod, names));
+		List<AbstractJavaStructure> list = Utils.getInstanceOrJavaStructures(mod, names);
+		
 		assertEquals(list, Utils.getInstanceOrJavaStructures(mod, names));
 	}
 	
@@ -120,7 +128,7 @@ public class SyntaxTest {
 	
 	@Test
 	public void testGetGenericsPart() {
-		String sig = "List<JavaModel>";
+		String sig = "Ljava/util/List;<edu/rosehulman/cjjb/javaModel/JavaModel;>";
 		String[] arr = new String[1];
 		arr[0] = "JavaModel;";
 		assertArrayEquals(arr, Utils.getGenericsPart(sig));
@@ -128,19 +136,55 @@ public class SyntaxTest {
 	
 	@Test
 	public void testGetReturnType() {
-		String desc = "public int test()";
-		String desc2 = "public String test()";
+		String desc = "()I";
+		String desc2 = "()Ljava/lang/String;";
 		assertEquals("int", Utils.getReturnType(desc));
-		assertEquals("String", Utils.getReturnType(desc2));
+		assertEquals("java.lang.String", Utils.getReturnType(desc2));
 	}
 	
 	@Test
 	public void testGetListOfArgs() {
-		String desc = "public void test(int number, String word)";
+		String desc = "(Ljava/lang/String;I)V";
 		List<String> list = new LinkedList<String>();
+		list.add("java.lang.String");
 		list.add("int");
-		list.add("String");
 		assertEquals(list, Utils.getListOfArgs(desc));
+	}
+	
+	@Test
+	public void testGetChildParentIncludedRelations() {
+		Set<String> set = new HashSet<String>();
+		set.add("sampleClasses.Class1");
+		set.add("sampleClasses.Class2");
+		JavaModel mod = new JavaModel(set);
+		Class clazz1 = new Class("sampleClasses.Class1");
+		Class clazz2 = new Class("sampleClasses.Class2");
+		clazz2.superClass = clazz1;
+		mod.putStructure("sampleClasses.Class1", clazz1);
+		mod.putStructure("sampleClasses.Class2", clazz2);
+		
+		List<Relation> correct = new LinkedList<Relation>();
+		correct.add(new Relation(clazz2, clazz1));
+		
+		assertEquals(correct, mod.getChildParrentIncludedRelations());
+	}
+	
+	@Test
+	public void testGetIncludedInterfaceRelations() {
+		Set<String> set = new HashSet<String>();
+		set.add("sampleClasses.Class1");
+		set.add("sampleClasses.Inter1");
+		JavaModel mod = new JavaModel(set);
+		AbstractJavaStructure clazz = new Class("sampleClasses.Class1", (IAccessModifier)new PublicModifier(), new LinkedList<IModifier>(),
+				new LinkedList<AbstractJavaElement>(), new LinkedList<AbstractJavaStructure>(), (AbstractJavaStructure)new Class("Class2"));
+		AbstractJavaStructure inter = new Interface("sampleClasses.Inter1");
+		clazz.implement.add(inter);
+		mod.putStructure("sampleClasses.Class1", clazz);
+		
+		List<Relation> correct = new LinkedList<Relation>();
+		correct.add(new Relation(clazz, inter));
+		
+		assertEquals(correct, mod.getIncludedInterfaceRelations());
 	}
 	
 }
