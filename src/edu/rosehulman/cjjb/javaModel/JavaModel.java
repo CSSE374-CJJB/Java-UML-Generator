@@ -11,10 +11,12 @@ import java.util.Set;
 import edu.rosehulman.cjjb.asm.MethodCallGroup;
 import edu.rosehulman.cjjb.asm.MethodCallLine;
 import edu.rosehulman.cjjb.asm.Utils;
-import edu.rosehulman.cjjb.javaModel.visitor.ITraverser;
+import edu.rosehulman.cjjb.javaModel.visitor.ISequenceVisitor;
+import edu.rosehulman.cjjb.javaModel.visitor.ISquenceTraverser;
+import edu.rosehulman.cjjb.javaModel.visitor.IUMLTraverser;
 import edu.rosehulman.cjjb.javaModel.visitor.IUMLVisitor;
 
-public class JavaModel implements ITraverser {
+public class JavaModel implements IUMLTraverser, ISquenceTraverser {
 
 	HashMap<String, AbstractJavaStructure> map;
 	
@@ -28,19 +30,6 @@ public class JavaModel implements ITraverser {
 		this.includedClasses = includedClasses;
 		
 		this.methodGroups = new LinkedList<MethodCallGroup>();
-	}
-
-	@Override
-	public void accept(IUMLVisitor v) throws IOException {
-		v.visitStart();
-
-		for (String name : map.keySet()) {
-			if (includedClasses.contains(name))
-				map.get(name).accept(v);
-		}
-		v.visitRelations(this);
-
-		v.visitEnd();
 	}
 
 	public boolean containsStructure(String name) {
@@ -142,5 +131,23 @@ public class JavaModel implements ITraverser {
 				method.addMethodCall(otherMethod);
 			}
 		}
+	}
+
+	@Override
+	public void accept(IUMLVisitor v) throws IOException {
+		v.visitStart();
+
+		for (String name : map.keySet()) {
+			if (includedClasses.contains(name))
+				map.get(name).accept(v);
+		}
+		v.visitRelations(this);
+
+		v.visitEnd();
+	}
+	
+	@Override
+	public void accept(ISequenceVisitor v) throws IOException {
+		v.visit(this);
 	}
 }

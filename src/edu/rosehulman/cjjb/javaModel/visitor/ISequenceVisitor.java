@@ -1,5 +1,9 @@
 package edu.rosehulman.cjjb.javaModel.visitor;
 
-public interface ISequenceVisitor {
+import java.io.IOException;
 
+import edu.rosehulman.cjjb.javaModel.JavaModel;
+
+public interface ISequenceVisitor {
+	void visit(JavaModel model) throws IOException;
 }

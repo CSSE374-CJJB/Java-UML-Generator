@@ -5,9 +5,9 @@ import java.util.List;
 
 import edu.rosehulman.cjjb.javaModel.modifier.IAccessModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.IModifier;
-import edu.rosehulman.cjjb.javaModel.visitor.ITraverser;
+import edu.rosehulman.cjjb.javaModel.visitor.IUMLTraverser;
 
-public abstract class AbstractJavaThing implements ITraverser {
+public abstract class AbstractJavaThing implements IUMLTraverser {
 	public String name;
 	public IAccessModifier access;
 	public List<IModifier> modifiers;
