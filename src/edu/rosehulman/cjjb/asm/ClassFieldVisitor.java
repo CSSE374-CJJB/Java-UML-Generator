@@ -1,7 +1,5 @@
 package edu.rosehulman.cjjb.asm;
 
-import java.util.HashMap;
-
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.Type;

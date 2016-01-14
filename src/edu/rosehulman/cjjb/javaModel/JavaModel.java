@@ -15,6 +15,11 @@ public class JavaModel implements ITraverser{
 	
 	public JavaModel(Set<String> includedClasses) {
 		this.map = new HashMap<String, AbstractJavaStructure>();
+		
+		this.map.put("void", new Interface("void"));
+		this.map.put("int", new Interface("int"));
+		this.map.put("boolean", new Interface("boolean"));
+		
 		this.includedClasses = includedClasses;
 	}
 

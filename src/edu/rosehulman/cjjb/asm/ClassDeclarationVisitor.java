@@ -1,8 +1,5 @@
 package edu.rosehulman.cjjb.asm;
 
-import java.io.OutputStream;
-import java.util.HashMap;
-
 import org.objectweb.asm.ClassVisitor;
 
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
@@ -23,18 +20,23 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 	public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
 		String cleanName = Utils.getCleanName(name);
 		
-		Class clazz;
+		AbstractJavaStructure structure;
 		if(model.containsStructure(cleanName)) {
-			clazz = (Class) model.getStructure(cleanName);
-		} else {
-			clazz = new Class(cleanName);
+			structure = model.getStructure(cleanName);
 		}
-		clazz.access = Utils.getAccessModifier(access);
-		clazz.modifiers = Utils.getModifiers(access);
-		clazz.implement = Utils.getInstanceOrJavaStructures(model, Utils.getCleanNames(interfaces));
-		clazz.superClass = model.getStructure(Utils.getCleanName(superName));
+		else {
+			structure = Utils.getInstanceOrJavaStructure(model, cleanName);
+		}
+		
+		structure.access = Utils.getAccessModifier(access);
+		structure.modifiers = Utils.getModifiers(access);
+		structure.implement = Utils.getInstanceOrJavaStructures(model, Utils.getCleanNames(interfaces));
+
+		if(structure instanceof Class) {
+			((Class)structure).superClass = model.getStructure(Utils.getCleanName(superName));
+		}
 	
-		model.putStructure(cleanName, clazz);
+		model.putStructure(cleanName, structure);
 		
 		super.visit(version, access, name, signature, superName, interfaces);
 	}

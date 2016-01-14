@@ -20,7 +20,7 @@ public class UMLVisitor implements IVisitor {
 
 	OutputStream out;
 	
-	public static final String BOILER_PLATE = "digraph G { fontname = \"Bitstream Vera Sans\" fontsize = 8 node [ fontname = \"Bitstream Vera Sans\" fontsize = 8 shape = \"record\" ] edge [ fontname = \"Bitstream Vera Sans\" fontsize = 8 ]";
+	public static final String BOILER_PLATE = "digraph G { fontname = \"Bitstream Vera Sans\" fontsize = 8 node [ fontname = \"Bitstream Vera Sans\" fontsize = 8 shape = \"record\" ] edge [ fontname = \"Bitstream Vera Sans\" fontsize = 8 ]\n";
 	
 	public UMLVisitor(OutputStream out) {
 		this.out = out;
@@ -34,13 +34,13 @@ public class UMLVisitor implements IVisitor {
 	@Override
 	public void visit(Class clazz) throws IOException {
 		out.write(String.format("\"%s\"", clazz.name).getBytes());
-		out.write(String.format(" = {%s|", clazz.name).getBytes());
+		out.write(String.format(" [ label = \"{%s|", clazz.name).getBytes());
 	}
 
 	@Override
 	public void visit(Interface clazz) throws IOException{
 		out.write(String.format("\"%s\"", clazz.name).getBytes());
-		out.write(String.format(" = {<<interface>>\\l%s|", clazz.name).getBytes());
+		out.write(String.format(" [ label = \"{\\<\\<interface\\>\\>\\l%s|", clazz.name).getBytes());
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class UMLVisitor implements IVisitor {
 
 	@Override
 	public void visitEndStructure() throws IOException {
-		out.write("}\n".getBytes());
+		out.write("}\" ]\n".getBytes());
 	}
 
 	@Override

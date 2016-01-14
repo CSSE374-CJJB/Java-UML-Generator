@@ -41,7 +41,7 @@ public abstract class AbstractJavaStructure extends AbstractJavaThing {
 		
 		for(AbstractJavaElement element: subElements) {
 			if(element instanceof Method)
-				v.visit((Field)element);			
+				v.visit((Method)element);			
 		}
 		
 		v.visitEndStructure();

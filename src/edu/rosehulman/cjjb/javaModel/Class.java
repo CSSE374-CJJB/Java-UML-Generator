@@ -1,7 +1,6 @@
 package edu.rosehulman.cjjb.javaModel;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 import edu.rosehulman.cjjb.javaModel.modifier.IAccessModifier;
