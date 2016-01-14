@@ -22,7 +22,10 @@ public class ClassMethodVisitor extends ClassVisitor {
 	@Override
 	public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
 		MethodVisitor toDecorate = super.visitMethod(access, name, desc, signature, exceptions);
-		toDecorate = new ClassMethodLineVisitor(this.api, toDecorate, this.className, this.model);
+		
+		MethodCallGroup method = new MethodCallGroup(className, name);
+		
+		toDecorate = new ClassMethodLineVisitor(this.api, toDecorate, this.className, method, this.model);
 		
 		
 		AbstractJavaStructure structure = model.getStructure(this.className);

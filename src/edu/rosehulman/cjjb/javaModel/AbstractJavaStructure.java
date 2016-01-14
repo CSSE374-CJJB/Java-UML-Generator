@@ -45,5 +45,14 @@ public abstract class AbstractJavaStructure extends AbstractJavaThing {
 
 		v.visitEndStructure();
 	}
+	
+	public AbstractJavaElement getElementByName(String name) {
+		for(AbstractJavaElement element: this.subElements) {
+			if(element.name.equals(name)){
+				return element;
+			}
+		}
+		return null;
+	}
 
 }

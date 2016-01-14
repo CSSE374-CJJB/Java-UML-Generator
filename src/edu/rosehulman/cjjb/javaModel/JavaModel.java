@@ -8,12 +8,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import edu.rosehulman.cjjb.asm.MethodCallGroup;
+import edu.rosehulman.cjjb.asm.MethodCallLine;
+import edu.rosehulman.cjjb.asm.Utils;
 import edu.rosehulman.cjjb.javaModel.visitor.ITraverser;
 import edu.rosehulman.cjjb.javaModel.visitor.IUMLVisitor;
 
 public class JavaModel implements ITraverser {
 
 	HashMap<String, AbstractJavaStructure> map;
+	
+	List<MethodCallGroup> methodGroups;
 
 	Set<String> includedClasses;
 
@@ -21,6 +26,8 @@ public class JavaModel implements ITraverser {
 		this.map = new HashMap<String, AbstractJavaStructure>();
 
 		this.includedClasses = includedClasses;
+		
+		this.methodGroups = new LinkedList<MethodCallGroup>();
 	}
 
 	@Override
@@ -118,4 +125,22 @@ public class JavaModel implements ITraverser {
 		return new ArrayList<Relation>(relations);
 	}
 
+	
+	public void addMethodCallGroup(MethodCallGroup group) {
+		this.methodGroups.add(group);
+	}
+	
+	public void convertMethodCallLinesToStructure() {
+		for(MethodCallGroup group: this.methodGroups) {
+			AbstractJavaStructure caller = Utils.getInstanceOrJavaStructure(this, group.classCaller);
+			for(MethodCallLine line: group.lines) {
+				AbstractJavaStructure other = Utils.getInstanceOrJavaStructure(this, line.classOf);
+				
+				Method method = (Method) caller.getElementByName(group.name);
+				Method otherMethod = (Method) other.getElementByName(line.name);
+				
+				method.addMethodCall(otherMethod);
+			}
+		}
+	}
 }

@@ -9,6 +9,8 @@ import edu.rosehulman.cjjb.javaModel.visitor.IUMLVisitor;
 
 public class Method extends AbstractJavaElement {
 	public List<AbstractJavaStructure> arguments;
+	
+	public List<Method> methodCalls;
 
 	public Method(String name, IAccessModifier access, List<IModifier> modifiers, AbstractJavaStructure type,
 			List<AbstractJavaStructure> arguments) {
@@ -21,4 +23,8 @@ public class Method extends AbstractJavaElement {
 		v.visit(this);
 	}
 
+	public void addMethodCall(Method method) {
+		methodCalls.add(method);
+	}
+	
 }

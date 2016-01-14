@@ -18,13 +18,13 @@ import edu.rosehulman.cjjb.javaModel.modifier.ProtectedModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.ProtectedPrivateModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.PublicModifier;
 
-public class UMLVisitor implements IUMLVisitor {
+public class UMLDotVisitor implements IUMLVisitor {
 
 	OutputStream out;
 
 	public static final String BOILER_PLATE = "digraph G { fontname = \"Bitstream Vera Sans\" fontsize = 8 node [ fontname = \"Bitstream Vera Sans\" fontsize = 8 shape = \"record\" ] edge [ fontname = \"Bitstream Vera Sans\" fontsize = 8 ]\n";
 
-	public UMLVisitor(OutputStream out) {
+	public UMLDotVisitor(OutputStream out) {
 		this.out = out;
 	}
 
