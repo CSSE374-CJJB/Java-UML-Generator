@@ -1,22 +1,24 @@
-package edu.rosehulman.cjjb.asm;
+package edu.rosehulman.cjjb.javaModel;
 
 public class Relation {
-	public String base;
-	public String relatedTo;
+	public AbstractJavaThing base;
+	public AbstractJavaThing other;
 	
-	public Relation(String base, String relatedTo) {
+	public Relation(AbstractJavaThing base, AbstractJavaThing other) {
+		super();
 		this.base = base;
-		this.relatedTo = relatedTo;
+		this.other = other;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((base == null) ? 0 : base.hashCode());
-		result = prime * result + ((relatedTo == null) ? 0 : relatedTo.hashCode());
+		result = prime * result + ((other == null) ? 0 : other.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -31,11 +33,13 @@ public class Relation {
 				return false;
 		} else if (!base.equals(other.base))
 			return false;
-		if (relatedTo == null) {
-			if (other.relatedTo != null)
+		if (this.other == null) {
+			if (other.other != null)
 				return false;
-		} else if (!relatedTo.equals(other.relatedTo))
+		} else if (!this.other.equals(other.other))
 			return false;
 		return true;
 	}
+	
+	
 }

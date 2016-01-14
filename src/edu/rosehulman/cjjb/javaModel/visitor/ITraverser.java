@@ -4,5 +4,5 @@ import java.io.IOException;
 
 public interface ITraverser {
 
-	public void accept(IVisitor v) throws IOException;
+	public void accept(IUMLVisitor v) throws IOException;
 }

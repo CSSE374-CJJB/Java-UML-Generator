@@ -6,7 +6,7 @@ import java.util.List;
 
 import edu.rosehulman.cjjb.javaModel.modifier.IAccessModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.IModifier;
-import edu.rosehulman.cjjb.javaModel.visitor.IVisitor;
+import edu.rosehulman.cjjb.javaModel.visitor.IUMLVisitor;
 
 public abstract class AbstractJavaStructure extends AbstractJavaThing {
 	public List<AbstractJavaElement> subElements;
@@ -30,7 +30,7 @@ public abstract class AbstractJavaStructure extends AbstractJavaThing {
 	}
 	
 	@Override
-	public void accept(IVisitor v) throws IOException {
+	public void accept(IUMLVisitor v) throws IOException {
 		
 		for(AbstractJavaElement element: subElements) {
 			if(element instanceof Field)

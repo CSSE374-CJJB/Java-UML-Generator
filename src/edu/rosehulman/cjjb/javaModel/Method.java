@@ -5,7 +5,7 @@ import java.util.List;
 
 import edu.rosehulman.cjjb.javaModel.modifier.IAccessModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.IModifier;
-import edu.rosehulman.cjjb.javaModel.visitor.IVisitor;
+import edu.rosehulman.cjjb.javaModel.visitor.IUMLVisitor;
 
 public class Method extends AbstractJavaElement {
 	public List<AbstractJavaStructure> arguments;
@@ -17,7 +17,7 @@ public class Method extends AbstractJavaElement {
 	}
 	
 	@Override
-	public void accept(IVisitor v) throws IOException {
+	public void accept(IUMLVisitor v) throws IOException {
 		v.visit(this);
 	}
 	

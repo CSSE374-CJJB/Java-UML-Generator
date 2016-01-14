@@ -2,13 +2,14 @@ package edu.rosehulman.cjjb.javaModel.visitor;
 
 import edu.rosehulman.cjjb.javaModel.Field;
 import edu.rosehulman.cjjb.javaModel.Interface;
+import edu.rosehulman.cjjb.javaModel.JavaModel;
 import edu.rosehulman.cjjb.javaModel.Method;
 
 import java.io.IOException;
 
 import edu.rosehulman.cjjb.javaModel.Class;
 
-public interface IVisitor {
+public interface IUMLVisitor {
 	void visitStart() throws IOException;
 	
 	void visit(Class clazz) throws IOException;
@@ -20,6 +21,8 @@ public interface IVisitor {
 	void visit(Method clazz) throws IOException;
 	
 	void visitEndStructure() throws IOException;
+	
+	void visitRelations(JavaModel model) throws IOException;
 	
 	void visitEnd() throws IOException;
 }

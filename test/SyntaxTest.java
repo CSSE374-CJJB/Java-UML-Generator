@@ -23,7 +23,7 @@ public class SyntaxTest {
 		assertTrue(result.contains("\"sampleClasses.Class1\" -> \"sampleClasses.Class2\""));
 		assertTrue(result.contains("\"sampleClasses.Class2\" -> \"sampleClasses.Class1\""));
 		
-		
+		asserA
 		assertEquals(countString("\\{", result), countString("\\}", result));
 		assertEquals(countString("\\[", result), countString("\\]", result));
 	}
