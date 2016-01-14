@@ -1,76 +1,47 @@
 package edu.rosehulman.cjjb.asm;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.FieldVisitor;
-import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
 import edu.rosehulman.cjjb.javaModel.Field;
+import edu.rosehulman.cjjb.javaModel.JavaModel;
 
 public class ClassFieldVisitor extends ClassVisitor {
 	
-	private OutputStream out;
 	private String className;
-	private HashMap<String, AbstractJavaStructure> map;
+	private JavaModel model;
 	
-	public ClassFieldVisitor(int api, OutputStream out) {
-		super(api);
-		this.out = out;
-	}
 
-	public ClassFieldVisitor(int api, ClassVisitor decorated, OutputStream out, String className, HashMap<String, AbstractJavaStructure> map) {
+	public ClassFieldVisitor(int api, ClassVisitor decorated, String className, JavaModel model) {
 		super(api, decorated);
-		this.out = out;
 		this.className = className;
-		this.map = map;
+		this.model = model;
 	}
 
 	public FieldVisitor visitField(int access, String name, String desc, String signature, Object value) {
 		FieldVisitor toDecorate = super.visitField(access, name, desc, signature, value);
 		String type = Type.getType(desc).getClassName();
 		
-		if(signature == null) {
-			map.get(Utils.getCleanName(this.className)).subElements.add(new Field(name, Utils.getAccessModifier(access), 
-					Utils.getModifiers(access), new AbstractJavaStructure(type, null, null , null, null)));
-			//relations.addAssociationRelations(this.className, type);			
-		} else {
-			String[] genericsPart = Utils.getGenericsPart(signature);
-			type += "<" + String.join(", ", genericsPart) + ">";
-			for(String s: genericsPart){
-				map.get(Utils.getCleanName(this.className)).subElements.add(new Field(name, Utils.getAccessModifier(access), 
-						Utils.getModifiers(access), new AbstractJavaStructure(type, null, null , null, null)));
-			}
-		}
+		AbstractJavaStructure structure = model.getStructure(Utils.getCleanName(this.className));
 		
-		StringBuffer buf = new StringBuffer();
-		buf.append(getAccessLevel(access));
-		buf.append(name + " : " + type + "\\l");
-		try {
-			out.write(buf.toString().getBytes());
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(signature == null) {
+			Field typeClass = new Field(name, Utils.getAccessModifier(access), 
+					Utils.getModifiers(access), Utils.getInstanceOrJavaStructure(model, type));
+			
+			structure.addSubElement(typeClass);
+		} else {
+			for(String s: Utils.getGenericsPart(signature)){
+				Field typeClass = new Field(name, Utils.getAccessModifier(access), 
+						Utils.getModifiers(access), Utils.getInstanceOrJavaStructure(model, s));
+				structure.addSubElement(typeClass);
+			}
 		}
 		return toDecorate;
 	};
 
-	public String getAccessLevel(int access) {
-		String level = "";
-		if ((access & Opcodes.ACC_PUBLIC) != 0) {
-			level = "+ ";
-		} else if ((access & Opcodes.ACC_PROTECTED) != 0) {
-			level = "# ";
-		} else if ((access & Opcodes.ACC_PRIVATE) != 0) {
-			level = "- ";
-		} else {
-			level = "";
-		}
-		return level;
-	}
 
 }

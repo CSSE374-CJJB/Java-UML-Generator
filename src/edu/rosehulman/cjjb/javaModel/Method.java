@@ -1,9 +1,11 @@
 package edu.rosehulman.cjjb.javaModel;
 
+import java.io.IOException;
 import java.util.List;
 
 import edu.rosehulman.cjjb.javaModel.modifier.IAccessModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.IModifier;
+import edu.rosehulman.cjjb.javaModel.visitor.IVisitor;
 
 public class Method extends AbstractJavaElement {
 	public List<AbstractJavaStructure> arguments;
@@ -13,4 +15,10 @@ public class Method extends AbstractJavaElement {
 		super(name, access, modifiers, type);
 		this.arguments = arguments;
 	}
+	
+	@Override
+	public void accept(IVisitor v) throws IOException {
+		v.visit(this);
+	}
+	
 }

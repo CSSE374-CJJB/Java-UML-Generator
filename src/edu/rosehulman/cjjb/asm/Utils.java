@@ -12,6 +12,7 @@ import org.objectweb.asm.Type;
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
 import edu.rosehulman.cjjb.javaModel.Class;
 import edu.rosehulman.cjjb.javaModel.Interface;
+import edu.rosehulman.cjjb.javaModel.JavaModel;
 import edu.rosehulman.cjjb.javaModel.modifier.AbstractModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.FinalModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.IAccessModifier;
@@ -60,29 +61,25 @@ public class Utils {
 		return toReturn;
 	}
 	
-	public static Class getInstanceOrDefaultClass(Map<String, AbstractJavaStructure> map, String name) {
-		if(map.containsKey(name))
-			return (Class) map.get(name);
+	public static AbstractJavaStructure getInstanceOrJavaStructure(JavaModel model, String name) {
+		if(model.containsStructure(name))
+			return (Class) model.getStructure(name);
 		
-		Class clazz = new Class(name, null, null, null, null, null);
-		map.put(name, clazz);
+		AbstractJavaStructure clazz;
+		if(Type.getType(name).getClass().isInterface()) {
+			clazz = new Interface(name);
+		} else {
+			clazz = new Class(name);			
+		}
+		model.putStructure(name, clazz);
 		return clazz;
 	}
 	
-	public static Interface getInstanceOrDefaultInterface(Map<String, AbstractJavaStructure> map, String name) {
-		if(map.containsKey(name))
-			return (Interface) map.get(name);
-		
-		Interface clazz = new Interface(name, null, null, null, null);
-		map.put(name, clazz);
-		return clazz;
-	}
-	
-	public static List<Interface> getInstanceOrDefaultInterfaces(Map<String, AbstractJavaStructure> map, String[] names) {
-		List<Interface> toReturn = new LinkedList<Interface>();
+	public static List<AbstractJavaStructure> getInstanceOrJavaStructures(JavaModel model, String[] names) {
+		List<AbstractJavaStructure> toReturn = new LinkedList<AbstractJavaStructure>();
 		
 		for(String name: names) {
-			toReturn.add(getInstanceOrDefaultInterface(map, name));
+			toReturn.add(getInstanceOrJavaStructure(model, name));
 		}
 		
 		return toReturn;
@@ -116,18 +113,19 @@ public class Utils {
 		return toReturn.toArray(new String[toReturn.size()]);
 	}
 	
-	public static String getReturnType(String desc) throws IOException {
+	public static String getReturnType(String desc) {
 		return Type.getReturnType(desc).getClassName();
 	}
 
-	public static List<AbstractJavaStructure> getListOfArgs(String desc) {
-		List<AbstractJavaStructure> toReturn = new LinkedList<AbstractJavaStructure>();
+	public static List<String> getListOfArgs(String desc) {
+		List<String> toReturn = new LinkedList<String>();
 		Type[] args = Type.getArgumentTypes(desc);
 		
 		for (Type t: args) {
-			toReturn.add(new AbstractJavaStructure(t.getClassName(), null, null, null, null));
+			toReturn.add(Utils.getCleanName(t.getClassName()));
+			
+			
 		}
-		
 		return toReturn;
 	}
 }

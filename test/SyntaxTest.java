@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import edu.rosehulman.cjjb.UMLClassVisitor;
+import edu.rosehulman.cjjb.JavaModelClassVisitor;
 
 public class SyntaxTest {
 	
@@ -13,7 +13,7 @@ public class SyntaxTest {
 	public void testSyntax() throws IOException {
 		String[] classes = new String[] {"sampleClasses.Class1", "sampleClasses.Class2", "sampleClasses.Inter1"};
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		UMLClassVisitor visitor = new UMLClassVisitor(classes, out);
+		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes, out);
 		visitor.buildUML();
 		String result = new String(out.toByteArray());
 		assertTrue(result.contains("Class1"));

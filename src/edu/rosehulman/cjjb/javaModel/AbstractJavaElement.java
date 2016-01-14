@@ -5,7 +5,7 @@ import java.util.List;
 import edu.rosehulman.cjjb.javaModel.modifier.IAccessModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.IModifier;
 
-public class AbstractJavaElement extends AbstractJavaThing {
+public abstract class AbstractJavaElement extends AbstractJavaThing {
 	public AbstractJavaStructure type;
 
 	public AbstractJavaElement(String name, IAccessModifier access, List<IModifier> modifiers,

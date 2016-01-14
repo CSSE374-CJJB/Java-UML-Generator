@@ -17,38 +17,42 @@ import edu.rosehulman.cjjb.asm.ClassMethodVisitor;
 import edu.rosehulman.cjjb.asm.Relation;
 import edu.rosehulman.cjjb.asm.Relations;
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
+import edu.rosehulman.cjjb.javaModel.JavaModel;
 import jdk.internal.org.objectweb.asm.signature.SignatureVisitor;
 
-public class UMLClassVisitor {
+public class JavaModelClassVisitor {
 
-	public String[] classes;
+	public Set<String> classes;
 	public OutputStream out;
 	public static final String boilerPlate = "digraph G { fontname = \"Bitstream Vera Sans\" fontsize = 8 node [ fontname = \"Bitstream Vera Sans\" fontsize = 8 shape = \"record\" ] edge [ fontname = \"Bitstream Vera Sans\" fontsize = 8 ]";
 
-	public UMLClassVisitor(String[] classes, OutputStream out) {
+	private JavaModel model;
+	
+	public JavaModelClassVisitor(Set<String> classes, OutputStream out) {
 		this.classes = classes;
 		this.out = out;
+		
+		this.model = new JavaModel(classes);
 	}
 
 	public void buildUML() throws IOException {
 		Relations relations = new Relations();
-		HashMap<String, AbstractJavaStructure> map = new HashMap<String, AbstractJavaStructure>();
 
-		out.write(boilerPlate.getBytes());
 		for (String className : this.classes) {
 			
 			ClassReader reader = new ClassReader(className);
-			ClassVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, out, map);
-			ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, decVisitor, out, className, map);
-			ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor, out, className, map);
+			ClassVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, model);
+			ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, decVisitor, className, model);
+			ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor, className, model);
 
 			// TODO: add more DECORATORS here in later milestones to accomplish
 			// specific tasks
 			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 
-			out.write("}\"\n]".getBytes());
 
 		}
+		out.write(boilerPlate.getBytes());
+		out.write("}\"\n]".getBytes());
 
 		Map<String, String> childParrentRelations = relations.getChildParentIncludedRelations();
 		Set<Relation> interfaces = relations.getIncludedInterfaceRelations();

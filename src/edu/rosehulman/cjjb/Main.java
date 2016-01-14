@@ -48,7 +48,7 @@ public class Main {
 			classesToVisit.addAll(getClasses(s));
 		}
 		
-		UMLClassVisitor visitor = new UMLClassVisitor(classesToVisit.toArray(new String[classesToVisit.size()]), out);
+		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classesToVisit, out);
 		visitor.buildUML();
 	}
 
