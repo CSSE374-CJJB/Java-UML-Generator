@@ -18,21 +18,21 @@ import edu.rosehulman.cjjb.javaModel.modifier.ProtectedModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.ProtectedPrivateModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.PublicModifier;
 
-public class UMLVisitor implements IUMLVisitor {
+public class UMLDotVisitor implements IUMLVisitor {
 
 	OutputStream out;
-	
+
 	public static final String BOILER_PLATE = "digraph G { fontname = \"Bitstream Vera Sans\" fontsize = 8 node [ fontname = \"Bitstream Vera Sans\" fontsize = 8 shape = \"record\" ] edge [ fontname = \"Bitstream Vera Sans\" fontsize = 8 ]\n";
-	
-	public UMLVisitor(OutputStream out) {
+
+	public UMLDotVisitor(OutputStream out) {
 		this.out = out;
 	}
-	
+
 	@Override
 	public void visitStart() throws IOException {
 		out.write(BOILER_PLATE.getBytes());
 	}
-	
+
 	@Override
 	public void visit(Class clazz) throws IOException {
 		out.write(String.format("\"%s\"", clazz.name).getBytes());
@@ -40,14 +40,15 @@ public class UMLVisitor implements IUMLVisitor {
 	}
 
 	@Override
-	public void visit(Interface clazz) throws IOException{
+	public void visit(Interface clazz) throws IOException {
 		out.write(String.format("\"%s\"", clazz.name).getBytes());
 		out.write(String.format(" [ label = \"{\\<\\<interface\\>\\>\\l%s|", clazz.name).getBytes());
 	}
 
 	@Override
 	public void visit(Field clazz) throws IOException {
-		out.write(String.format("%s%s : %s\\l", getAccessModifierString(clazz.access), clazz.name, clazz.type.name).getBytes());
+		out.write(String.format("%s%s : %s\\l", getAccessModifierString(clazz.access), clazz.name, clazz.type.name)
+				.getBytes());
 	}
 
 	@Override
@@ -57,8 +58,8 @@ public class UMLVisitor implements IUMLVisitor {
 
 	@Override
 	public void visit(Method clazz) throws IOException {
-		out.write(String.format("%s%s(%s) : %s\\l", getAccessModifierString(clazz.access), 
-				clazz.name, getArgumentString(clazz.arguments),clazz.type.name).getBytes());
+		out.write(String.format("%s%s(%s) : %s\\l", getAccessModifierString(clazz.access), clazz.name,
+				getArgumentString(clazz.arguments), clazz.type.name).getBytes());
 	}
 
 	@Override
@@ -70,9 +71,9 @@ public class UMLVisitor implements IUMLVisitor {
 	public void visitEnd() throws IOException {
 		out.write("}".getBytes());
 	}
-	
+
 	private String getAccessModifierString(IAccessModifier modifier) {
-		if(modifier instanceof PrivateModifier) {
+		if (modifier instanceof PrivateModifier) {
 			return "- ";
 		} else if (modifier instanceof ProtectedPrivateModifier) {
 			return "";
@@ -81,43 +82,43 @@ public class UMLVisitor implements IUMLVisitor {
 		} else if (modifier instanceof PublicModifier) {
 			return "+ ";
 		}
-		
+
 		return "";
 	}
-	
+
 	private String getArgumentString(List<AbstractJavaStructure> args) {
 		List<String> names = new ArrayList<String>();
-		for(AbstractJavaStructure struct: args)
+		for (AbstractJavaStructure struct : args)
 			names.add(struct.name);
-		
+
 		return String.join(", ", names);
 	}
 
 	@Override
 	public void visitRelations(JavaModel model) throws IOException {
-		
+
 		// Child Parent
 		for (Relation relation : model.getChildParrentIncludedRelations()) {
-			out.write(String.format("\"%s\"" + " -> \"%s\" [arrowhead=\"onormal\", style=\"filled\"]\n", 
+			out.write(String.format("\"%s\"" + " -> \"%s\" [arrowhead=\"onormal\", style=\"filled\"]\n",
 					relation.base.name, relation.other.name).getBytes());
 		}
-		
+
 		// Implements
 		for (Relation relation : model.getIncludedInterfaceRelations()) {
-			out.write(String.format("\"%s\"" + " -> \"%s\" [arrowhead=\"onormal\", style=\"dashed\"]\n", 
+			out.write(String.format("\"%s\"" + " -> \"%s\" [arrowhead=\"onormal\", style=\"dashed\"]\n",
 					relation.base.name, relation.other.name).getBytes());
 		}
-		
+
 		// Uses
 		for (Relation relation : model.getIncludedUsesRelations()) {
-			out.write(String.format("\"%s\"" + " -> \"%s\" [arrowhead=\"vee\", style=\"dashed\"]\n", 
-					relation.base.name, relation.other.name).getBytes());
+			out.write(String.format("\"%s\"" + " -> \"%s\" [arrowhead=\"vee\", style=\"dashed\"]\n", relation.base.name,
+					relation.other.name).getBytes());
 		}
-		
+
 		// Association
 		for (Relation relation : model.getIncludedAssociationReltiations()) {
-			out.write(String.format("\"%s\"" + " -> \"%s\" [arrowhead=\"vee\", style=\"filled\"]\n", 
-					relation.base.name, relation.other.name).getBytes());
+			out.write(String.format("\"%s\"" + " -> \"%s\" [arrowhead=\"vee\", style=\"filled\"]\n", relation.base.name,
+					relation.other.name).getBytes());
 		}
 	}
 }

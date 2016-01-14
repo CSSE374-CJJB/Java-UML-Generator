@@ -3,7 +3,7 @@ package edu.rosehulman.cjjb.javaModel;
 public class Relation {
 	public AbstractJavaThing base;
 	public AbstractJavaThing other;
-	
+
 	public Relation(AbstractJavaThing base, AbstractJavaThing other) {
 		super();
 		this.base = base;
@@ -40,6 +40,5 @@ public class Relation {
 			return false;
 		return true;
 	}
-	
-	
+
 }

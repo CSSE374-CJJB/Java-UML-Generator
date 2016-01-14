@@ -17,5 +17,5 @@ public class Field extends AbstractJavaElement {
 	public void accept(IUMLVisitor v) throws IOException {
 		v.visit(this);
 	}
-	
+
 }
