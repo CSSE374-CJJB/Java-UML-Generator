@@ -32,7 +32,7 @@ public class UMLClassVisitor {
 
 	public void buildUML() throws IOException {
 		Relations relations = new Relations();
-		Map<String, AbstractJavaStructure> map = new HashMap<String, AbstractJavaStructure>();
+		HashMap<String, AbstractJavaStructure> map = new HashMap<String, AbstractJavaStructure>();
 
 		out.write(boilerPlate.getBytes());
 		for (String className : this.classes) {

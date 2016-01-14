@@ -30,20 +30,13 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 		
 		String cleanName = Utils.getCleanName(name);
 		
-		Class clazz;
-		if(map.containsKey(cleanName)) {
-			clazz.access = Utils.getAccessModifier(access);
-			clazz.modifiers = Utils.getModifiers(access);
-			clazz.superClass = Utils.getInstanceOrDefaultClass(map, Utils.getCleanName(superName));
-			clazz.implement = Utils.getInstanceOrDefaultInterfaces(map, Utils.getCleanNames(interfaces));
-		} else {
-			clazz = new Class(cleanName, Utils.getAccessModifier(access), Utils.getModifiers(access), null, implement, superClass);
+		Class clazz = new Class(cleanName, Utils.getAccessModifier(access), Utils.getModifiers(access), null,
+					Utils.getInstanceOrDefaultInterfaces(map, Utils.getCleanNames(interfaces)), map.get(Utils.getCleanName(superName)));
 			map.put(cleanName, clazz);
-		}
 		
 		
-		addSuperName(cleanName, superName);
-		addInterfaceName(cleanName, interfaces);
+		//addSuperName(cleanName, superName);
+		//addInterfaceName(cleanName, interfaces);
 		
 		buf.append("\"" + cleanName + "\"");
 		buf.append(" [\n");
@@ -57,7 +50,7 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 		super.visit(version, access, name, signature, superName, interfaces);
 	}
 	
-	private void addInterfaceName(String thisName, String[] interfaces) {
+	/*private void addInterfaceName(String thisName, String[] interfaces) {
 		if(interfaces == null || interfaces.length == 0) {
 			return;
 		}
@@ -71,6 +64,6 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 			return;
 		
 		this.relations.addChildParrentRelation(thisName, getCleanName(superName));
-	}
+	}*/
 
 }

@@ -1,10 +1,13 @@
 package edu.rosehulman.cjjb.asm;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.Type;
 
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
 import edu.rosehulman.cjjb.javaModel.Class;
@@ -94,6 +97,35 @@ public class Utils {
 		
 		for(int i = 0; i < toReturn.length; i++) {
 			toReturn[i] = getCleanName(names[i]);
+		}
+		
+		return toReturn;
+	}
+	
+	public static String[] getGenericsPart(String signiture) {
+		String[] split = signiture.split("<");
+		
+		ArrayList<String> toReturn = new ArrayList<String>();
+		
+		for(String s: split[1].split(";")) {
+			if(s.equals(">"))
+				break;
+			toReturn.add(Type.getType(s + ";").getClassName());
+		}
+		
+		return toReturn.toArray(new String[toReturn.size()]);
+	}
+	
+	public static String getReturnType(String desc) throws IOException {
+		return Type.getReturnType(desc).getClassName();
+	}
+
+	public static List<AbstractJavaStructure> getListOfArgs(String desc) {
+		List<AbstractJavaStructure> toReturn = new LinkedList<AbstractJavaStructure>();
+		Type[] args = Type.getArgumentTypes(desc);
+		
+		for (Type t: args) {
+			toReturn.add(new AbstractJavaStructure(t.getClassName(), null, null, null, null));
 		}
 		
 		return toReturn;

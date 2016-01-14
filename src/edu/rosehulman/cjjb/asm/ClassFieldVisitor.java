@@ -11,6 +11,7 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
+import edu.rosehulman.cjjb.javaModel.Field;
 
 public class ClassFieldVisitor extends ClassVisitor {
 	
@@ -35,12 +36,15 @@ public class ClassFieldVisitor extends ClassVisitor {
 		String type = Type.getType(desc).getClassName();
 		
 		if(signature == null) {
-			relations.addAssociationRelations(this.className, type);			
+			map.get(Utils.getCleanName(this.className)).subElements.add(new Field(name, Utils.getAccessModifier(access), 
+					Utils.getModifiers(access), new AbstractJavaStructure(type, null, null , null, null)));
+			//relations.addAssociationRelations(this.className, type);			
 		} else {
-			String[] genericsPart = getGenericsPart(signature);
+			String[] genericsPart = Utils.getGenericsPart(signature);
 			type += "<" + String.join(", ", genericsPart) + ">";
 			for(String s: genericsPart){
-				relations.addAssociationRelations(this.className, s);
+				map.get(Utils.getCleanName(this.className)).subElements.add(new Field(name, Utils.getAccessModifier(access), 
+						Utils.getModifiers(access), new AbstractJavaStructure(type, null, null , null, null)));
 			}
 		}
 		
@@ -68,18 +72,5 @@ public class ClassFieldVisitor extends ClassVisitor {
 		}
 		return level;
 	}
-	
-	public String[] getGenericsPart(String signiture) {
-		String[] split = signiture.split("<");
-		
-		ArrayList<String> toReturn = new ArrayList<String>();
-		
-		for(String s: split[1].split(";")) {
-			if(s.equals(">"))
-				break;
-			toReturn.add(Type.getType(s + ";").getClassName());
-		}
-		
-		return toReturn.toArray(new String[toReturn.size()]);
-	}
+
 }

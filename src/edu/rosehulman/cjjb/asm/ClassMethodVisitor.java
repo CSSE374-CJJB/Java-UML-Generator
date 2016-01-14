@@ -10,6 +10,7 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
+import edu.rosehulman.cjjb.javaModel.Method;
 
 public class ClassMethodVisitor extends ClassVisitor {
 	
@@ -32,7 +33,14 @@ public class ClassMethodVisitor extends ClassVisitor {
 	public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
 		MethodVisitor toDecorate = super.visitMethod(access, name, desc, signature, exceptions);
 		
-		if(!name.contains("<")) {
+		try {
+			map.get(this.className).subElements.add(new Method(Utils.getCleanName(name), Utils.getAccessModifier(access), Utils.getModifiers(access),
+					new AbstractJavaStructure(Utils.getReturnType(desc), null, null, null, null), Utils.getListOfArgs(desc)));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		/*if(!name.contains("<")) {
 			try {
 				if(firstMethod) {
 					out.write("|".getBytes());
@@ -51,11 +59,11 @@ public class ClassMethodVisitor extends ClassVisitor {
 			} catch (IOException e) {
 				
 			} 
-		}
+		}*/
 		return toDecorate;
 	}
 
-	void addAccessLevel(int access) throws IOException {
+	/*void addAccessLevel(int access) throws IOException {
 		String level = "";
 		if ((access & Opcodes.ACC_PUBLIC) != 0) {
 			level = "+ ";
@@ -95,5 +103,5 @@ public class ClassMethodVisitor extends ClassVisitor {
 		for(String s: types) {
 			this.relations.addUsesRelations(this.className, s);
 		}
-	}
+	}*/
 }
