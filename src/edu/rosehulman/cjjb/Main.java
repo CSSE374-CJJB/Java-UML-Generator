@@ -22,7 +22,9 @@ public class Main {
 			 */
 	};
 
-	public static final String[] PACKAGES = { "edu.rosehulman.cjjb", "edu.rosehulman.asm"
+	public static final String[] PACKAGES = { "edu.rosehulman.cjjb", "edu.rosehulman.asm",
+			"edu.rosehulman.cjjb.javaModel", "edu.rosehulman.cjjb.javaModel.modifier",
+			"edu.rosehulman.cjjb.javaModel.visitor"
 			/*
 			 * "headfirst.factory.pizzaaf", "headfirst.factory.pizzafm"
 			 */

@@ -21,7 +21,11 @@ public class ClassMethodVisitor extends ClassVisitor {
 
 	@Override
 	public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
+		
 		MethodVisitor toDecorate = super.visitMethod(access, name, desc, signature, exceptions);
+		
+		if (name.contains("<"))
+			return toDecorate;
 		
 		MethodCallGroup method = new MethodCallGroup(className, name);
 		

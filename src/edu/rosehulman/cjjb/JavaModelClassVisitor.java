@@ -10,8 +10,11 @@ import org.objectweb.asm.Opcodes;
 
 import edu.rosehulman.cjjb.asm.ClassDeclarationVisitor;
 import edu.rosehulman.cjjb.asm.ClassFieldVisitor;
+import edu.rosehulman.cjjb.asm.ClassMethodLineVisitor;
 import edu.rosehulman.cjjb.asm.ClassMethodVisitor;
+import edu.rosehulman.cjjb.asm.MethodCallGroup;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
+import edu.rosehulman.cjjb.javaModel.visitor.SDSequenceVisitor;
 import edu.rosehulman.cjjb.javaModel.visitor.UMLDotVisitor;
 
 public class JavaModelClassVisitor {
@@ -58,6 +61,21 @@ public class JavaModelClassVisitor {
 		 */
 	}
 
+	/*public void buildSD() throws IOException {
+		for (String className : this.classes) {
+
+			ClassReader reader = new ClassReader(className);
+			ClassVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, model);
+			ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, decVisitor, className, model);
+			ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor, className, model);
+
+			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
+
+		}
+		SDSequenceVisitor visitor = new SDSequenceVisitor(out);
+		model.accept(visitor);
+	}*/
+	
 	// private void writeChildParrentRelations(Map<String, String>
 	// childParrentRelations, OutputStream out)
 	// throws IOException {

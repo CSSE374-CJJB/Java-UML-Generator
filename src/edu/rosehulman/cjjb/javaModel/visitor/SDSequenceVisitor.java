@@ -21,13 +21,15 @@ public class SDSequenceVisitor implements ISequenceVisitor {
 
 	@Override
 	public void visit(JavaModel model) throws IOException {
+		
+		out.write(String.format("%s:%s", "<variable name>", this.className).getBytes());
+		
 		AbstractJavaStructure struct = model.getStructure(className);
 		AbstractJavaElement method = struct.getElementByName(methodName);
 		
 		if(method == null) {
 			return;
 		}
-		
 		
 	}
 	
