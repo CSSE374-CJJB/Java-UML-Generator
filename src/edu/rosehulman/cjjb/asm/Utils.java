@@ -61,16 +61,17 @@ public class Utils {
 	
 	public static AbstractJavaStructure getInstanceOrJavaStructure(JavaModel model, String name) {
 		if(model.containsStructure(name))
-			return (Class) model.getStructure(name);
-		
+			return model.getStructure(name);
+				
 		AbstractJavaStructure clazz;
-		if(Type.getType(name).getClass().isInterface()) {
+		if(isInterface(name)) {
 			clazz = new Interface(name);
 		} else {
 			clazz = new Class(name);			
 		}
 		model.putStructure(name, clazz);
 		return clazz;
+
 	}
 	
 	public static List<AbstractJavaStructure> getInstanceOrJavaStructures(JavaModel model, String[] names) {
@@ -84,6 +85,8 @@ public class Utils {
 	}
 	
 	public static String getCleanName(String name) {
+		Type type = Type.getType(name);
+		name = type.getInternalName();
 		return name.replaceAll("\\/", ".");
 	}
 	
@@ -125,5 +128,15 @@ public class Utils {
 			
 		}
 		return toReturn;
+	}
+	
+	public static boolean isInterface(String name) {
+		try {
+			return java.lang.Class.forName(name).isInterface();
+		}
+		catch (ClassNotFoundException e){
+			return false;
+		}
+		
 	}
 }

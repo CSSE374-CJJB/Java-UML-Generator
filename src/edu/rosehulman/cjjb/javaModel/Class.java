@@ -1,12 +1,11 @@
 package edu.rosehulman.cjjb.javaModel;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 import edu.rosehulman.cjjb.javaModel.modifier.IAccessModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.IModifier;
-import edu.rosehulman.cjjb.javaModel.visitor.IVisitor;
+import edu.rosehulman.cjjb.javaModel.visitor.IUMLVisitor;
 
 public class Class extends AbstractJavaStructure {
 	public AbstractJavaStructure superClass;
@@ -24,7 +23,7 @@ public class Class extends AbstractJavaStructure {
 	}
 
 	@Override
-	public void accept(IVisitor v) throws IOException {
+	public void accept(IUMLVisitor v) throws IOException {
 		v.visit(this);
 		
 		super.accept(v);

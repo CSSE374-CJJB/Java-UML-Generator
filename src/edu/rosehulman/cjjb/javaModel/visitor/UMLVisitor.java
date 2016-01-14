@@ -9,18 +9,20 @@ import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
 import edu.rosehulman.cjjb.javaModel.Class;
 import edu.rosehulman.cjjb.javaModel.Field;
 import edu.rosehulman.cjjb.javaModel.Interface;
+import edu.rosehulman.cjjb.javaModel.JavaModel;
 import edu.rosehulman.cjjb.javaModel.Method;
+import edu.rosehulman.cjjb.javaModel.Relation;
 import edu.rosehulman.cjjb.javaModel.modifier.IAccessModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.PrivateModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.ProtectedModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.ProtectedPrivateModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.PublicModifier;
 
-public class UMLVisitor implements IVisitor {
+public class UMLVisitor implements IUMLVisitor {
 
 	OutputStream out;
 	
-	public static final String BOILER_PLATE = "digraph G { fontname = \"Bitstream Vera Sans\" fontsize = 8 node [ fontname = \"Bitstream Vera Sans\" fontsize = 8 shape = \"record\" ] edge [ fontname = \"Bitstream Vera Sans\" fontsize = 8 ]";
+	public static final String BOILER_PLATE = "digraph G { fontname = \"Bitstream Vera Sans\" fontsize = 8 node [ fontname = \"Bitstream Vera Sans\" fontsize = 8 shape = \"record\" ] edge [ fontname = \"Bitstream Vera Sans\" fontsize = 8 ]\n";
 	
 	public UMLVisitor(OutputStream out) {
 		this.out = out;
@@ -34,13 +36,13 @@ public class UMLVisitor implements IVisitor {
 	@Override
 	public void visit(Class clazz) throws IOException {
 		out.write(String.format("\"%s\"", clazz.name).getBytes());
-		out.write(String.format(" = {%s|", clazz.name).getBytes());
+		out.write(String.format(" [ label = \"{%s|", clazz.name).getBytes());
 	}
 
 	@Override
 	public void visit(Interface clazz) throws IOException{
 		out.write(String.format("\"%s\"", clazz.name).getBytes());
-		out.write(String.format(" = {<<interface>>\\l%s|", clazz.name).getBytes());
+		out.write(String.format(" [ label = \"{\\<\\<interface\\>\\>\\l%s|", clazz.name).getBytes());
 	}
 
 	@Override
@@ -61,7 +63,7 @@ public class UMLVisitor implements IVisitor {
 
 	@Override
 	public void visitEndStructure() throws IOException {
-		out.write("}\n".getBytes());
+		out.write("}\" ]\n".getBytes());
 	}
 
 	@Override
@@ -89,5 +91,33 @@ public class UMLVisitor implements IVisitor {
 			names.add(struct.name);
 		
 		return String.join(", ", names);
+	}
+
+	@Override
+	public void visitRelations(JavaModel model) throws IOException {
+		
+		// Child Parent
+		for (Relation relation : model.getChildParrentIncludedRelations()) {
+			out.write(String.format("\"%s\"" + " -> \"%s\" [arrowhead=\"onormal\", style=\"filled\"]\n", 
+					relation.base.name, relation.other.name).getBytes());
+		}
+		
+		// Implements
+		for (Relation relation : model.getIncludedInterfaceRelations()) {
+			out.write(String.format("\"%s\"" + " -> \"%s\" [arrowhead=\"onormal\", style=\"dashed\"]\n", 
+					relation.base.name, relation.other.name).getBytes());
+		}
+		
+		// Uses
+		for (Relation relation : model.getIncludedUsesRelations()) {
+			out.write(String.format("\"%s\"" + " -> \"%s\" [arrowhead=\"vee\", style=\"dashed\"]\n", 
+					relation.base.name, relation.other.name).getBytes());
+		}
+		
+		// Association
+		for (Relation relation : model.getIncludedAssociationReltiations()) {
+			out.write(String.format("\"%s\"" + " -> \"%s\" [arrowhead=\"vee\", style=\"filled\"]\n", 
+					relation.base.name, relation.other.name).getBytes());
+		}
 	}
 }

@@ -1,20 +1,12 @@
 package edu.rosehulman.cjjb.asm;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.Type;
-
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
 import edu.rosehulman.cjjb.javaModel.Method;
-import edu.rosehulman.cjjb.javaModel.modifier.IModifier;
 
 public class ClassMethodVisitor extends ClassVisitor {
 	
