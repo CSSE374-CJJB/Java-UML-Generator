@@ -9,10 +9,9 @@ import edu.rosehulman.cjjb.javaModel.Field;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
 
 public class ClassFieldVisitor extends ClassVisitor {
-	
+
 	private String className;
 	private JavaModel model;
-	
 
 	public ClassFieldVisitor(int api, ClassVisitor decorated, String className, JavaModel model) {
 		super(api, decorated);
@@ -23,23 +22,22 @@ public class ClassFieldVisitor extends ClassVisitor {
 	public FieldVisitor visitField(int access, String name, String desc, String signature, Object value) {
 		FieldVisitor toDecorate = super.visitField(access, name, desc, signature, value);
 		String type = Type.getType(desc).getClassName();
-		
+
 		AbstractJavaStructure structure = model.getStructure(Utils.getCleanName(this.className));
-		
-		if(signature == null) {
-			Field typeClass = new Field(name, Utils.getAccessModifier(access), 
-					Utils.getModifiers(access), Utils.getInstanceOrJavaStructure(model, type));
-			
+
+		if (signature == null) {
+			Field typeClass = new Field(name, Utils.getAccessModifier(access), Utils.getModifiers(access),
+					Utils.getInstanceOrJavaStructure(model, type));
+
 			structure.addSubElement(typeClass);
 		} else {
-			for(String s: Utils.getGenericsPart(signature)){
-				Field typeClass = new Field(name, Utils.getAccessModifier(access), 
-						Utils.getModifiers(access), Utils.getInstanceOrJavaStructure(model, s));
+			for (String s : Utils.getGenericsPart(signature)) {
+				Field typeClass = new Field(name, Utils.getAccessModifier(access), Utils.getModifiers(access),
+						Utils.getInstanceOrJavaStructure(model, s));
 				structure.addSubElement(typeClass);
 			}
 		}
 		return toDecorate;
 	};
-
 
 }

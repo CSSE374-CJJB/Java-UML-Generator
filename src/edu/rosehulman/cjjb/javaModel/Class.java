@@ -18,16 +18,15 @@ public class Class extends AbstractJavaStructure {
 
 	public Class(String cleanName) {
 		super(cleanName);
-		
+
 		this.superClass = null;
 	}
 
 	@Override
 	public void accept(IUMLVisitor v) throws IOException {
 		v.visit(this);
-		
+
 		super.accept(v);
 	}
-	
-	
+
 }

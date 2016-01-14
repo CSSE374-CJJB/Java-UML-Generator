@@ -15,10 +15,10 @@ public class Method extends AbstractJavaElement {
 		super(name, access, modifiers, type);
 		this.arguments = arguments;
 	}
-	
+
 	@Override
 	public void accept(IUMLVisitor v) throws IOException {
 		v.visit(this);
 	}
-	
+
 }

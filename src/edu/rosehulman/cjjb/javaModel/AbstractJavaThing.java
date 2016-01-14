@@ -7,11 +7,11 @@ import edu.rosehulman.cjjb.javaModel.modifier.IAccessModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.IModifier;
 import edu.rosehulman.cjjb.javaModel.visitor.ITraverser;
 
-public abstract class AbstractJavaThing implements ITraverser{
+public abstract class AbstractJavaThing implements ITraverser {
 	public String name;
 	public IAccessModifier access;
 	public List<IModifier> modifiers;
-	
+
 	public AbstractJavaThing(String name, IAccessModifier access, List<IModifier> modifiers) {
 		this.name = name;
 		this.access = access;
@@ -21,6 +21,5 @@ public abstract class AbstractJavaThing implements ITraverser{
 	public AbstractJavaThing(String cleanName) {
 		this(cleanName, null, new LinkedList<IModifier>());
 	}
-	
-	
+
 }
