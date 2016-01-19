@@ -21,11 +21,18 @@ public class ClassMethodVisitor extends ClassVisitor {
 
 	@Override
 	public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
+		System.out.println("Method: " + className + " : " + name);
+		
 		MethodVisitor toDecorate = super.visitMethod(access, name, desc, signature, exceptions);
+		boolean isConstructor = false;
+		if(name.contains("<init>")) {
+			isConstructor = true;
+			name = name.replace("<init>", Utils.shortName(className));
+		}
 		
 		MethodCallGroup method = new MethodCallGroup(className, name);
 		
-		toDecorate = new ClassMethodLineVisitor(this.api, toDecorate, this.className, method, this.model);
+		toDecorate = new ClassMethodLineVisitor(this.api, toDecorate, method, this.model);
 		
 		
 		AbstractJavaStructure structure = model.getStructure(this.className);
@@ -34,8 +41,8 @@ public class ClassMethodVisitor extends ClassVisitor {
 		List<AbstractJavaStructure> arguments = Utils.getInstanceOrJavaStructures(model,
 				Utils.getListOfArgs(desc).toArray(new String[0]));
 
-		structure.addSubElement(new Method(Utils.getCleanName(name), Utils.getAccessModifier(access),
-				Utils.getModifiers(access), returnType, arguments));
+		structure.addSubElement(new Method(Utils.getInstanceOrJavaStructure(model, className), name, Utils.getAccessModifier(access),
+				Utils.getModifiers(access), returnType, arguments, isConstructor ));
 
 		return toDecorate;
 	}

@@ -9,6 +9,8 @@ import edu.rosehulman.cjjb.javaModel.Class;
 import edu.rosehulman.cjjb.javaModel.Field;
 import edu.rosehulman.cjjb.javaModel.Interface;
 import edu.rosehulman.cjjb.javaModel.modifier.*;
+import edu.rosehulman.cjjb.javaModel.visitor.IUMLVisitor;
+import edu.rosehulman.cjjb.javaModel.visitor.UMLDotVisitor;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -34,7 +36,10 @@ public class SyntaxTest {
 		classes.add("sampleClasses.Inter1");
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes, out);
-		visitor.buildUML();
+		visitor.buildModel();
+		IUMLVisitor umlVisitor = new UMLDotVisitor(out);
+		visitor.getModel().accept(umlVisitor);
+		
 		String result = new String(out.toByteArray());
 		
 		assertTrue(result.contains("Class1"));
@@ -197,8 +202,8 @@ public class SyntaxTest {
 		AbstractJavaStructure clazz = new Class("sampleClasses.Class1", (IAccessModifier)new PublicModifier(), new LinkedList<IModifier>(),
 				new LinkedList<AbstractJavaElement>(), new LinkedList<AbstractJavaStructure>(), (AbstractJavaStructure)new Class("Class2"));
 		Class clazz2 = new Class("sampleClasses.Class2");
-		Method meth = new Method("getClass2", (IAccessModifier) new PublicModifier(), new LinkedList<IModifier>(),
-				clazz2, new LinkedList<AbstractJavaStructure>());
+		Method meth = new Method(clazz, "getClass2", (IAccessModifier) new PublicModifier(), new LinkedList<IModifier>(),
+				clazz2, new LinkedList<AbstractJavaStructure>(), false);
 		clazz.addSubElement(meth);
 		
 		mod.putStructure("sampleClasses.Class1", clazz);
@@ -219,7 +224,7 @@ public class SyntaxTest {
 		AbstractJavaStructure clazz2 = new Class("sampleClasses.Class2", (IAccessModifier)new PublicModifier(), new LinkedList<IModifier>(),
 				new LinkedList<AbstractJavaElement>(), new LinkedList<AbstractJavaStructure>(), (AbstractJavaStructure)new Class("Class1"));
 		Class clazz = new Class("sampleClasses.Class1");
-		Field field = new Field("sampleClasses.Class1", (IAccessModifier) new PublicModifier(), new LinkedList<IModifier>(),
+		Field field = new Field(clazz2, "sampleClasses.Class1", (IAccessModifier) new PublicModifier(), new LinkedList<IModifier>(),
 				clazz);
 		clazz2.addSubElement(field);
 		
