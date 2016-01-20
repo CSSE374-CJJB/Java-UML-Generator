@@ -21,7 +21,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 
 	@Override
 	public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
-		System.out.println("Method: " + className + " : " + name);
+		//System.out.println("Method: " + className + " : " + name);
 		
 		MethodVisitor toDecorate = super.visitMethod(access, name, desc, signature, exceptions);
 		boolean isConstructor = false;
@@ -31,7 +31,6 @@ public class ClassMethodVisitor extends ClassVisitor {
 		}
 		
 		MethodCallGroup method = new MethodCallGroup(className, name);
-		
 		toDecorate = new ClassMethodLineVisitor(this.api, toDecorate, method, this.model);
 		
 		

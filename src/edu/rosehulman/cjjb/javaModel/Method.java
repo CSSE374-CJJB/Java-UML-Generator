@@ -2,6 +2,7 @@ package edu.rosehulman.cjjb.javaModel;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import edu.rosehulman.cjjb.javaModel.modifier.IAccessModifier;
@@ -22,6 +23,7 @@ public class Method extends AbstractJavaElement {
 		super(structure, name, access, modifiers, type);
 		this.arguments = arguments;
 		this.isConstructor = isConstructor;
+		this.methodCalls = new LinkedList<Method>();
 	}
 
 	@Override
@@ -30,6 +32,10 @@ public class Method extends AbstractJavaElement {
 	}
 
 	public void addMethodCall(Method method) {
+		if(method == null) {
+			System.out.println("Null method parm");
+			return;
+		}
 		methodCalls.add(method);
 	}
 	

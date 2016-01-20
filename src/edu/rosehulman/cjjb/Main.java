@@ -28,7 +28,7 @@ public class Main {
 	};
 
 	public static final String[] PACKAGES = {
-			"edu.rosehulman.cjjb"//, "edu.rosehulman.asm"
+			//"edu.rosehulman.cjjb"//, "edu.rosehulman.asm"
 			
 			// "headfirst.factory.pizzaaf", "headfirst.factory.pizzafm"
 			 
@@ -46,19 +46,20 @@ public class Main {
 			classesToVisit.addAll(getClasses(s));
 		}
 
-		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classesToVisit, out);
-		visitor.buildModel();
+		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classesToVisit, out, "edu.rosehulman.cjjb.Main", "main", 1);
 		
-		IUMLVisitor umlVisitor = new UMLDotVisitor(out);
-		visitor.getModel().accept(umlVisitor);
-		
-		ISequenceVisitor seqVisitor = new SDSequenceVisitor("edu.rosehulman.cjjb.JavaModelClassVisitor", "buildModel", 5, out);
+//		visitor.buildUMLModel();
+//		IUMLVisitor umlVisitor = new UMLDotVisitor(out);
+//		visitor.getModel().accept(umlVisitor);
+
+		visitor.buildSeqModel();
+		ISequenceVisitor seqVisitor = new SDSequenceVisitor("edu.rosehulman.cjjb.Main", "main", 1, out);
 		visitor.getModel().accept(seqVisitor);
 	}
 
-	// From
-	// http://stackoverflow.com/questions/520328/can-you-find-all-classes-in-a-package-using-reflection?lq=1
-	// by user Amit
+	/* From
+	 * http://stackoverflow.com/questions/520328/can-you-find-all-classes-in-a-package-using-reflection?lq=1
+	 * by user Amit
 	/**
 	 * Scans all classes accessible from the context class loader which belong
 	 * to the given package and subpackages.
@@ -68,8 +69,7 @@ public class Main {
 	 * @return The classes
 	 * @throws ClassNotFoundException
 	 * @throws IOException
-	 */
-	private static List<String> getClasses(String packageName) throws ClassNotFoundException, IOException {
+	 */	private static List<String> getClasses(String packageName) throws ClassNotFoundException, IOException {
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		assert classLoader != null;
 		String path = packageName.replace('.', '/');

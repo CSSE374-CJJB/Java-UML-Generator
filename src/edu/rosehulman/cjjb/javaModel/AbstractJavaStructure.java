@@ -54,5 +54,4 @@ public abstract class AbstractJavaStructure extends AbstractJavaThing {
 		}
 		return null;
 	}
-
 }

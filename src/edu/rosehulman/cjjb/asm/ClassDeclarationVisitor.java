@@ -31,7 +31,7 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 		structure.modifiers = Utils.getModifiers(access);
 		structure.implement = Utils.getInstanceOrJavaStructures(model, Utils.getCleanNames(interfaces));
 
-		if (structure instanceof Class) {
+		if (structure instanceof Class && superName != null) {
 			((Class) structure).superClass = model.getStructure(Utils.getCleanName(superName));
 		}
 

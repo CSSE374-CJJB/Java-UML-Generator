@@ -15,16 +15,15 @@ public class ClassMethodLineVisitor extends MethodVisitor {
 		
 		model.addMethodCallGroup(method);
 	}
-
-	
 	
 	@Override
 	public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
 		super.visitMethodInsn(opcode, owner, name, desc, itf);
 		
-		method.addLine(new MethodCallLine(Utils.getCleanName(owner), name, Utils.getReturnType(desc), Utils.getListOfArgs(desc)));
+		if(name == null) {
+			System.out.println("Null Name");
+		}
 		
-		System.out.println(String.format("Line: %s %s %s %s %s", opcode, owner, name, desc, itf));
+		method.addLine(new MethodCallLine(Utils.getCleanName(owner), name, Utils.getReturnType(desc), Utils.getListOfArgs(desc)));
 	}
-	
 }

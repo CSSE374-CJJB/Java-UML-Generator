@@ -36,7 +36,7 @@ public class SyntaxTest {
 		classes.add("sampleClasses.Inter1");
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes, out);
-		visitor.buildModel();
+		visitor.buildUMLModel();
 		IUMLVisitor umlVisitor = new UMLDotVisitor(out);
 		visitor.getModel().accept(umlVisitor);
 		

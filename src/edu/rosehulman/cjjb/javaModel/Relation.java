@@ -39,5 +39,4 @@ public class Relation {
 			return false;
 		return true;
 	}
-
 }

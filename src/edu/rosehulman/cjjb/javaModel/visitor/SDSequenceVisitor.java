@@ -41,17 +41,17 @@ public class SDSequenceVisitor implements ISequenceVisitor {
 		List<String> sdCalls = new ArrayList<String>();
 		
 		
-		objects.add(className);
+		objects.add(className.replace(".", "\\."));
 		
 		addCalls(this.depth, objects, sdCalls, method);
 		
 		for(String s: objects) {
-			out.write(String.format("%s:%s", s,s).getBytes());
+			out.write(String.format("%s:%s\n", s,s).getBytes());
 		}
 		out.write("\n".getBytes());
 		
 		for(String s: sdCalls) {
-			out.write(s.getBytes());
+			out.write(String.format("%s\n", s).getBytes());
 		}
 	}
 	
@@ -59,13 +59,14 @@ public class SDSequenceVisitor implements ISequenceVisitor {
 		if(depth == 0)
 			return;
 		for(Method call: method.methodCalls) {
-			objects.add(call.owner.name);
+			String str = call.owner.name.replace(".", "\\.");
 			if(call.isConstructor) {
-				sdCalls.add(String.format("%s:%s.new", className, call.owner));
+				str = "/" + str;
+				sdCalls.add(String.format("%s:%s.new", method.owner.name.replace(".", "\\."), call.owner.name.replace(".", "\\.")));
 			} else {
-				sdCalls.add(String.format("%s:%s.%s(%s)", className, call.owner, call.name, call.argumentsToString()));
+				sdCalls.add(String.format("%s:%s.%s(%s)", method.owner.name.replace(".", "\\."), call.owner.name.replace(".", "\\."), call.name, call.argumentsToString()));
 			}
-			
+			objects.add(str);
 			addCalls(depth - 1, objects, sdCalls, call);
 		}	
 	}

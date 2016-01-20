@@ -11,6 +11,8 @@ import org.objectweb.asm.Opcodes;
 import edu.rosehulman.cjjb.asm.ClassDeclarationVisitor;
 import edu.rosehulman.cjjb.asm.ClassFieldVisitor;
 import edu.rosehulman.cjjb.asm.ClassMethodVisitor;
+import edu.rosehulman.cjjb.asm.ClassSequnceClassVisitor;
+import edu.rosehulman.cjjb.asm.SequenceStructure;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
 
 public class JavaModelClassVisitor {
@@ -20,23 +22,45 @@ public class JavaModelClassVisitor {
 	public static final String boilerPlate = "digraph G { fontname = \"Bitstream Vera Sans\" fontsize = 8 node [ fontname = \"Bitstream Vera Sans\" fontsize = 8 shape = \"record\" ] edge [ fontname = \"Bitstream Vera Sans\" fontsize = 8 ]";
 
 	private JavaModel model;
+	private String classSearch;
+	private String methodSearch;
+	private int depth;
+	
 
 	public JavaModelClassVisitor(Set<String> classes, OutputStream out) {
+		this(classes, out, null, null, 0);
+	}
+
+	public JavaModelClassVisitor(Set<String> classes, OutputStream out, String classSearch, String methodSearch, int depth) {
 		this.classes = classes;
 		this.out = out;
 
 		this.model = new JavaModel(classes);
+
+		this.classSearch = classSearch;
+		this.methodSearch = methodSearch;
+		this.depth = depth;
 	}
 
-	public void buildModel() throws IOException{
+	public void buildUMLModel() throws IOException{
 		for (String className : this.classes) {
-
 			ClassReader reader = new ClassReader(className);
 			ClassVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, model);
 			ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, decVisitor, className, model);
 			ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor, className, model);
 
 			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
+		}
+		model.convertMethodCallLinesToStructure();
+	}
+	
+	public void buildSeqModel() throws IOException {
+		if (depth != 0) {
+			ClassReader reader = new ClassReader(classSearch);
+			
+			SequenceStructure seqStructure = new SequenceStructure();
+			ClassVisitor decVisitor = new ClassSequnceClassVisitor(Opcodes.ASM5, model, classSearch, methodSearch, depth, seqStructure);
+			reader.accept(decVisitor, ClassReader.EXPAND_FRAMES);
 		}
 		
 		model.convertMethodCallLinesToStructure();

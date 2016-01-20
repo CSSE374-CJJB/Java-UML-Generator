@@ -11,6 +11,7 @@ public class MethodCallGroup {
 	
 	public MethodCallGroup(String classCaller, String name) {
 		this.classCaller = classCaller;
+		this.name = name;
 		lines = new LinkedList<MethodCallLine>();
 	}
 	
