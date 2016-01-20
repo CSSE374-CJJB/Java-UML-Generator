@@ -26,18 +26,17 @@ public class ClassFieldVisitor extends ClassVisitor {
 		AbstractJavaStructure structure = model.getStructure(Utils.getCleanName(this.className));
 
 		if (signature == null) {
-			Field typeClass = new Field(name, Utils.getAccessModifier(access), Utils.getModifiers(access),
+			Field typeClass = new Field(Utils.getInstanceOrJavaStructure(model, className), name, Utils.getAccessModifier(access), Utils.getModifiers(access),
 					Utils.getInstanceOrJavaStructure(model, type));
 
 			structure.addSubElement(typeClass);
 		} else {
 			for (String s : Utils.getGenericsPart(signature)) {
-				Field typeClass = new Field(name, Utils.getAccessModifier(access), Utils.getModifiers(access),
+				Field typeClass = new Field(Utils.getInstanceOrJavaStructure(model, className), name, Utils.getAccessModifier(access), Utils.getModifiers(access),
 						Utils.getInstanceOrJavaStructure(model, s));
 				structure.addSubElement(typeClass);
 			}
 		}
 		return toDecorate;
-	};
-
+	}
 }

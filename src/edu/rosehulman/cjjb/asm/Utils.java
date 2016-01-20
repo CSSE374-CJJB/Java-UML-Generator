@@ -137,4 +137,15 @@ public class Utils {
 		}
 
 	}
+	
+	public static String shortName(String name) {
+		if(name.indexOf("/") != -1) {
+			name = name.substring(name.lastIndexOf("/") + 1);
+		}
+		if(name.indexOf(".") != -1) {
+			name = name.substring(name.lastIndexOf(".") + 1);
+		}
+		
+		return name;
+	}
 }

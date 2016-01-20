@@ -5,7 +5,6 @@ public class Relation {
 	public AbstractJavaThing other;
 
 	public Relation(AbstractJavaThing base, AbstractJavaThing other) {
-		super();
 		this.base = base;
 		this.other = other;
 	}
@@ -40,5 +39,4 @@ public class Relation {
 			return false;
 		return true;
 	}
-
 }

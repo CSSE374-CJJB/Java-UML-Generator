@@ -21,5 +21,4 @@ public abstract class AbstractJavaThing implements IUMLTraverser {
 	public AbstractJavaThing(String cleanName) {
 		this(cleanName, null, new LinkedList<IModifier>());
 	}
-
 }

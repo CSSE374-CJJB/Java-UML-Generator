@@ -9,13 +9,12 @@ import edu.rosehulman.cjjb.javaModel.visitor.IUMLVisitor;
 
 public class Field extends AbstractJavaElement {
 
-	public Field(String name, IAccessModifier access, List<IModifier> modifiers, AbstractJavaStructure type) {
-		super(name, access, modifiers, type);
+	public Field(AbstractJavaStructure owner, String name, IAccessModifier access, List<IModifier> modifiers, AbstractJavaStructure type) {
+		super(owner, name, access, modifiers, type);
 	}
 
 	@Override
 	public void accept(IUMLVisitor v) throws IOException {
 		v.visit(this);
 	}
-
 }

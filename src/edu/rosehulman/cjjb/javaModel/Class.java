@@ -28,5 +28,4 @@ public class Class extends AbstractJavaStructure {
 
 		super.accept(v);
 	}
-
 }

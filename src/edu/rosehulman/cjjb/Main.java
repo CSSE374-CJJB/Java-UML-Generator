@@ -12,22 +12,25 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import edu.rosehulman.cjjb.javaModel.visitor.ISequenceVisitor;
+import edu.rosehulman.cjjb.javaModel.visitor.IUMLVisitor;
+import edu.rosehulman.cjjb.javaModel.visitor.SDSequenceVisitor;
+import edu.rosehulman.cjjb.javaModel.visitor.UMLDotVisitor;
+
 public class Main {
 
-	public static final String[] CLASSES = { "org.objectweb.asm.ClassVisitor", "java.util.Set"
+	public static final String[] CLASSES = { //"org.objectweb.asm.ClassVisitor", "java.util.Set"
 			/*
 			 * "problem.AppLauncher", "problem.HtmlWatcher",
 			 * "problem.JarWatcher", "problem.TextPrinterWatcher",
 			 * "problem.TxtWatcher", "problem.IWatcher"
 			 */
 	};
-
-	public static final String[] PACKAGES = { "edu.rosehulman.cjjb", "edu.rosehulman.asm",
-			"edu.rosehulman.cjjb.javaModel", "edu.rosehulman.cjjb.javaModel.modifier",
-			"edu.rosehulman.cjjb.javaModel.visitor"
-			/*
-			 * "headfirst.factory.pizzaaf", "headfirst.factory.pizzafm"
-			 */
+	
+	public static final String[] PACKAGES = {
+			//"edu.rosehulman.cjjb"//, "edu.rosehulman.asm"
+			
+			// "headfirst.factory.pizzaaf", "headfirst.factory.pizzafm"
 	};
 
 	public static final String boilerPlate = "digraph G { fontname = \"Bitstream Vera Sans\" fontsize = 8 node [ fontname = \"Bitstream Vera Sans\" fontsize = 8 shape = \"record\" ] edge [ fontname = \"Bitstream Vera Sans\" fontsize = 8 ]";
@@ -42,13 +45,20 @@ public class Main {
 			classesToVisit.addAll(getClasses(s));
 		}
 
-		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classesToVisit, out);
-		visitor.buildUML();
+		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classesToVisit, out, "edu.rosehulman.cjjb.Main", "main", 1);
+		
+//		visitor.buildUMLModel();
+//		IUMLVisitor umlVisitor = new UMLDotVisitor(out);
+//		visitor.getModel().accept(umlVisitor);
+
+		visitor.buildSeqModel();
+		ISequenceVisitor seqVisitor = new SDSequenceVisitor("edu.rosehulman.cjjb.Main", "main", 1, out);
+		visitor.getModel().accept(seqVisitor);
 	}
 
-	// From
-	// http://stackoverflow.com/questions/520328/can-you-find-all-classes-in-a-package-using-reflection?lq=1
-	// by user Amit
+	/* From
+	 * http://stackoverflow.com/questions/520328/can-you-find-all-classes-in-a-package-using-reflection?lq=1
+	 * by user Amit
 	/**
 	 * Scans all classes accessible from the context class loader which belong
 	 * to the given package and subpackages.
@@ -58,8 +68,7 @@ public class Main {
 	 * @return The classes
 	 * @throws ClassNotFoundException
 	 * @throws IOException
-	 */
-	private static List<String> getClasses(String packageName) throws ClassNotFoundException, IOException {
+	 */	private static List<String> getClasses(String packageName) throws ClassNotFoundException, IOException {
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		assert classLoader != null;
 		String path = packageName.replace('.', '/');

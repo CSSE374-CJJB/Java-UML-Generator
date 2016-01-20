@@ -12,10 +12,9 @@ import edu.rosehulman.cjjb.asm.ClassDeclarationVisitor;
 import edu.rosehulman.cjjb.asm.ClassFieldVisitor;
 import edu.rosehulman.cjjb.asm.ClassMethodLineVisitor;
 import edu.rosehulman.cjjb.asm.ClassMethodVisitor;
-import edu.rosehulman.cjjb.asm.MethodCallGroup;
+import edu.rosehulman.cjjb.asm.ClassSequnceClassVisitor;
+import edu.rosehulman.cjjb.asm.SequenceStructure;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
-import edu.rosehulman.cjjb.javaModel.visitor.SDSequenceVisitor;
-import edu.rosehulman.cjjb.javaModel.visitor.UMLDotVisitor;
 
 public class JavaModelClassVisitor {
 
@@ -24,103 +23,51 @@ public class JavaModelClassVisitor {
 	public static final String boilerPlate = "digraph G { fontname = \"Bitstream Vera Sans\" fontsize = 8 node [ fontname = \"Bitstream Vera Sans\" fontsize = 8 shape = \"record\" ] edge [ fontname = \"Bitstream Vera Sans\" fontsize = 8 ]";
 
 	private JavaModel model;
+	private String classSearch;
+	private String methodSearch;
+	private int depth;
+	
 
 	public JavaModelClassVisitor(Set<String> classes, OutputStream out) {
+		this(classes, out, null, null, 0);
+	}
+
+	public JavaModelClassVisitor(Set<String> classes, OutputStream out, String classSearch, String methodSearch, int depth) {
 		this.classes = classes;
 		this.out = out;
 
 		this.model = new JavaModel(classes);
+
+		this.classSearch = classSearch;
+		this.methodSearch = methodSearch;
+		this.depth = depth;
 	}
 
-	public void buildUML() throws IOException {
+	public void buildUMLModel() throws IOException{
 		for (String className : this.classes) {
-
 			ClassReader reader = new ClassReader(className);
 			ClassVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, model);
 			ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, decVisitor, className, model);
 			ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor, className, model);
 
 			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
-
 		}
-		UMLDotVisitor visitor = new UMLDotVisitor(out);
-		model.accept(visitor);
-
-		/*
-		 * out.write(boilerPlate.getBytes()); out.write("}\"\n]".getBytes());
-		 * 
-		 * Map<String, String> childParrentRelations =
-		 * relations.getChildParentIncludedRelations(); Set<Relation> interfaces
-		 * = relations.getIncludedInterfaceRelations(); Set<Relation> uses =
-		 * relations.getIncludedUsesRelations(); Set<Relation> associations =
-		 * relations.getIncludedAssociationsRelations();
-		 * writeChildParrentRelations(childParrentRelations, out);
-		 * writeInterfaceRelations(interfaces, out); writeUsesRelations(uses,
-		 * out); writeAssociationRelations(associations, out);
-		 * out.write("}".getBytes());
-		 */
+		model.convertMethodCallLinesToStructure();
 	}
-
-	/*public void buildSD() throws IOException {
-		for (String className : this.classes) {
-
-			ClassReader reader = new ClassReader(className);
-			ClassVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, model);
-			ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, decVisitor, className, model);
-			ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor, className, model);
-
-			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
-
-		}
-		SDSequenceVisitor visitor = new SDSequenceVisitor(out);
-		model.accept(visitor);
-	}*/
 	
-	// private void writeChildParrentRelations(Map<String, String>
-	// childParrentRelations, OutputStream out)
-	// throws IOException {
-	// for (String child : childParrentRelations.keySet()) {
-	// String toWrite = "\"" + child + "\"" + " -> " + "\"" +
-	// childParrentRelations.get(child) + "\""
-	// + " [arrowhead=\"onormal\", style=\"filled\"]";
-	//
-	// out.write(toWrite.getBytes());
-	// }
-	// }
-	//
-	// private void writeInterfaceRelations(Set<Relation> interfaces,
-	// OutputStream out) throws IOException {
-	// // WeatherData -> Subject [arrowhead="onormal", style="dashed"];
-	//
-	// for (Relation array : interfaces) {
-	// String toWrite = "\"" + array.base + "\"" + " -> " + "\"" +
-	// array.relatedTo + "\""
-	// + " [arrowhead=\"onormal\", style=\"dashed\"]";
-	//
-	// out.write(toWrite.getBytes());
-	// }
-	// }
-	//
-	// private void writeUsesRelations(Set<Relation> uses, OutputStream out)
-	// throws IOException {
-	// for (Relation r : uses) {
-	// String toWrite = "\"" + r.base + "\"" + " -> " + "\"" + r.relatedTo +
-	// "\""
-	// + " [arrowhead=\"vee\", style=\"dashed\"]";
-	//
-	// out.write(toWrite.getBytes());
-	// }
-	// }
-	//
-	// private void writeAssociationRelations(Set<Relation> uses, OutputStream
-	// out) throws IOException {
-	// for (Relation r : uses) {
-	// String toWrite = "\"" + r.base + "\"" + " -> " + "\"" + r.relatedTo +
-	// "\""
-	// + " [arrowhead=\"vee\", style=\"filled\"]";
-	//
-	// out.write(toWrite.getBytes());
-	// }
-	// }
-
+	public void buildSeqModel() throws IOException {
+		if (depth != 0) {
+			ClassReader reader = new ClassReader(classSearch);
+			
+			SequenceStructure seqStructure = new SequenceStructure();
+			ClassVisitor decVisitor = new ClassSequnceClassVisitor(Opcodes.ASM5, model, classSearch, methodSearch, depth, seqStructure);
+			reader.accept(decVisitor, ClassReader.EXPAND_FRAMES);
+		}
+		
+		model.convertMethodCallLinesToStructure();
+	}
+	
+	public JavaModel getModel() {
+		return this.model;
+	}
 }

@@ -58,7 +58,7 @@ public class UMLDotVisitor implements IUMLVisitor {
 
 	@Override
 	public void visit(Method clazz) throws IOException {
-		out.write(String.format("%s%s(%s) : %s\\l", getAccessModifierString(clazz.access), clazz.name,
+		out.write(String.format("%s%s(%s) : %s\\l", getAccessModifierString(clazz.access), clazz.name.replace("<", "\\<").replace(">", "\\>"),
 				getArgumentString(clazz.arguments), clazz.type.name).getBytes());
 	}
 

@@ -19,9 +19,7 @@ import edu.rosehulman.cjjb.javaModel.visitor.IUMLVisitor;
 public class JavaModel implements IUMLTraverser, ISquenceTraverser {
 
 	HashMap<String, AbstractJavaStructure> map;
-	
 	List<MethodCallGroup> methodGroups;
-
 	Set<String> includedClasses;
 
 	public JavaModel(Set<String> includedClasses) {
@@ -114,7 +112,6 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser {
 		return new ArrayList<Relation>(relations);
 	}
 
-	
 	public void addMethodCallGroup(MethodCallGroup group) {
 		this.methodGroups.add(group);
 	}
