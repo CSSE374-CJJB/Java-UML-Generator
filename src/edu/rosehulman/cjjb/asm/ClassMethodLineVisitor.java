@@ -25,6 +25,6 @@ public class ClassMethodLineVisitor extends MethodVisitor {
 		}
 		name = Utils.shortName(Utils.getCleanName(name));
 		
-		method.addLine(new MethodCallLine(Utils.getCleanName(owner), name, Utils.getReturnType(desc), Utils.getListOfArgs(desc)));
+		method.addLine(new MethodCallLine(Utils.getCleanName(owner), new QualifiedMethod(name, desc), Utils.getReturnType(desc)));
 	}
 }

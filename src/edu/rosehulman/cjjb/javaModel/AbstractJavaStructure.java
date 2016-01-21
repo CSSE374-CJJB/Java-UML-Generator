@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import edu.rosehulman.cjjb.asm.QualifiedMethod;
+import edu.rosehulman.cjjb.asm.Utils;
 import edu.rosehulman.cjjb.javaModel.modifier.IAccessModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.IModifier;
 import edu.rosehulman.cjjb.javaModel.visitor.IUMLVisitor;
@@ -52,6 +54,34 @@ public abstract class AbstractJavaStructure extends AbstractJavaThing {
 				return element;
 			}
 		}
+		return null;
+	}
+	
+	public Method getMethodByQualifiedName(QualifiedMethod meth, JavaModel model) {
+		for(AbstractJavaElement element: this.subElements) {
+			if (element instanceof Method) {
+				if(element.name.equals(meth.methodName)){
+					List<String> list = Utils.getListOfArgs(meth.methodDesc);
+					Method method = (Method)element;
+					if (list.size() != method.arguments.size()) {
+						continue;
+					}
+					boolean t = true;
+					for (int i = 0; i < list.size(); i++) {
+						AbstractJavaStructure struct = Utils.getInstanceOrJavaStructure(model, list.get(i));
+						if (!struct.equals(method.arguments.get(i))){
+							t = false;
+							break;
+						}
+					}
+					if (!t) {
+						continue;
+					}
+					return method;
+				}
+			}
+		}
+		
 		return null;
 	}
 }

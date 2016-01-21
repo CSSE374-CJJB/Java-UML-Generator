@@ -5,14 +5,12 @@ import java.util.List;
 public class MethodCallLine {
 
 	public String classOf;
-	public String name;
+	public QualifiedMethod method;
 	public String returnType;
-	public List<String> args;
 	
-	public MethodCallLine(String classOf, String name, String returnType, List<String> args) {
+	public MethodCallLine(String classOf, QualifiedMethod method, String returnType) {
 		this.classOf = classOf;
-		this.name = name;
+		this.method = method;
 		this.returnType = returnType;
-		this.args = args;
 	}
 }

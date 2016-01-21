@@ -6,12 +6,12 @@ import java.util.List;
 public class MethodCallGroup {
 	
 	public String classCaller;
-	public String name;
+	public QualifiedMethod method;
 	public List<MethodCallLine> lines;
 	
-	public MethodCallGroup(String classCaller, String name) {
+	public MethodCallGroup(String classCaller, QualifiedMethod method) {
 		this.classCaller = classCaller;
-		this.name = name;
+		this.method = method;
 		lines = new LinkedList<MethodCallLine>();
 		this.name = name;
 	}

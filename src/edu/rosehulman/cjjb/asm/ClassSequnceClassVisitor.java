@@ -17,12 +17,12 @@ import edu.rosehulman.cjjb.javaModel.Method;
 public class ClassSequnceClassVisitor extends ClassDeclarationVisitor {
 
 	private JavaModel model;
-	private Set<String> methodsToFind;
+	private Set<QualifiedMethod> methodsToFind;
 	private int depth;
 	private SequenceStructure seqStructure;
 	private String className;
 	
-	public ClassSequnceClassVisitor(int api, JavaModel model, String className, Set<String> methodsToFind, int depth, SequenceStructure seqStructure) {
+	public ClassSequnceClassVisitor(int api, JavaModel model, String className, Set<QualifiedMethod> methodsToFind, int depth, SequenceStructure seqStructure) {
 		super(api, model);
 		
 		this.model = model;
@@ -32,12 +32,11 @@ public class ClassSequnceClassVisitor extends ClassDeclarationVisitor {
 		this.className = className;
 	}
 
-	public ClassSequnceClassVisitor(int asm5, JavaModel model2, String className, String methodSearch, int depth2,
+	public ClassSequnceClassVisitor(int asm5, JavaModel model2, String className, QualifiedMethod method, int depth2,
 			SequenceStructure seqStructure2) {
-		this(asm5, model2, className, (Set<String>)null, depth2, seqStructure2);
-		this.methodsToFind = new HashSet<String>();
-		methodsToFind.add(methodSearch);
-		
+		this(asm5, model2, className, (Set<QualifiedMethod>)null, depth2, seqStructure2);
+		this.methodsToFind = new HashSet<QualifiedMethod>();
+		methodsToFind.add(method);
 	}
 
 	@Override
@@ -50,10 +49,12 @@ public class ClassSequnceClassVisitor extends ClassDeclarationVisitor {
 			name = name.replace("<init>", Utils.shortName(className));
 		}
 		
-		if(methodsToFind.contains(name)) {
+		QualifiedMethod qmeth = new QualifiedMethod(name, desc);
+		if(methodsToFind.contains(qmeth)) {
 			
+			System.out.println("I found the method");
 			
-			MethodCallGroup method = new MethodCallGroup(className, name);
+			MethodCallGroup method = new MethodCallGroup(className, qmeth);
 			toDecorate = new ClassSequnceMethodVisitor(this.api, toDecorate, method, this.model, this.depth, seqStructure);
 			
 			
@@ -77,7 +78,7 @@ public class ClassSequnceClassVisitor extends ClassDeclarationVisitor {
 		
 		if(depth > 0)
 			try {
-				Map<String, Set<String>> methods = seqStructure.getClassMethods();
+				Map<String, Set<QualifiedMethod>> methods = seqStructure.getClassMethods();
 				seqStructure.vistedAll();
 				for(String s: methods.keySet()) {
 					ClassReader reader = new ClassReader(s);

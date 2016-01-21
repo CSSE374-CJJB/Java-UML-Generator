@@ -124,11 +124,11 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser {
 			for(MethodCallLine line: group.lines) {
 				AbstractJavaStructure other = Utils.getInstanceOrJavaStructure(this, line.classOf);
 				
-				Method method = (Method) caller.getElementByName(group.name);
-				Method otherMethod = (Method) other.getElementByName(line.name);
+				Method method = (Method) caller.getMethodByQualifiedName(group.method, this);
+				Method otherMethod = (Method) other.getMethodByQualifiedName(line.method, this);
 				
 				if (otherMethod == null) {
-					otherMethod = new Method(other, line.name,  new PublicModifier(), new LinkedList<IModifier>(), Utils.getInstanceOrJavaStructure(this, line.returnType), Utils.getInstanceOrJavaStructures(this, line.args.toArray(new String[0])), true);
+					otherMethod = new Method(other, line.method.methodName,  new PublicModifier(), new LinkedList<IModifier>(), Utils.getInstanceOrJavaStructure(this, line.returnType), Utils.getInstanceOrJavaStructures(this, Utils.getListOfArgs(line.method.methodDesc).toArray(new String[0])), true);
 					other.addSubElement(otherMethod);
 				}
 				

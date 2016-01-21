@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import edu.rosehulman.cjjb.asm.QualifiedMethod;
 import edu.rosehulman.cjjb.javaModel.visitor.ISequenceVisitor;
 import edu.rosehulman.cjjb.javaModel.visitor.SDSequenceVisitor;
 
@@ -43,15 +44,19 @@ public class Main {
 			classesToVisit.addAll(getClasses(s));
 		}
 
-		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classesToVisit, out, "edu.rosehulman.cjjb.Main", "main", 5);
+		QualifiedMethod qm = new QualifiedMethod("shuffle", "(Ljava/util/List;)V");
+		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classesToVisit, out, "java.util.Collections", qm, 2);
 		
 //		visitor.buildUMLModel();
 //		IUMLVisitor umlVisitor = new UMLDotVisitor(out);
 //		visitor.getModel().accept(umlVisitor);
 
 		visitor.buildSeqModel();
-		ISequenceVisitor seqVisitor = new SDSequenceVisitor("edu.rosehulman.cjjb.Main", "main", 5, out);
+		ISequenceVisitor seqVisitor = new SDSequenceVisitor("java.util.Collections", qm, 2, out);
 		visitor.getModel().accept(seqVisitor);
+		
+//java.util.Collections.shuffle(list, rnd);
+		//java.util.Random;
 	}
 
 	/* From

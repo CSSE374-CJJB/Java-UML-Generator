@@ -13,6 +13,7 @@ import edu.rosehulman.cjjb.asm.ClassFieldVisitor;
 import edu.rosehulman.cjjb.asm.ClassMethodLineVisitor;
 import edu.rosehulman.cjjb.asm.ClassMethodVisitor;
 import edu.rosehulman.cjjb.asm.ClassSequnceClassVisitor;
+import edu.rosehulman.cjjb.asm.QualifiedMethod;
 import edu.rosehulman.cjjb.asm.SequenceStructure;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
 
@@ -24,7 +25,7 @@ public class JavaModelClassVisitor {
 
 	private JavaModel model;
 	private String classSearch;
-	private String methodSearch;
+	private QualifiedMethod methodSearch;
 	private int depth;
 	
 
@@ -32,7 +33,7 @@ public class JavaModelClassVisitor {
 		this(classes, out, null, null, 0);
 	}
 
-	public JavaModelClassVisitor(Set<String> classes, OutputStream out, String classSearch, String methodSearch, int depth) {
+	public JavaModelClassVisitor(Set<String> classes, OutputStream out, String classSearch, QualifiedMethod methodSearch, int depth) {
 		this.classes = classes;
 		this.out = out;
 

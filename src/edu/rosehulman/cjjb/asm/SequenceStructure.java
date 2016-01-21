@@ -7,35 +7,35 @@ import java.util.Set;
 
 public class SequenceStructure {
 	
-	private Map<String,Set<String>> classMethod;
-	private Map<String,Set<String>> visitedMethods;
+	private Map<String,Set<QualifiedMethod>> classMethod;
+	private Map<String,Set<QualifiedMethod>> visitedMethods;
 	
 	public SequenceStructure() {
-		this.classMethod = new HashMap<String,Set<String>>();
-		this.visitedMethods = new HashMap<String,Set<String>>();
+		this.classMethod = new HashMap<String,Set<QualifiedMethod>>();
+		this.visitedMethods = new HashMap<String,Set<QualifiedMethod>>();
 	}
 	
-	public void addMethod(String clazz, String method) {
+	public void addMethod(String clazz, QualifiedMethod method) {
 		if(visitedMethod(clazz, method))
 			return;
 		
-		Set<String> methods = classMethod.get(clazz);
+		Set<QualifiedMethod> methods = classMethod.get(clazz);
 		
 		if(methods == null) {
-			methods = new HashSet<String>();
+			methods = new HashSet<QualifiedMethod>();
 			classMethod.put(clazz, methods);
 		}
 		
 		methods.add(method);
 	}
 	
-	public Map<String,Set<String>> getClassMethods() {
+	public Map<String,Set<QualifiedMethod>> getClassMethods() {
 		return classMethod;
 	}
 	
 	public void vistedAll() {
 		for(String s: classMethod.keySet()) {
-			Set<String> methods = visitedMethods.get(s);
+			Set<QualifiedMethod> methods = visitedMethods.get(s);
 			
 			if(methods == null) {
 				visitedMethods.put(s, classMethod.get(s));
@@ -43,11 +43,11 @@ public class SequenceStructure {
 				methods.addAll(classMethod.get(s));
 			}
 		}
-		this.classMethod = new HashMap<String, Set<String>>();
+		this.classMethod = new HashMap<String, Set<QualifiedMethod>>();
 	}
 	
-	public boolean visitedMethod(String clazz, String method) {
-		Set<String> methods = visitedMethods.get(clazz);
+	public boolean visitedMethod(String clazz, QualifiedMethod method) {
+		Set<QualifiedMethod> methods = visitedMethods.get(clazz);
 		
 		if(methods == null) {
 			return false;
