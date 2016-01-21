@@ -42,3 +42,14 @@ Our original class visitors are still around but where we were printing to the o
 Adding the ability to do sequence digrams required us to make a new type of visitor for it. To be able to just refence and class method and depth also required us to make a recursive Method visitor. These extended our normal visitors. Our normal visitors would work for a sequence diagram like a whitelist while this new one would just grab everything that was called to the given depth.
 
 We Pair programmed at the start but after 30+ hours working on it we split up one to work on the code while the other wrote test cases for that code. After the first deadline passed we both just worked on it as much as we could to figgure out the bugs with how method names where being inialized. 
+
+
+MileStone 4:
+
+!! NEED IMAGE !!
+
+We added the capability of checking for the Singleton class instance by adding an Interface that implements a check method and by adding a class that implements that method specifically for the Singleton case.  This should allow easy adding for further class checks of this type.  
+
+Besides the addition of the above interface and class, no design changes from MileStone 3 had to be made.
+
+We pair programmed for the beginning of MileStone 4 and discussed how we wanted to implement the check for the UML diagram.  After deciding how we wanted to do it and we did a little pair programming, we split off for finishing MileStone 4 code and test cases.
