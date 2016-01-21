@@ -25,6 +25,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 		System.out.println(name + "  " + desc);
 		MethodVisitor toDecorate = super.visitMethod(access, name, desc, signature, exceptions);
 		boolean isConstructor = false;
+		
 		if(name.contains("<init>")) {
 			isConstructor = true;
 			name = name.replace("<init>", Utils.shortName(className));
