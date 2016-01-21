@@ -46,7 +46,7 @@ We Pair programmed at the start but after 30+ hours working on it we split up on
 
 MileStone 4:
 
-<img src="https://raw.githubusercontent.com/CSSE374-CJJB/Java-UML-Generator/master/docs/UML_milestone4.png"/>
+<img src="https://raw.githubusercontent.com/CSSE374-CJJB/Java-UML-Generator/master/docs/UML_milestone4.PNG"/>
 
 We added the capability of checking for the Singleton class instance by adding an Interface that implements a check method and by adding a class that implements that method specifically for the Singleton case.  This should allow easy adding for further class checks of this type.  
 
