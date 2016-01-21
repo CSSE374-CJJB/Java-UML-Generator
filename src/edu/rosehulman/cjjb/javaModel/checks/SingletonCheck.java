@@ -12,7 +12,6 @@ import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
 import edu.rosehulman.cjjb.javaModel.Interface;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
 import edu.rosehulman.cjjb.javaModel.Method;
-import edu.rosehulman.cjjb.javaModel.modifier.AbstractModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.IModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.StaticModifier;
 
@@ -35,6 +34,7 @@ public class SingletonCheck implements IModelStructureBooleanCheck {
 	
 	private boolean checkForStaticInstance(AbstractJavaStructure structure) {
 		for(AbstractJavaElement element: structure.subElements) {
+			System.out.println(element.name);
 			if(element.name.equalsIgnoreCase("instance"))
 				if(checkForModifier(element.modifiers, StaticModifier.class))
 					return true;
