@@ -1,7 +1,5 @@
 import static org.junit.Assert.*;
 
-import edu.rosehulman.cjjb.asm.MethodCallGroup;
-import edu.rosehulman.cjjb.asm.Utils;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
 import edu.rosehulman.cjjb.javaModel.Method;
 import edu.rosehulman.cjjb.javaModel.Relation;
@@ -12,19 +10,12 @@ import edu.rosehulman.cjjb.javaModel.Field;
 import edu.rosehulman.cjjb.javaModel.Interface;
 import edu.rosehulman.cjjb.javaModel.modifier.*;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
-
-//import com.sun.deploy.uitoolkit.impl.fx.Utils;
-import com.sun.xml.internal.ws.org.objectweb.asm.Opcodes;
-
-import edu.rosehulman.cjjb.JavaModelClassVisitor;
 
 public class JavaModelTest {
 	@Test

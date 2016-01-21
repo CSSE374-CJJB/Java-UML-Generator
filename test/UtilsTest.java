@@ -1,13 +1,7 @@
 import static org.junit.Assert.*;
 import edu.rosehulman.cjjb.asm.Utils;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
-import edu.rosehulman.cjjb.javaModel.Method;
-import edu.rosehulman.cjjb.javaModel.Relation;
-import edu.rosehulman.cjjb.javaModel.AbstractJavaElement;
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
-import edu.rosehulman.cjjb.javaModel.Class;
-import edu.rosehulman.cjjb.javaModel.Field;
-import edu.rosehulman.cjjb.javaModel.Interface;
 import edu.rosehulman.cjjb.javaModel.modifier.*;
 import edu.rosehulman.cjjb.javaModel.visitor.IUMLVisitor;
 import edu.rosehulman.cjjb.javaModel.visitor.UMLDotVisitor;
