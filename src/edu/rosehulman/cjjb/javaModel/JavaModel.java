@@ -11,6 +11,8 @@ import java.util.Set;
 import edu.rosehulman.cjjb.asm.MethodCallGroup;
 import edu.rosehulman.cjjb.asm.MethodCallLine;
 import edu.rosehulman.cjjb.asm.Utils;
+import edu.rosehulman.cjjb.javaModel.modifier.IModifier;
+import edu.rosehulman.cjjb.javaModel.modifier.PublicModifier;
 import edu.rosehulman.cjjb.javaModel.visitor.ISequenceVisitor;
 import edu.rosehulman.cjjb.javaModel.visitor.ISquenceTraverser;
 import edu.rosehulman.cjjb.javaModel.visitor.IUMLTraverser;
@@ -124,6 +126,11 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser {
 				
 				Method method = (Method) caller.getElementByName(group.name);
 				Method otherMethod = (Method) other.getElementByName(line.name);
+				
+				if (otherMethod == null) {
+					otherMethod = new Method(other, line.name,  new PublicModifier(), new LinkedList<IModifier>(), Utils.getInstanceOrJavaStructure(this, line.returnType), Utils.getInstanceOrJavaStructures(this, line.args.toArray(new String[0])), true);
+					other.addSubElement(otherMethod);
+				}
 				
 				method.addMethodCall(otherMethod);
 			}

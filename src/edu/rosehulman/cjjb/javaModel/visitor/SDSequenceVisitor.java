@@ -41,12 +41,12 @@ public class SDSequenceVisitor implements ISequenceVisitor {
 		List<String> sdCalls = new ArrayList<String>();
 		
 		
-		objects.add(className.replace(".", "\\."));
+		//objects.add(className.replace(".", "\\.") + "[a]");
 		
 		addCalls(this.depth, objects, sdCalls, method);
 		
 		for(String s: objects) {
-			out.write(String.format("%s:%s\n", s,s).getBytes());
+			out.write(String.format("%s:%s[a]\n", s,s).getBytes());
 		}
 		out.write("\n".getBytes());
 		
@@ -60,11 +60,10 @@ public class SDSequenceVisitor implements ISequenceVisitor {
 			return;
 		for(Method call: method.methodCalls) {
 			String str = call.owner.name.replace(".", "\\.");
-			if(call.isConstructor) {
-				str = "/" + str;
-				sdCalls.add(String.format("%s:%s.new", method.owner.name.replace(".", "\\."), call.owner.name.replace(".", "\\.")));
+			if(method.owner.name.equals(call.owner.name) && depth == 1) {
+				sdCalls.add(String.format("%s:.%s(%s)", method.owner.name.replace(".", "\\."), call.name, call.argumentsToString()));
 			} else {
-				sdCalls.add(String.format("%s:%s.%s(%s)", method.owner.name.replace(".", "\\."), call.owner.name.replace(".", "\\."), call.name, call.argumentsToString()));
+				sdCalls.add(String.format("%s:%s=%s.%s(%s)", method.owner.name.replace(".", "\\."), call.type.name ,call.owner.name.replace(".", "\\."), call.name, call.argumentsToString().replace(".", "\\.")));					
 			}
 			objects.add(str);
 			addCalls(depth - 1, objects, sdCalls, call);

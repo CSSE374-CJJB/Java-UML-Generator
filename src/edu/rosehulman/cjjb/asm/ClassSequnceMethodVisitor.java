@@ -21,6 +21,11 @@ public class ClassSequnceMethodVisitor extends ClassMethodLineVisitor {
 		super.visitMethodInsn(opcode, owner, name, desc, itf);
 		
 		if(this.depth > 0) {
+			if(name.equals("<init>")) {
+				name = owner;
+			}
+			name = Utils.shortName(Utils.getCleanName(name));
+			
 			seqStructure.addMethod(Utils.getCleanName(owner), name);
 		}
 	}

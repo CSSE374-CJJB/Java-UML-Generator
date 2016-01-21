@@ -20,9 +20,10 @@ public class ClassMethodLineVisitor extends MethodVisitor {
 	public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
 		super.visitMethodInsn(opcode, owner, name, desc, itf);
 		
-		if(name == null) {
-			System.out.println("Null Name");
+		if(name.equals("<init>")) {
+			name = owner;
 		}
+		name = Utils.shortName(Utils.getCleanName(name));
 		
 		method.addLine(new MethodCallLine(Utils.getCleanName(owner), name, Utils.getReturnType(desc), Utils.getListOfArgs(desc)));
 	}

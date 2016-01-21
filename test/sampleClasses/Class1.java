@@ -7,11 +7,11 @@ public class Class1 implements Inter1{
 	
 	@Override
 	public void publicVoidMethod(){
-		
+		privateReturnIntMethod();
 	}
 	
 	private int privateReturnIntMethod() {
-		return 0;
+		return privateField;
 	}
 	
 	public Class2 getClass2() {
