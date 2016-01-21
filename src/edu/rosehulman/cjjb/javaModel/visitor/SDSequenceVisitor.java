@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 import edu.rosehulman.cjjb.asm.QualifiedMethod;
-import edu.rosehulman.cjjb.javaModel.AbstractJavaElement;
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
 import edu.rosehulman.cjjb.javaModel.Method;

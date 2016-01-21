@@ -10,7 +10,6 @@ import org.objectweb.asm.Opcodes;
 
 import edu.rosehulman.cjjb.asm.ClassDeclarationVisitor;
 import edu.rosehulman.cjjb.asm.ClassFieldVisitor;
-import edu.rosehulman.cjjb.asm.ClassMethodLineVisitor;
 import edu.rosehulman.cjjb.asm.ClassMethodVisitor;
 import edu.rosehulman.cjjb.asm.ClassSequnceClassVisitor;
 import edu.rosehulman.cjjb.asm.QualifiedMethod;

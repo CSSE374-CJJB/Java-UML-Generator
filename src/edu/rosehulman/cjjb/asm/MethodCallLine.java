@@ -1,7 +1,5 @@
 package edu.rosehulman.cjjb.asm;
 
-import java.util.List;
-
 public class MethodCallLine {
 
 	public String classOf;
