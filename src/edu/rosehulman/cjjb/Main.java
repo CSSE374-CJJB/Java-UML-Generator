@@ -41,7 +41,6 @@ public class Main {
 //		"headfirst.factory.pizzaaf", "headfirst.factory.pizzafm"
 	};
 
-	public static final String boilerPlate = "digraph G { fontname = \"Bitstream Vera Sans\" fontsize = 8 node [ fontname = \"Bitstream Vera Sans\" fontsize = 8 shape = \"record\" ] edge [ fontname = \"Bitstream Vera Sans\" fontsize = 8 ]";
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		if(args.length == 0) {
