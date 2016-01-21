@@ -9,6 +9,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import edu.rosehulman.cjjb.JavaModelClassVisitor;
+import edu.rosehulman.cjjb.asm.QualifiedMethod;
 import edu.rosehulman.cjjb.javaModel.visitor.ISequenceVisitor;
 import edu.rosehulman.cjjb.javaModel.visitor.SDSequenceVisitor;
 
@@ -19,9 +20,9 @@ public class SDTest {
 		classes.add("Class1");
 		classes.add("Class2");
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		JavaModelClassVisitor vis = new JavaModelClassVisitor(classes, out, "sampleClasses.Class1", "publicVoidMethod", 2);
+		JavaModelClassVisitor vis = new JavaModelClassVisitor(classes, out, "sampleClasses.Class1", new QualifiedMethod("publicVoidMethod", "TO CHANGE"), 2);
 		vis.buildSeqModel();
-		ISequenceVisitor seqVisitor = new SDSequenceVisitor("sampleClasses.Class1", "publicVoidMethod", 2, out);
+		ISequenceVisitor seqVisitor = new SDSequenceVisitor("sampleClasses.Class1", new QualifiedMethod("publicVoidMethod", "TO CHANGE"), 2, out);
 		vis.getModel().accept(seqVisitor);
 		String result = new String(out.toByteArray());
 		

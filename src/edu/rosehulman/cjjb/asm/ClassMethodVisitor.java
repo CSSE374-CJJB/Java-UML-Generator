@@ -33,7 +33,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 		if (name.contains("<"))
 			return toDecorate;
 		
-		MethodCallGroup method = new MethodCallGroup(className, name);
+		MethodCallGroup method = new MethodCallGroup(className, new QualifiedMethod(name, desc));
 		toDecorate = new ClassMethodLineVisitor(this.api, toDecorate, method, this.model);
 		
 		

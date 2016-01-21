@@ -13,7 +13,6 @@ public class MethodCallGroup {
 		this.classCaller = classCaller;
 		this.method = method;
 		lines = new LinkedList<MethodCallLine>();
-		this.name = name;
 	}
 	
 	public void addLine(MethodCallLine line) {
