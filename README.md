@@ -30,3 +30,15 @@ Exapanded upon our Milestone one with just a few more methods and fields in Rela
 Have desided that we need to do a redesign with the information that we now know about how ASM works and the future of the project. We plan to make a DataStruct for all elements of the dot diagram that is created from our original ClassVisitor design. After the data structure has been created use another visitor to go through that data structure and create the dot file.
 
 Pair Programed it all (Its all we do).
+
+MileStone 3:
+
+!! NEED IMAGE !!
+
+Our new full redesign has taken place. We now have a model object that has a structure that is intricate enough to hold all the information that we need about a java class and call structure while still being fexible enough to add aditional features without much effort. 
+
+Our original class visitors are still around but where we were printing to the output is now exapanding our model. After a model is created we can then pass our UML or Sequence visitor to it and it will generate the desired result.
+
+Adding the ability to do sequence digrams required us to make a new type of visitor for it. To be able to just refence and class method and depth also required us to make a recursive Method visitor. These extended our normal visitors. Our normal visitors would work for a sequence diagram like a whitelist while this new one would just grab everything that was called to the given depth.
+
+We Pair programmed at the start but after 30+ hours working on it we split up one to work on the code while the other wrote test cases for that code. After the first deadline passed we both just worked on it as much as we could to figgure out the bugs with how method names where being inialized. 
