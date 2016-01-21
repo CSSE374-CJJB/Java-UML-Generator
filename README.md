@@ -33,7 +33,7 @@ Pair Programed it all (Its all we do).
 
 MileStone 3:
 
-!! NEED IMAGE !!
+<img src="https://raw.githubusercontent.com/CSSE374-CJJB/Java-UML-Generator/master/docs/UML_milestone3_auto_generated.png"/>
 
 Our new full redesign has taken place. We now have a model object that has a structure that is intricate enough to hold all the information that we need about a java class and call structure while still being fexible enough to add aditional features without much effort. 
 
