@@ -1,4 +1,6 @@
 import static org.junit.Assert.*;
+
+import edu.rosehulman.cjjb.asm.MethodCallGroup;
 import edu.rosehulman.cjjb.asm.Utils;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
 import edu.rosehulman.cjjb.javaModel.Method;
@@ -70,8 +72,8 @@ public class JavaModelTest {
 		AbstractJavaStructure clazz = new Class("sampleClasses.Class1", (IAccessModifier)new PublicModifier(), new LinkedList<IModifier>(),
 				new LinkedList<AbstractJavaElement>(), new LinkedList<AbstractJavaStructure>(), (AbstractJavaStructure)new Class("Class2"));
 		Class clazz2 = new Class("sampleClasses.Class2");
-		Method meth = new Method("getClass2", (IAccessModifier) new PublicModifier(), new LinkedList<IModifier>(),
-				clazz2, new LinkedList<AbstractJavaStructure>());
+		Method meth = new Method(clazz, "getClass2", (IAccessModifier) new PublicModifier(), new LinkedList<IModifier>(),
+				clazz2, new LinkedList<AbstractJavaStructure>(), false);
 		clazz.addSubElement(meth);
 		
 		mod.putStructure("sampleClasses.Class1", clazz);
@@ -92,7 +94,7 @@ public class JavaModelTest {
 		AbstractJavaStructure clazz2 = new Class("sampleClasses.Class2", (IAccessModifier)new PublicModifier(), new LinkedList<IModifier>(),
 				new LinkedList<AbstractJavaElement>(), new LinkedList<AbstractJavaStructure>(), (AbstractJavaStructure)new Class("Class1"));
 		Class clazz = new Class("sampleClasses.Class1");
-		Field field = new Field("sampleClasses.Class1", (IAccessModifier) new PublicModifier(), new LinkedList<IModifier>(),
+		Field field = new Field(clazz2, "sampleClasses.Class1", (IAccessModifier) new PublicModifier(), new LinkedList<IModifier>(),
 				clazz);
 		clazz2.addSubElement(field);
 		
