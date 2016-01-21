@@ -28,9 +28,6 @@ public class SDSequenceVisitor implements ISequenceVisitor {
 
 	@Override
 	public void visit(JavaModel model) throws IOException {
-		
-		out.write(String.format("%s:%s", "<variable name>", this.className).getBytes());
-		
 		AbstractJavaStructure struct = model.getStructure(className);
 		Method element = struct.getMethodByQualifiedName(this.method, model);
 		
@@ -44,7 +41,7 @@ public class SDSequenceVisitor implements ISequenceVisitor {
 		List<String> sdCalls = new ArrayList<String>();
 		
 		
-		//objects.add(className.replace(".", "\\.") + "[a]");
+		objects.add(className.replace(".", "\\."));
 		
 		addCalls(this.depth, objects, sdCalls, method);
 		

@@ -27,11 +27,18 @@ public class Main {
 		 * "problem.JarWatcher", "problem.TextPrinterWatcher",
 		 * "problem.TxtWatcher", "problem.IWatcher"
 		 */
+//			"java.lang.Runtime",
+//			"java.io.FilterInputStream",
+//			"java.awt.Desktop",
+			"java.util.Calendar"
+			
 	};
 	
 	public static final String[] PACKAGES = {
-		//"edu.rosehulman.cjjb"//, "edu.rosehulman.asm"
-		// "headfirst.factory.pizzaaf", "headfirst.factory.pizzafm"
+//		"edu.rosehulman.cjjb", "edu.rosehulman.asm", "edu.rosehulman.cjjb.javaModel", 
+//		"edu.rosehulman.cjjb.javaModel.checks", "edu.rosehulman.cjjb.javaModel.modifier", 
+//		"edu.rosehulman.cjjb.javaModel.visitor"
+//		"headfirst.factory.pizzaaf", "headfirst.factory.pizzafm"
 	};
 
 	public static final String boilerPlate = "digraph G { fontname = \"Bitstream Vera Sans\" fontsize = 8 node [ fontname = \"Bitstream Vera Sans\" fontsize = 8 shape = \"record\" ] edge [ fontname = \"Bitstream Vera Sans\" fontsize = 8 ]";
@@ -50,7 +57,7 @@ public class Main {
 			QualifiedMethod qm = new QualifiedMethod(getMethodFromArgs(args), getDescFromArgs(args));
 			// QualifiedMethod qm = new QualifiedMethod("shuffle", "(Ljava/util/List;)V");
 			String clazz = getClassFromArgs(args);
-			JavaModelClassVisitor visitor = new JavaModelClassVisitor(out, clazz, qm, 2);
+			JavaModelClassVisitor visitor = new JavaModelClassVisitor(clazz, qm, 2);
 			
 			visitor.buildSeqModel();
 			ISequenceVisitor seqVisitor = new SDSequenceVisitor(clazz, qm, 2, out);
@@ -66,11 +73,11 @@ public class Main {
 			
 			visitor = new JavaModelClassVisitor(classesToVisit, out);
 			visitor.buildUMLModel();
-			IUMLVisitor umlVisitor = new UMLDotVisitor(out);
+			IUMLVisitor umlVisitor = new UMLDotVisitor(out, visitor.getModel());
 			visitor.getModel().accept(umlVisitor);
 			break;
 		case "EXAMPLE":
-			exampleCall(new FileOutputStream("output.txt"));
+			exampleCall(new FileOutputStream("umlOutput.txt"), new FileOutputStream("seqOutput.txt"));
 			break;
 		default:
 			System.out.println("Not a valid diagram type. Valid Types: SEQ|UML|EXAMPLE");
@@ -133,7 +140,7 @@ public class Main {
 		return toReturn;
 	}
 
-	private static void exampleCall(OutputStream out ) throws IOException, ClassNotFoundException {
+	private static void exampleCall(OutputStream umlOut, OutputStream seqOut) throws IOException, ClassNotFoundException {
 		Set<String> classesToVisit = new HashSet<String>();
 		classesToVisit.addAll(Arrays.asList(CLASSES));
 	
@@ -142,14 +149,14 @@ public class Main {
 		}
 	
 		QualifiedMethod qm = new QualifiedMethod("shuffle", "(Ljava/util/List;)V");
-		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classesToVisit, out, "java.util.Collections", qm, 2);
+		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classesToVisit, "java.util.Collections", qm, 2);
 		
 		visitor.buildUMLModel();
-		IUMLVisitor umlVisitor = new UMLDotVisitor(out);
+		IUMLVisitor umlVisitor = new UMLDotVisitor(umlOut, visitor.getModel());
 		visitor.getModel().accept(umlVisitor);
 	
 		visitor.buildSeqModel();
-		ISequenceVisitor seqVisitor = new SDSequenceVisitor("java.util.Collections", qm, 2, out);
+		ISequenceVisitor seqVisitor = new SDSequenceVisitor("java.util.Collections", qm, 2, seqOut);
 		visitor.getModel().accept(seqVisitor);
 	}
 

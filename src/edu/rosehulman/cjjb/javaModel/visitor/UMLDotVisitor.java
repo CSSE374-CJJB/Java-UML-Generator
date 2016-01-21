@@ -12,6 +12,8 @@ import edu.rosehulman.cjjb.javaModel.Interface;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
 import edu.rosehulman.cjjb.javaModel.Method;
 import edu.rosehulman.cjjb.javaModel.Relation;
+import edu.rosehulman.cjjb.javaModel.checks.IModelStructureBooleanCheck;
+import edu.rosehulman.cjjb.javaModel.checks.SingletonCheck;
 import edu.rosehulman.cjjb.javaModel.modifier.IAccessModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.PrivateModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.ProtectedModifier;
@@ -20,11 +22,14 @@ import edu.rosehulman.cjjb.javaModel.modifier.PublicModifier;
 
 public class UMLDotVisitor implements IUMLVisitor {
 
-	OutputStream out;
+	private OutputStream out;
+	private JavaModel model;
 
 	public static final String BOILER_PLATE = "digraph G { fontname = \"Bitstream Vera Sans\" fontsize = 8 node [ fontname = \"Bitstream Vera Sans\" fontsize = 8 shape = \"record\" ] edge [ fontname = \"Bitstream Vera Sans\" fontsize = 8 ]\n";
 
-	public UMLDotVisitor(OutputStream out) {
+	
+	
+	public UMLDotVisitor(OutputStream out, JavaModel model) {
 		this.out = out;
 	}
 
@@ -36,7 +41,14 @@ public class UMLDotVisitor implements IUMLVisitor {
 	@Override
 	public void visit(Class clazz) throws IOException {
 		out.write(String.format("\"%s\"", clazz.name).getBytes());
-		out.write(String.format(" [ label = \"{%s|", clazz.name).getBytes());
+		
+		IModelStructureBooleanCheck singleton = new SingletonCheck();
+		String extraAfter = "";
+		
+		if(singleton.check(model, clazz))
+			extraAfter += "\\l\\<\\<Singleton\\>\\>";
+		
+		out.write(String.format(" [ label = \"{%s%s|", clazz.name, extraAfter).getBytes());
 	}
 
 	@Override

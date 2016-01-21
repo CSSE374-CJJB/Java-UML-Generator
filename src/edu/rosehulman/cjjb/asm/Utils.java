@@ -148,4 +148,15 @@ public class Utils {
 		
 		return name;
 	}
+	
+	
+	public static String getAsmName(String c) {
+		String toReturn = Type.getType("L" + c.replace(".", "/") + ";").getClassName();
+		
+		if(toReturn.length() > 1) {
+			toReturn = "L" + toReturn; 
+		}
+		
+		return toReturn;
+	}
 }

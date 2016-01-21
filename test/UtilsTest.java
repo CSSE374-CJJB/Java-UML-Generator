@@ -31,7 +31,7 @@ public class UtilsTest {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes, out);
 		visitor.buildUMLModel();
-		IUMLVisitor umlVisitor = new UMLDotVisitor(out);
+		IUMLVisitor umlVisitor = new UMLDotVisitor(out, visitor.getModel());
 		visitor.getModel().accept(umlVisitor);
 		
 		String result = new String(out.toByteArray());

@@ -19,7 +19,6 @@ import edu.rosehulman.cjjb.javaModel.JavaModel;
 public class JavaModelClassVisitor {
 
 	public Set<String> classes;
-	public OutputStream out;
 	public static final String boilerPlate = "digraph G { fontname = \"Bitstream Vera Sans\" fontsize = 8 node [ fontname = \"Bitstream Vera Sans\" fontsize = 8 shape = \"record\" ] edge [ fontname = \"Bitstream Vera Sans\" fontsize = 8 ]";
 
 	private JavaModel model;
@@ -29,16 +28,15 @@ public class JavaModelClassVisitor {
 	
 
 	public JavaModelClassVisitor(Set<String> classes, OutputStream out) {
-		this(classes, out, null, null, 0);
+		this(classes, null, null, 0);
 	}
 
-	public JavaModelClassVisitor(OutputStream out, String classSearch, QualifiedMethod methodSearch, int depth) {
-		this(null, out, classSearch, methodSearch, depth);
+	public JavaModelClassVisitor(String classSearch, QualifiedMethod methodSearch, int depth) {
+		this(null, classSearch, methodSearch, depth);
 	}
 	
-	public JavaModelClassVisitor(Set<String> classes, OutputStream out, String classSearch, QualifiedMethod methodSearch, int depth) {
+	public JavaModelClassVisitor(Set<String> classes, String classSearch, QualifiedMethod methodSearch, int depth) {
 		this.classes = classes;
-		this.out = out;
 
 		this.model = new JavaModel(classes);
 

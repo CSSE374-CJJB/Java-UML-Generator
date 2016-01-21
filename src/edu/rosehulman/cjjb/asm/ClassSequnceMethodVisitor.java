@@ -25,7 +25,6 @@ public class ClassSequnceMethodVisitor extends ClassMethodLineVisitor {
 				name = owner;
 			}
 			name = Utils.shortName(Utils.getCleanName(name));
-			
 			seqStructure.addMethod(Utils.getCleanName(owner), new QualifiedMethod(name, desc));
 		}
 	}
