@@ -70,6 +70,7 @@ public class Main {
 			for (String s : getPackagesFromArgs(args)) {
 				classesToVisit.addAll(getClasses(s));
 			}
+			System.out.println(classesToVisit);
 			
 			visitor = new JavaModelClassVisitor(classesToVisit, out);
 			visitor.buildUMLModel();
@@ -119,7 +120,6 @@ public class Main {
 			
 			toReturn.add(args[i]);
 		}
-		
 		return toReturn;
 	}
 
