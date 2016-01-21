@@ -51,9 +51,6 @@ public class ClassSequnceClassVisitor extends ClassDeclarationVisitor {
 		
 		QualifiedMethod qmeth = new QualifiedMethod(name, desc);
 		if(methodsToFind.contains(qmeth)) {
-			
-			System.out.println("I found the method");
-			
 			MethodCallGroup method = new MethodCallGroup(className, qmeth);
 			toDecorate = new ClassSequnceMethodVisitor(this.api, toDecorate, method, this.model, this.depth, seqStructure);
 			

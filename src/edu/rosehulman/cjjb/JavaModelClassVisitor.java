@@ -33,6 +33,10 @@ public class JavaModelClassVisitor {
 		this(classes, out, null, null, 0);
 	}
 
+	public JavaModelClassVisitor(OutputStream out, String classSearch, QualifiedMethod methodSearch, int depth) {
+		this(null, out, classSearch, methodSearch, depth);
+	}
+	
 	public JavaModelClassVisitor(Set<String> classes, OutputStream out, String classSearch, QualifiedMethod methodSearch, int depth) {
 		this.classes = classes;
 		this.out = out;

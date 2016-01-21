@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
@@ -14,7 +15,9 @@ import java.util.Set;
 
 import edu.rosehulman.cjjb.asm.QualifiedMethod;
 import edu.rosehulman.cjjb.javaModel.visitor.ISequenceVisitor;
+import edu.rosehulman.cjjb.javaModel.visitor.IUMLVisitor;
 import edu.rosehulman.cjjb.javaModel.visitor.SDSequenceVisitor;
+import edu.rosehulman.cjjb.javaModel.visitor.UMLDotVisitor;
 
 public class Main {
 
@@ -35,28 +38,120 @@ public class Main {
 	public static final String boilerPlate = "digraph G { fontname = \"Bitstream Vera Sans\" fontsize = 8 node [ fontname = \"Bitstream Vera Sans\" fontsize = 8 shape = \"record\" ] edge [ fontname = \"Bitstream Vera Sans\" fontsize = 8 ]";
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
+		if(args.length == 0) {
+			System.out.println("Calls shown bellow");
+			System.out.println("UML -c <List of Classes> -p <List of Packages>");
+			System.out.println("SEQ -c <Class> -m <Method> -d <ASM Desc>");
+			System.out.println("EXAMPLE");
+			return;
+		}
 		OutputStream out = new FileOutputStream("output.txt");
+		switch (args[0]) {
+		case "SEQ":
+			QualifiedMethod qm = new QualifiedMethod(getMethodFromArgs(args), getDescFromArgs(args));
+			// QualifiedMethod qm = new QualifiedMethod("shuffle", "(Ljava/util/List;)V");
+			String clazz = getClassFromArgs(args);
+			JavaModelClassVisitor visitor = new JavaModelClassVisitor(out, clazz, qm, 2);
+			
+			visitor.buildSeqModel();
+			ISequenceVisitor seqVisitor = new SDSequenceVisitor(clazz, qm, 2, out);
+			visitor.getModel().accept(seqVisitor);
+			break;
+		case "UML":
+			Set<String> classesToVisit = new HashSet<String>();
+			classesToVisit.addAll(getClassesFromArgs(args));
+		
+			for (String s : getPackagesFromArgs(args)) {
+				classesToVisit.addAll(getClasses(s));
+			}
+			
+			visitor = new JavaModelClassVisitor(classesToVisit, out);
+			visitor.buildUMLModel();
+			IUMLVisitor umlVisitor = new UMLDotVisitor(out);
+			visitor.getModel().accept(umlVisitor);
+			break;
+		case "EXAMPLE":
+			exampleCall(new FileOutputStream("output.txt"));
+			break;
+		default:
+			System.out.println("Not a valid diagram type. Valid Types: SEQ|UML|EXAMPLE");
+		}	
+	}
 
+	private static String getClassFromArgs(String[] args) {
+		int index = 0;
+		while(index < args.length && !args[index++].equals("-c")) { }
+		
+		return args[index];
+	}
+
+	
+	private static String getDescFromArgs(String[] args) {
+		int index = 0;
+		while(index < args.length && !args[index++].equals("-d")) { }
+		
+		return args[index];
+	}
+
+	private static String getMethodFromArgs(String[] args) {
+		int index = 0;
+		while(index < args.length && !args[index++].equals("-m")) { }
+		
+		return args[index];
+	}
+
+	private static List<String> getPackagesFromArgs(String[] args) {
+		List<String> toReturn = new ArrayList<String>();
+		
+		int index = 0;
+		while(index < args.length && !args[index++].equals("-p")) { }
+		
+		for(int i = index; i < args.length; i++) {
+			if(args[i].equals("-c")) {
+				break;
+			}
+			
+			toReturn.add(args[i]);
+		}
+		
+		return toReturn;
+	}
+
+	private static List<String> getClassesFromArgs(String[] args) {
+		List<String> toReturn = new ArrayList<String>();
+		
+		int index = 0;
+		while(index < args.length && !args[index++].equals("-c")) {	}
+		
+		for(int i = index; i < args.length; i++) {
+			if(args[i].equals("-p")) {
+				break;
+			}
+			
+			toReturn.add(args[i]);
+		}
+		
+		return toReturn;
+	}
+
+	private static void exampleCall(OutputStream out ) throws IOException, ClassNotFoundException {
 		Set<String> classesToVisit = new HashSet<String>();
 		classesToVisit.addAll(Arrays.asList(CLASSES));
-
+	
 		for (String s : PACKAGES) {
 			classesToVisit.addAll(getClasses(s));
 		}
-
+	
 		QualifiedMethod qm = new QualifiedMethod("shuffle", "(Ljava/util/List;)V");
 		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classesToVisit, out, "java.util.Collections", qm, 2);
 		
-//		visitor.buildUMLModel();
-//		IUMLVisitor umlVisitor = new UMLDotVisitor(out);
-//		visitor.getModel().accept(umlVisitor);
-
+		visitor.buildUMLModel();
+		IUMLVisitor umlVisitor = new UMLDotVisitor(out);
+		visitor.getModel().accept(umlVisitor);
+	
 		visitor.buildSeqModel();
 		ISequenceVisitor seqVisitor = new SDSequenceVisitor("java.util.Collections", qm, 2, out);
 		visitor.getModel().accept(seqVisitor);
-		
-//java.util.Collections.shuffle(list, rnd);
-		//java.util.Random;
 	}
 
 	/* From
@@ -71,7 +166,8 @@ public class Main {
 	 * @return The classes
 	 * @throws ClassNotFoundException
 	 * @throws IOException
-	 */	private static List<String> getClasses(String packageName) throws ClassNotFoundException, IOException {
+	 */	
+	private static List<String> getClasses(String packageName) throws ClassNotFoundException, IOException {
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		assert classLoader != null;
 		String path = packageName.replace('.', '/');
