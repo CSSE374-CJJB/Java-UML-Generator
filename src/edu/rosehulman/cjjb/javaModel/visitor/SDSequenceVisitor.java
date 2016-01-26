@@ -10,7 +10,7 @@ import java.util.Set;
 import edu.rosehulman.cjjb.asm.QualifiedMethod;
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
-import edu.rosehulman.cjjb.javaModel.Method;
+import edu.rosehulman.cjjb.javaModel.JavaMethod;
 
 public class SDSequenceVisitor implements ISequenceVisitor {
 
@@ -29,13 +29,13 @@ public class SDSequenceVisitor implements ISequenceVisitor {
 	@Override
 	public void visit(JavaModel model) throws IOException {
 		AbstractJavaStructure struct = model.getStructure(className);
-		Method element = struct.getMethodByQualifiedName(this.method, model);
+		JavaMethod element = struct.getMethodByQualifiedName(this.method, model);
 		
-		if(element == null ||  !(element instanceof Method)) {
+		if(element == null ||  !(element instanceof JavaMethod)) {
 			return;
 		}
 		
-		Method method = (Method)element;
+		JavaMethod method = (JavaMethod)element;
 		
 		Set<String> objects = new HashSet<String>();
 		List<String> sdCalls = new ArrayList<String>();
@@ -55,10 +55,10 @@ public class SDSequenceVisitor implements ISequenceVisitor {
 		}
 	}
 	
-	public void addCalls(int depth, Set<String> objects, List<String> sdCalls, Method method) {
+	public void addCalls(int depth, Set<String> objects, List<String> sdCalls, JavaMethod method) {
 		if(depth == 0)
 			return;
-		for(Method call: method.methodCalls) {
+		for(JavaMethod call: method.methodCalls) {
 			String str = call.owner.name.replace(".", "\\.");
 			if(method.owner.name.equals(call.owner.name) && (depth == 1 || call.methodCalls.size() == 0)) {
 				sdCalls.add(String.format("%s:.%s(%s)", method.owner.name.replace(".", "\\."), call.name, call.argumentsToString()));

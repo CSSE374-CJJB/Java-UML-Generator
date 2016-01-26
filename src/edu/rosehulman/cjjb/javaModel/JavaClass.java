@@ -2,21 +2,22 @@ package edu.rosehulman.cjjb.javaModel;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 import edu.rosehulman.cjjb.javaModel.modifier.IAccessModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.IModifier;
 import edu.rosehulman.cjjb.javaModel.visitor.IUMLVisitor;
 
-public class Class extends AbstractJavaStructure {
+public class JavaClass extends AbstractJavaStructure {
 	public AbstractJavaStructure superClass;
 
-	public Class(String name, IAccessModifier access, List<IModifier> modifiers, List<AbstractJavaElement> subElements,
+	public JavaClass(String name, IAccessModifier access, List<IModifier> modifiers, List<AbstractJavaElement> subElements,
 			List<AbstractJavaStructure> implement, AbstractJavaStructure superClass) {
 		super(name, access, modifiers, subElements, implement);
 		this.superClass = superClass;
 	}
 
-	public Class(String cleanName) {
+	public JavaClass(String cleanName) {
 		super(cleanName);
 
 		this.superClass = null;
@@ -27,5 +28,22 @@ public class Class extends AbstractJavaStructure {
 		v.visit(this);
 
 		super.accept(v);
+	}
+	
+	@Override
+	public boolean isCastableTo(AbstractJavaStructure struct) {
+		if(super.isCastableTo(struct))
+			return true;
+		
+		if(superClass.isCastableTo(struct))
+			return true;
+		
+		return false;
+	}
+	
+	@Override
+	protected void getSuperClasses(Set<AbstractJavaStructure> set) {
+		this.superClass.getSuperClasses(set);
+		super.getSuperClasses(set);
 	}
 }

@@ -1,13 +1,13 @@
 import static org.junit.Assert.*;
 
 import edu.rosehulman.cjjb.javaModel.JavaModel;
-import edu.rosehulman.cjjb.javaModel.Method;
+import edu.rosehulman.cjjb.javaModel.JavaMethod;
 import edu.rosehulman.cjjb.javaModel.Relation;
 import edu.rosehulman.cjjb.javaModel.AbstractJavaElement;
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
-import edu.rosehulman.cjjb.javaModel.Class;
-import edu.rosehulman.cjjb.javaModel.Field;
-import edu.rosehulman.cjjb.javaModel.Interface;
+import edu.rosehulman.cjjb.javaModel.JavaClass;
+import edu.rosehulman.cjjb.javaModel.JavaField;
+import edu.rosehulman.cjjb.javaModel.JavaInterface;
 import edu.rosehulman.cjjb.javaModel.modifier.*;
 
 import java.util.HashSet;
@@ -24,8 +24,8 @@ public class JavaModelTest {
 		set.add("sampleClasses.Class1");
 		set.add("sampleClasses.Class2");
 		JavaModel mod = new JavaModel(set);
-		Class clazz1 = new Class("sampleClasses.Class1");
-		Class clazz2 = new Class("sampleClasses.Class2");
+		JavaClass clazz1 = new JavaClass("sampleClasses.Class1");
+		JavaClass clazz2 = new JavaClass("sampleClasses.Class2");
 		clazz2.superClass = clazz1;
 		mod.putStructure("sampleClasses.Class1", clazz1);
 		mod.putStructure("sampleClasses.Class2", clazz2);
@@ -42,9 +42,9 @@ public class JavaModelTest {
 		set.add("sampleClasses.Class1");
 		set.add("sampleClasses.Inter1");
 		JavaModel mod = new JavaModel(set);
-		AbstractJavaStructure clazz = new Class("sampleClasses.Class1", (IAccessModifier)new PublicModifier(), new LinkedList<IModifier>(),
-				new LinkedList<AbstractJavaElement>(), new LinkedList<AbstractJavaStructure>(), (AbstractJavaStructure)new Class("Class2"));
-		AbstractJavaStructure inter = new Interface("sampleClasses.Inter1");
+		AbstractJavaStructure clazz = new JavaClass("sampleClasses.Class1", (IAccessModifier)new PublicModifier(), new LinkedList<IModifier>(),
+				new LinkedList<AbstractJavaElement>(), new LinkedList<AbstractJavaStructure>(), (AbstractJavaStructure)new JavaClass("Class2"));
+		AbstractJavaStructure inter = new JavaInterface("sampleClasses.Inter1");
 		clazz.implement.add(inter);
 		mod.putStructure("sampleClasses.Class1", clazz);
 		
@@ -60,10 +60,10 @@ public class JavaModelTest {
 		set.add("sampleClasses.Class1");
 		set.add("sampleClasses.Class2");
 		JavaModel mod = new JavaModel(set);
-		AbstractJavaStructure clazz = new Class("sampleClasses.Class1", (IAccessModifier)new PublicModifier(), new LinkedList<IModifier>(),
-				new LinkedList<AbstractJavaElement>(), new LinkedList<AbstractJavaStructure>(), (AbstractJavaStructure)new Class("Class2"));
-		Class clazz2 = new Class("sampleClasses.Class2");
-		Method meth = new Method(clazz, "getClass2", (IAccessModifier) new PublicModifier(), new LinkedList<IModifier>(),
+		AbstractJavaStructure clazz = new JavaClass("sampleClasses.Class1", (IAccessModifier)new PublicModifier(), new LinkedList<IModifier>(),
+				new LinkedList<AbstractJavaElement>(), new LinkedList<AbstractJavaStructure>(), (AbstractJavaStructure)new JavaClass("Class2"));
+		JavaClass clazz2 = new JavaClass("sampleClasses.Class2");
+		JavaMethod meth = new JavaMethod(clazz, "getClass2", (IAccessModifier) new PublicModifier(), new LinkedList<IModifier>(),
 				clazz2, new LinkedList<AbstractJavaStructure>(), false);
 		clazz.addSubElement(meth);
 		
@@ -82,10 +82,10 @@ public class JavaModelTest {
 		set.add("sampleClasses.Class1");
 		set.add("sampleClasses.Class2");
 		JavaModel mod = new JavaModel(set);
-		AbstractJavaStructure clazz2 = new Class("sampleClasses.Class2", (IAccessModifier)new PublicModifier(), new LinkedList<IModifier>(),
-				new LinkedList<AbstractJavaElement>(), new LinkedList<AbstractJavaStructure>(), (AbstractJavaStructure)new Class("Class1"));
-		Class clazz = new Class("sampleClasses.Class1");
-		Field field = new Field(clazz2, "sampleClasses.Class1", (IAccessModifier) new PublicModifier(), new LinkedList<IModifier>(),
+		AbstractJavaStructure clazz2 = new JavaClass("sampleClasses.Class2", (IAccessModifier)new PublicModifier(), new LinkedList<IModifier>(),
+				new LinkedList<AbstractJavaElement>(), new LinkedList<AbstractJavaStructure>(), (AbstractJavaStructure)new JavaClass("Class1"));
+		JavaClass clazz = new JavaClass("sampleClasses.Class1");
+		JavaField field = new JavaField(clazz2, "sampleClasses.Class1", (IAccessModifier) new PublicModifier(), new LinkedList<IModifier>(),
 				clazz);
 		clazz2.addSubElement(field);
 		

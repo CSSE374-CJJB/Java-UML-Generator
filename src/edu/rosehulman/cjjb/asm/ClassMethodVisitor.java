@@ -6,7 +6,7 @@ import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
-import edu.rosehulman.cjjb.javaModel.Method;
+import edu.rosehulman.cjjb.javaModel.JavaMethod;
 
 public class ClassMethodVisitor extends ClassVisitor {
 
@@ -44,7 +44,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 		List<AbstractJavaStructure> arguments = Utils.getInstanceOrJavaStructures(model,
 				Utils.getListOfArgs(desc).toArray(new String[0]));
 
-		structure.addSubElement(new Method(Utils.getInstanceOrJavaStructure(model, className), name, Utils.getAccessModifier(access),
+		structure.addSubElement(new JavaMethod(Utils.getInstanceOrJavaStructure(model, className), name, Utils.getAccessModifier(access),
 				Utils.getModifiers(access), returnType, arguments, isConstructor ));
 
 		return toDecorate;

@@ -9,21 +9,21 @@ import edu.rosehulman.cjjb.javaModel.modifier.IAccessModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.IModifier;
 import edu.rosehulman.cjjb.javaModel.visitor.IUMLVisitor;
 
-public class Method extends AbstractJavaElement {
+public class JavaMethod extends AbstractJavaElement {
 	public AbstractJavaStructure structure;
 	
 	public List<AbstractJavaStructure> arguments;
 	
-	public List<Method> methodCalls;
+	public List<JavaMethod> methodCalls;
 	
 	public boolean isConstructor;
 
-	public Method(AbstractJavaStructure structure, String name, IAccessModifier access, List<IModifier> modifiers, AbstractJavaStructure type,
+	public JavaMethod(AbstractJavaStructure structure, String name, IAccessModifier access, List<IModifier> modifiers, AbstractJavaStructure type,
 			List<AbstractJavaStructure> arguments, boolean isConstructor) {
 		super(structure, name, access, modifiers, type);
 		this.arguments = arguments;
 		this.isConstructor = isConstructor;
-		this.methodCalls = new LinkedList<Method>();
+		this.methodCalls = new LinkedList<JavaMethod>();
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class Method extends AbstractJavaElement {
 		v.visit(this);
 	}
 
-	public void addMethodCall(Method method) {
+	public void addMethodCall(JavaMethod method) {
 		if(method == null) {
 			System.out.println("Null method parm");
 			return;

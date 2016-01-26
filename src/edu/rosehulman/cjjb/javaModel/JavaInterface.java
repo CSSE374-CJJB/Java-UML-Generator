@@ -7,14 +7,14 @@ import edu.rosehulman.cjjb.javaModel.modifier.IAccessModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.IModifier;
 import edu.rosehulman.cjjb.javaModel.visitor.IUMLVisitor;
 
-public class Interface extends AbstractJavaStructure {
+public class JavaInterface extends AbstractJavaStructure {
 
-	public Interface(String name, IAccessModifier access, List<IModifier> modifiers,
+	public JavaInterface(String name, IAccessModifier access, List<IModifier> modifiers,
 			List<AbstractJavaElement> subElements, List<AbstractJavaStructure> implement) {
 		super(name, access, modifiers, subElements, implement);
 	}
 
-	public Interface(String name) {
+	public JavaInterface(String name) {
 		super(name);
 	}
 

@@ -2,6 +2,7 @@ package edu.rosehulman.cjjb.javaModel;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -47,9 +48,9 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser {
 	public List<Relation> getChildParrentIncludedRelations() {
 		List<Relation> relations = new LinkedList<Relation>();
 		for (AbstractJavaStructure struct : map.values()) {
-			if (struct instanceof Class) {
+			if (struct instanceof JavaClass) {
 				if (includedClasses.contains(struct.name)) {
-					Class clazz = (Class) struct;
+					JavaClass clazz = (JavaClass) struct;
 					if (clazz.superClass != null) {
 						if (includedClasses.contains(clazz.superClass.name)) {
 							relations.add(new Relation(clazz, clazz.superClass));
@@ -80,12 +81,12 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser {
 		for (AbstractJavaStructure struct : map.values()) {
 			if (includedClasses.contains(struct.name)) {
 				for (AbstractJavaElement other : struct.subElements) {
-					if (other instanceof Method) {
+					if (other instanceof JavaMethod) {
 						if (includedClasses.contains(other.type.name)) {
 							relations.add(new Relation(struct, other.type));
 						}
 
-						for (AbstractJavaStructure arg : ((Method) other).arguments) {
+						for (AbstractJavaStructure arg : ((JavaMethod) other).arguments) {
 							if (includedClasses.contains(arg.name)) {
 								relations.add(new Relation(struct, arg));
 							}
@@ -104,7 +105,7 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser {
 			if (includedClasses.contains(struct.name)) {
 				for (AbstractJavaElement other : struct.subElements) {
 					if (includedClasses.contains(other.name)) {
-						if (other instanceof Field) {
+						if (other instanceof JavaField) {
 							relations.add(new Relation(struct, other.type));
 						}
 					}
@@ -112,6 +113,10 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser {
 			}
 		}
 		return new ArrayList<Relation>(relations);
+	}
+	
+	public Collection<AbstractJavaStructure> getStructures() {
+		return map.values();
 	}
 
 	public void addMethodCallGroup(MethodCallGroup group) {
@@ -124,17 +129,26 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser {
 			for(MethodCallLine line: group.lines) {
 				AbstractJavaStructure other = Utils.getInstanceOrJavaStructure(this, line.classOf);
 				
-				Method method = (Method) caller.getMethodByQualifiedName(group.method, this);
-				Method otherMethod = (Method) other.getMethodByQualifiedName(line.method, this);
+				JavaMethod method = (JavaMethod) caller.getMethodByQualifiedName(group.method, this);
+				JavaMethod otherMethod = (JavaMethod) other.getMethodByQualifiedName(line.method, this);
 				
 				if (otherMethod == null) {
-					otherMethod = new Method(other, line.method.methodName,  new PublicModifier(), new LinkedList<IModifier>(), Utils.getInstanceOrJavaStructure(this, line.returnType), Utils.getInstanceOrJavaStructures(this, Utils.getListOfArgs(line.method.methodDesc).toArray(new String[0])), true);
+					otherMethod = new JavaMethod(other, line.method.methodName,  new PublicModifier(), new LinkedList<IModifier>(), Utils.getInstanceOrJavaStructure(this, line.returnType), Utils.getInstanceOrJavaStructures(this, Utils.getListOfArgs(line.method.methodDesc).toArray(new String[0])), true);
 					other.addSubElement(otherMethod);
 				}
 				
 				method.addMethodCall(otherMethod);
 			}
 		}
+	}
+	
+	public void finalize() {
+		convertMethodCallLinesToStructure();
+		checkForPatterns();
+	}
+	
+	public void checkForPatterns() {
+		
 	}
 
 	@Override

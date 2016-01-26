@@ -8,8 +8,8 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
-import edu.rosehulman.cjjb.javaModel.Class;
-import edu.rosehulman.cjjb.javaModel.Interface;
+import edu.rosehulman.cjjb.javaModel.JavaClass;
+import edu.rosehulman.cjjb.javaModel.JavaInterface;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
 import edu.rosehulman.cjjb.javaModel.modifier.AbstractModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.FinalModifier;
@@ -65,9 +65,9 @@ public class Utils {
 
 		AbstractJavaStructure clazz;
 		if (isInterface(name)) {
-			clazz = new Interface(name);
+			clazz = new JavaInterface(name);
 		} else {
-			clazz = new Class(name);
+			clazz = new JavaClass(name);
 		}
 		model.putStructure(name, clazz);
 		return clazz;

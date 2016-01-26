@@ -7,9 +7,9 @@ import edu.rosehulman.cjjb.javaModel.modifier.IAccessModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.IModifier;
 import edu.rosehulman.cjjb.javaModel.visitor.IUMLVisitor;
 
-public class Field extends AbstractJavaElement {
+public class JavaField extends AbstractJavaElement {
 
-	public Field(AbstractJavaStructure owner, String name, IAccessModifier access, List<IModifier> modifiers, AbstractJavaStructure type) {
+	public JavaField(AbstractJavaStructure owner, String name, IAccessModifier access, List<IModifier> modifiers, AbstractJavaStructure type) {
 		super(owner, name, access, modifiers, type);
 	}
 

@@ -3,7 +3,7 @@ package edu.rosehulman.cjjb.asm;
 import org.objectweb.asm.ClassVisitor;
 
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
-import edu.rosehulman.cjjb.javaModel.Class;
+import edu.rosehulman.cjjb.javaModel.JavaClass;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
 
 public class ClassDeclarationVisitor extends ClassVisitor {
@@ -31,8 +31,8 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 		structure.modifiers = Utils.getModifiers(access);
 		structure.implement = Utils.getInstanceOrJavaStructures(model, Utils.getCleanNames(interfaces));
 
-		if (structure instanceof Class && superName != null) {
-			((Class) structure).superClass = model.getStructure(Utils.getCleanName(superName));
+		if (structure instanceof JavaClass && superName != null) {
+			((JavaClass) structure).superClass = model.getStructure(Utils.getCleanName(superName));
 		}
 
 		model.putStructure(cleanName, structure);

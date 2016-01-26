@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
-import edu.rosehulman.cjjb.javaModel.Class;
-import edu.rosehulman.cjjb.javaModel.Field;
-import edu.rosehulman.cjjb.javaModel.Interface;
+import edu.rosehulman.cjjb.javaModel.JavaClass;
+import edu.rosehulman.cjjb.javaModel.JavaField;
+import edu.rosehulman.cjjb.javaModel.JavaInterface;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
-import edu.rosehulman.cjjb.javaModel.Method;
+import edu.rosehulman.cjjb.javaModel.JavaMethod;
 import edu.rosehulman.cjjb.javaModel.Relation;
-import edu.rosehulman.cjjb.javaModel.checks.IModelStructureBooleanCheck;
+import edu.rosehulman.cjjb.javaModel.checks.IPatternCheck;
 import edu.rosehulman.cjjb.javaModel.checks.SingletonCheck;
 import edu.rosehulman.cjjb.javaModel.modifier.IAccessModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.PrivateModifier;
@@ -39,26 +39,20 @@ public class UMLDotVisitor implements IUMLVisitor {
 	}
 
 	@Override
-	public void visit(Class clazz) throws IOException {
+	public void visit(JavaClass clazz) throws IOException {
 		out.write(String.format("\"%s\"", clazz.name).getBytes());
 		
-		IModelStructureBooleanCheck singleton = new SingletonCheck();
-		String extraAfter = "";
-		
-		if(singleton.check(model, clazz))
-			extraAfter += "\\l\\<\\<Singleton\\>\\>";
-		
-		out.write(String.format(" [ label = \"{%s%s|", clazz.name, extraAfter).getBytes());
+		out.write(String.format(" [ label = \"{%s|", clazz.name).getBytes());
 	}
 
 	@Override
-	public void visit(Interface clazz) throws IOException {
+	public void visit(JavaInterface clazz) throws IOException {
 		out.write(String.format("\"%s\"", clazz.name).getBytes());
 		out.write(String.format(" [ label = \"{\\<\\<interface\\>\\>\\l%s|", clazz.name).getBytes());
 	}
 
 	@Override
-	public void visit(Field clazz) throws IOException {
+	public void visit(JavaField clazz) throws IOException {
 		out.write(String.format("%s%s : %s\\l", getAccessModifierString(clazz.access), clazz.name, clazz.type.name)
 				.getBytes());
 	}
@@ -69,7 +63,7 @@ public class UMLDotVisitor implements IUMLVisitor {
 	}
 
 	@Override
-	public void visit(Method clazz) throws IOException {
+	public void visit(JavaMethod clazz) throws IOException {
 		out.write(String.format("%s%s(%s) : %s\\l", getAccessModifierString(clazz.access), clazz.name.replace("<", "\\<").replace(">", "\\>"),
 				getArgumentString(clazz.arguments), clazz.type.name).getBytes());
 	}
