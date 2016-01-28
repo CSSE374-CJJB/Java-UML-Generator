@@ -1,5 +1,6 @@
 package edu.rosehulman.cjjb.javaModel.visitor;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import edu.rosehulman.cjjb.javaModel.JavaInterface;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
 import edu.rosehulman.cjjb.javaModel.JavaMethod;
 import edu.rosehulman.cjjb.javaModel.Relation;
+import edu.rosehulman.cjjb.javaModel.checks.IPattern;
 import edu.rosehulman.cjjb.javaModel.checks.IPatternCheck;
 import edu.rosehulman.cjjb.javaModel.checks.SingletonCheck;
 import edu.rosehulman.cjjb.javaModel.modifier.IAccessModifier;
@@ -24,13 +26,14 @@ public class UMLDotVisitor implements IUMLVisitor {
 
 	private OutputStream out;
 	private JavaModel model;
-
+	
 	public static final String BOILER_PLATE = "digraph G { fontname = \"Bitstream Vera Sans\" fontsize = 8 node [ fontname = \"Bitstream Vera Sans\" fontsize = 8 shape = \"record\" ] edge [ fontname = \"Bitstream Vera Sans\" fontsize = 8 ]\n";
 
 	
 	
 	public UMLDotVisitor(OutputStream out, JavaModel model) {
 		this.out = out;
+		this.model = model;
 	}
 
 	@Override
@@ -41,14 +44,25 @@ public class UMLDotVisitor implements IUMLVisitor {
 	@Override
 	public void visit(JavaClass clazz) throws IOException {
 		out.write(String.format("\"%s\"", clazz.name).getBytes());
+
+		out.write(String.format(" [ label = \"{%s", clazz.name).getBytes());
 		
-		out.write(String.format(" [ label = \"{%s|", clazz.name).getBytes());
+		for(String s: model.getStereotypes(clazz)) {
+			out.write(String.format("\\l\\<\\<%s\\>\\>", s).getBytes());
+		}
+		out.write("|".getBytes());
 	}
 
 	@Override
 	public void visit(JavaInterface clazz) throws IOException {
 		out.write(String.format("\"%s\"", clazz.name).getBytes());
-		out.write(String.format(" [ label = \"{\\<\\<interface\\>\\>\\l%s|", clazz.name).getBytes());
+		
+		out.write(String.format(" [ label = \"{\\<\\<interface\\>\\>\\l%s", clazz.name).getBytes());
+		
+		for(String s: model.getStereotypes(clazz)) {
+			out.write(String.format("\\l\\<\\<%s\\>\\>", s).getBytes());
+		}
+		out.write("|".getBytes());
 	}
 
 	@Override
@@ -125,6 +139,22 @@ public class UMLDotVisitor implements IUMLVisitor {
 		for (Relation relation : model.getIncludedAssociationReltiations()) {
 			out.write(String.format("\"%s\"" + " -> \"%s\" [arrowhead=\"vee\", style=\"filled\"]\n", relation.base.name,
 					relation.other.name).getBytes());
+		}
+	}
+
+	@Override
+	public void visitPatterns(JavaModel javaModel) throws IOException {
+		for(IPattern pattern: javaModel.getPatterns()) {
+			for(AbstractJavaStructure struct: pattern.getInvolvedStructes()) {
+				Color c = pattern.getDefaultColor();
+				out.write(String.format("\"%s\" [style=filled color=black fillcolor=\"#%02x%02x%02x\"]\n", struct.name, c.getRed(), c.getGreen(), c.getBlue()).getBytes());
+			}
+			
+			for(Relation r: pattern.getTopLevelRelations()) {
+				out.write(String.format("\"%s\" -> \"%s\" [label = \"\\<\\<%s\\>\\>\"]\n", r.base.name, r.other.name, pattern.getRelationName()).getBytes());
+			}
+			
+			
 		}
 	}
 }

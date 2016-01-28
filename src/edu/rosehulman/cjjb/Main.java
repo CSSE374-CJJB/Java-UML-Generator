@@ -27,18 +27,30 @@ public class Main {
 		 * "problem.JarWatcher", "problem.TextPrinterWatcher",
 		 * "problem.TxtWatcher", "problem.IWatcher"
 		 */
-//			"java.lang.Runtime",
+		//	"java.lang.Runtime",
 //			"java.io.FilterInputStream",
-//			"java.awt.Desktop",
-			"java.util.Calendar"
+//			"java.io.InputStream",
+//			"java.io.FileInputStream",
+//			"java.io.ByteArrayInputStream",
+//			"java.io.ObjectInputStream"
+		//	"java.awt.Desktop",
+		//	"java.util.Calendar"
+		//	"java.util.Enumeration",
+		//	"java.util.Iterator"
+			"org.objectweb.asm.ClassVisitor",
+			"org.objectweb.asm.MethodVisitor"
 			
 	};
 	
 	public static final String[] PACKAGES = {
-//		"edu.rosehulman.cjjb", "edu.rosehulman.asm", "edu.rosehulman.cjjb.javaModel", 
-//		"edu.rosehulman.cjjb.javaModel.checks", "edu.rosehulman.cjjb.javaModel.modifier", 
-//		"edu.rosehulman.cjjb.javaModel.visitor"
+		"edu.rosehulman.cjjb", "edu.rosehulman.asm", "edu.rosehulman.cjjb.javaModel", 
+		"edu.rosehulman.cjjb.javaModel.checks", "edu.rosehulman.cjjb.javaModel.modifier", 
+		"edu.rosehulman.cjjb.javaModel.visitor"
 //		"headfirst.factory.pizzaaf", "headfirst.factory.pizzafm"
+		//	 "headfirst.decorator.io",
+		//	 "headfirst.decorator.starbuzz"
+		//	"problem.client",
+		//	"problem.lib"
 	};
 
 
@@ -116,7 +128,6 @@ public class Main {
 			if(args[i].equals("-c")) {
 				break;
 			}
-			
 			toReturn.add(args[i]);
 		}
 		return toReturn;

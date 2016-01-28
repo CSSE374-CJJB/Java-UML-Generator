@@ -27,4 +27,6 @@ public interface IUMLVisitor {
 	void visitRelations(JavaModel model) throws IOException;
 
 	void visitEnd() throws IOException;
+
+	void visitPatterns(JavaModel javaModel) throws IOException;
 }

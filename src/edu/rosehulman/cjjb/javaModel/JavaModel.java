@@ -12,6 +12,8 @@ import java.util.Set;
 import edu.rosehulman.cjjb.asm.MethodCallGroup;
 import edu.rosehulman.cjjb.asm.MethodCallLine;
 import edu.rosehulman.cjjb.asm.Utils;
+import edu.rosehulman.cjjb.javaModel.checks.IPattern;
+import edu.rosehulman.cjjb.javaModel.checks.IPatternCheck;
 import edu.rosehulman.cjjb.javaModel.modifier.IModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.PublicModifier;
 import edu.rosehulman.cjjb.javaModel.visitor.ISequenceVisitor;
@@ -24,6 +26,8 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser {
 	HashMap<String, AbstractJavaStructure> map;
 	List<MethodCallGroup> methodGroups;
 	Set<String> includedClasses;
+	
+	List<IPattern> patterns;
 
 	public JavaModel(Set<String> includedClasses) {
 		this.map = new HashMap<String, AbstractJavaStructure>();
@@ -123,7 +127,7 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser {
 		this.methodGroups.add(group);
 	}
 	
-	public void convertMethodCallLinesToStructure() {
+	private void convertMethodCallLinesToStructure() {
 		for(MethodCallGroup group: this.methodGroups) {
 			AbstractJavaStructure caller = Utils.getInstanceOrJavaStructure(this, group.classCaller);
 			for(MethodCallLine line: group.lines) {
@@ -142,13 +146,18 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser {
 		}
 	}
 	
-	public void finalize() {
+	public void finalize(List<IPatternCheck> patterns) {
 		convertMethodCallLinesToStructure();
-		checkForPatterns();
+		checkForPatterns(patterns);
 	}
 	
-	public void checkForPatterns() {
+	private void checkForPatterns(List<IPatternCheck> patterns) {
+		this.patterns = new LinkedList<IPattern>();
 		
+		for(IPatternCheck check: patterns) {
+			List<IPattern> list = check.check(this);
+			this.patterns.addAll(list);
+		}
 	}
 
 	@Override
@@ -160,6 +169,7 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser {
 				map.get(name).accept(v);
 		}
 		v.visitRelations(this);
+		v.visitPatterns(this);
 
 		v.visitEnd();
 	}
@@ -167,5 +177,21 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser {
 	@Override
 	public void accept(ISequenceVisitor v) throws IOException {
 		v.visit(this);
+	}
+	
+	public List<String> getStereotypes(AbstractJavaStructure struct) {
+		List<String> steros = new LinkedList<String>();
+		
+		for(IPattern p: patterns) {
+			String s = p.getStereotype(struct);
+			if(s != null)
+				steros.add(s);
+		}
+		
+		return steros;
+	}
+
+	public List<IPattern> getPatterns() {
+		return patterns;
 	}
 }

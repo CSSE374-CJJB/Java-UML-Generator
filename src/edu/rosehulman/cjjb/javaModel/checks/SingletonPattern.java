@@ -1,8 +1,14 @@
 package edu.rosehulman.cjjb.javaModel.checks;
 
 
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
 import edu.rosehulman.cjjb.javaModel.JavaClass;
+import edu.rosehulman.cjjb.javaModel.Relation;
 
 public class SingletonPattern implements IPattern {
 
@@ -19,6 +25,28 @@ public class SingletonPattern implements IPattern {
 			return STEREOTYPE;
 		}
 		return null;
+	}
+
+	@Override
+	public List<AbstractJavaStructure> getInvolvedStructes() {
+		List<AbstractJavaStructure> toReturn = new ArrayList<AbstractJavaStructure>(1);
+		toReturn.add(struct);
+		return toReturn;
+	}
+
+	@Override
+	public Color getDefaultColor() {
+		return Color.WHITE;
+	}
+
+	@Override
+	public List<Relation> getTopLevelRelations() {
+		return new LinkedList<Relation>();
+	}
+
+	@Override
+	public String getRelationName() {
+		return "";
 	}
 
 }

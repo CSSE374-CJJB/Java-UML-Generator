@@ -32,9 +32,17 @@ public class ClassFieldVisitor extends ClassVisitor {
 			structure.addSubElement(typeClass);
 		} else {
 			for (String s : Utils.getGenericsPart(signature)) {
-				JavaField typeClass = new JavaField(Utils.getInstanceOrJavaStructure(model, className), name, Utils.getAccessModifier(access), Utils.getModifiers(access),
-						Utils.getInstanceOrJavaStructure(model, s));
-				structure.addSubElement(typeClass);
+				JavaField typeClass;
+				if(s != null) {
+					typeClass = new JavaField(Utils.getInstanceOrJavaStructure(model, className), name, Utils.getAccessModifier(access), Utils.getModifiers(access),
+							Utils.getInstanceOrJavaStructure(model, s));
+				} else {
+					typeClass = new JavaField(Utils.getInstanceOrJavaStructure(model, className), name, Utils.getAccessModifier(access), Utils.getModifiers(access),
+							Utils.getInstanceOrJavaStructure(model, Utils.getWithoutGenerics(signature)));
+				}
+				structure.addSubElement(typeClass);					
+				
+				
 			}
 		}
 		return toDecorate;

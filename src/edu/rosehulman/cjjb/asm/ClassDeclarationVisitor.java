@@ -32,7 +32,7 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 		structure.implement = Utils.getInstanceOrJavaStructures(model, Utils.getCleanNames(interfaces));
 
 		if (structure instanceof JavaClass && superName != null) {
-			((JavaClass) structure).superClass = model.getStructure(Utils.getCleanName(superName));
+			((JavaClass) structure).superClass = Utils.getInstanceOrJavaStructure(model, Utils.getCleanName(superName));
 		}
 
 		model.putStructure(cleanName, structure);

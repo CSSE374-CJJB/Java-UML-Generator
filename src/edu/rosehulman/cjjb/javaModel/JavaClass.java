@@ -35,7 +35,7 @@ public class JavaClass extends AbstractJavaStructure {
 		if(super.isCastableTo(struct))
 			return true;
 		
-		if(superClass.isCastableTo(struct))
+		if(superClass != null && superClass.isCastableTo(struct))
 			return true;
 		
 		return false;
@@ -43,7 +43,8 @@ public class JavaClass extends AbstractJavaStructure {
 	
 	@Override
 	protected void getSuperClasses(Set<AbstractJavaStructure> set) {
-		this.superClass.getSuperClasses(set);
+		if(this.superClass != null)
+			this.superClass.getSuperClasses(set);
 		super.getSuperClasses(set);
 	}
 }

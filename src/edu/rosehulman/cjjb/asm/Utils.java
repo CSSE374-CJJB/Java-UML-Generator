@@ -159,4 +159,11 @@ public class Utils {
 		
 		return toReturn;
 	}
+
+	public static String getWithoutGenerics(String signature) {
+		if(signature.contains("<")) {
+			signature = signature.replaceAll("<{1}.*>{1}", "");
+		}
+		return Utils.getCleanName(signature);
+	}
 }

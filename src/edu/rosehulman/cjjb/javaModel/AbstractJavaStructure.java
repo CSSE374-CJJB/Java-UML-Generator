@@ -104,10 +104,11 @@ public abstract class AbstractJavaStructure extends AbstractJavaThing {
 			return true;
 		}
 		else {
-			for(AbstractJavaStructure imp: this.implement) {
-				if(imp.isCastableTo(struct))
-					return true;
-			}
+			if(this.implement != null)
+				for(AbstractJavaStructure imp: this.implement) {
+					if(imp.isCastableTo(struct))
+						return true;
+				}
 		}
 		
 		return false;
@@ -121,8 +122,9 @@ public abstract class AbstractJavaStructure extends AbstractJavaThing {
 	
 	protected void getSuperClasses(Set<AbstractJavaStructure> set) {
 		set.add(this);
-		for (AbstractJavaStructure struct: this.implement) {
-			struct.getSuperClasses(set);
-		}
+		if(this.implement != null)
+			for (AbstractJavaStructure struct: this.implement) {
+				struct.getSuperClasses(set);
+			}
 	}
 }
