@@ -2,10 +2,13 @@ import static org.junit.Assert.*;
 
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
 
+import edu.rosehulman.cjjb.javaModel.checks.CheckFactory;
+import edu.rosehulman.cjjb.javaModel.checks.IPattern;
 import edu.rosehulman.cjjb.javaModel.checks.IPatternCheck;
 import edu.rosehulman.cjjb.javaModel.checks.SingletonCheck;
 import edu.rosehulman.cjjb.javaModel.*;
@@ -24,14 +27,19 @@ public class SingletonTesting {
 		classes.add("sampleClasses.Singleton");
 		JavaModel model = new JavaModel(classes);
 		JavaClass struct = new JavaClass("sampleClasses.Singleton");
-		assertTrue(!singleCheck.check(model, struct));
+		model.finalize(CheckFactory.getPatternChecks());
+		
+		List<IPattern> list = model.getPatterns();
+		
+		assertTrue(list.size() == 0);
 		
 		LinkedList<IModifier> modifiers = new LinkedList<IModifier>();
 		modifiers.add(new StaticModifier());
 		struct.addSubElement(new JavaField(struct, "instance", new PrivateModifier(), modifiers, struct));
 		model.putStructure("sampleClasses.Singleton", struct);
-		
-		assertTrue(singleCheck.check(model, struct));
+		model.finalize(CheckFactory.getPatternChecks());
+		list = model.getPatterns();
+		assertTrue(list.size() == 1);
 	}
 	
 	@Test
@@ -47,8 +55,10 @@ public class SingletonTesting {
 		struct.addSubElement(new JavaMethod(struct, "getInstance", new PublicModifier(), list, 
 				struct, new LinkedList<AbstractJavaStructure>(), false));
 		model.putStructure("sampleClasses.Singleton", struct);
+		model.finalize(CheckFactory.getPatternChecks());
 		
-		assertTrue(singleCheck.check(model, struct));
+		List<IPattern> pList = model.getPatterns();
+		assertTrue(pList.size() == 1);
 	}
 
 }
