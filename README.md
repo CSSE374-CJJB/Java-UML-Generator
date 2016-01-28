@@ -53,3 +53,14 @@ We added the capability of checking for the Singleton class instance by adding a
 Besides the addition of the above interface and class, no design changes from MileStone 3 had to be made.
 
 We pair programmed for the beginning of MileStone 4 and discussed how we wanted to implement the check for the UML diagram.  After deciding how we wanted to do it and we did a little pair programming, we split off for finishing MileStone 4 code and test cases.
+
+
+MileStone 5:
+
+<img src="https://raw.githubusercontent.com/CSSE374-CJJB/Java-UML-Generator/master/docs/UML_MANUAL_M5.PNG"/>
+
+We added pattern detection and built it around a pattern to allow an arbitary amount of checks to be added that can be easily changed via the factory or by creating your own list of IPatternCheck and sending it to the finalize method of JavaModel.
+
+We did change our design single last milestone to refactor out our singletoncheck to make it follow our new pattern, but that did not take much time at all as it was already very abstract and just became a preprocess instead of inline.
+
+Milestone 5 went much the same as Milestone 4 for our programming split. We talke about how we wanted to design the system and then after most of the implementation was done split into finishing the code and test cases.
