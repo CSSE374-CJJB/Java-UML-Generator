@@ -9,6 +9,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import edu.rosehulman.cjjb.JavaModelClassVisitor;
+import edu.rosehulman.cjjb.javaModel.visitor.UMLDotVisitor;
 
 public class AdapterTest {
 
@@ -18,15 +19,22 @@ public class AdapterTest {
 		classes.add("problem.client.App");
 		classes.add("problem.client.IteratorToEnumerationAdapter");
 		classes.add("problem.lib.LinearTransformer");
-		OutputStream out = new ByteArrayOutputStream();
+		classes.add("java.util.Enumeration");
+		classes.add("java.util.Iterator");
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes, out);
 		visitor.buildUMLModel();
-		String output = out.toString();
+		UMLDotVisitor umlVis = new UMLDotVisitor(out, visitor.getModel());
+		visitor.getModel().accept(umlVis);
+		String output = new String(out.toByteArray());
+		
+		System.out.println("\n\n");
+		System.out.println(output);
 		
 		assertTrue(output.contains("problem.client.IteratorToEnumerationAdapter\\l\\<\\<adapter\\>\\>"));
-		assertTrue(output.contains("java.util.Enumeration\\l\\<\\<adaptee\\>\\>"));
-		assertTrue(output.contains("java.util.Iterator\\l\\<\\<target\\>\\>"));
-		assertTrue(output.contains("problem.client.IteratorToEnumerationAdapter -> java.util.Enumeration [label = \\<\\<adapts\\>\\>]"));
+		assertTrue(output.contains("java.util.Enumeration\\l\\<\\<target\\>\\>"));
+		assertTrue(output.contains("java.util.Iterator\\l\\<\\<adaptee\\>\\>"));
+		assertTrue(output.contains("\"problem.client.IteratorToEnumerationAdapter\" -> \"java.util.Iterator\" [label = \"\\<\\<adapts\\>\\>"));
 
 		assertTrue(!output.contains("problem.lib.LinearTransformer\\l\\<\\<decorator\\>\\>"));
 		assertTrue(!output.contains("problem.client.App\\l\\<\\<decorator\\>\\>"));

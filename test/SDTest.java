@@ -15,13 +15,13 @@ import edu.rosehulman.cjjb.javaModel.visitor.SDSequenceVisitor;
 public class SDTest {
 	@Test
 	public void testSDDiagram() throws IOException {
-		Set<String> classes = new HashSet<String>();
-		classes.add("Class1");
-		classes.add("Class2");
+		String clazz = "sampleClasses.Class1";
+		QualifiedMethod method = new QualifiedMethod("publicVoidMethod", "()V");
+		
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		JavaModelClassVisitor vis = new JavaModelClassVisitor(classes, "sampleClasses.Class1", new QualifiedMethod("publicVoidMethod", "TO CHANGE"), 2);
+		JavaModelClassVisitor vis = new JavaModelClassVisitor(clazz, method, 2);
 		vis.buildSeqModel();
-		ISequenceVisitor seqVisitor = new SDSequenceVisitor("sampleClasses.Class1", new QualifiedMethod("publicVoidMethod", "TO CHANGE"), 2, out);
+		ISequenceVisitor seqVisitor = new SDSequenceVisitor(clazz, method, 2, out);
 		vis.getModel().accept(seqVisitor);
 		String result = new String(out.toByteArray());
 		

@@ -9,6 +9,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import edu.rosehulman.cjjb.JavaModelClassVisitor;
+import edu.rosehulman.cjjb.javaModel.visitor.UMLDotVisitor;
 
 public class DecoratorTest {
 
@@ -28,10 +29,16 @@ public class DecoratorTest {
 		classes.add("headfirst.decorator.starbuzz.Soy");
 		classes.add("headfirst.decorator.starbuzz.StarbuzzCoffee");
 		classes.add("headfirst.decorator.starbuzz.Whip");
-		OutputStream out = new ByteArrayOutputStream();
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes, out);
 		visitor.buildUMLModel();
-		String output = out.toString();
+		
+		UMLDotVisitor umlVis = new UMLDotVisitor(out, visitor.getModel());
+		visitor.getModel().accept(umlVis);
+		String output = new String(out.toByteArray());
+		
+		System.out.println("\n\n");
+		System.out.println(output);
 		
 		assertTrue(output.contains("headfirst.decorator.starbuzz.Beverage\\l\\<\\<component\\>\\>"));
 		assertTrue(output.contains("headfirst.decorator.starbuzz.Milk\\l\\<\\<decorator\\>\\>"));
@@ -39,7 +46,7 @@ public class DecoratorTest {
 		assertTrue(output.contains("headfirst.decorator.starbuzz.Soy\\l\\<\\<decorator\\>\\>"));
 		assertTrue(output.contains("headfirst.decorator.starbuzz.Whip\\l\\<\\<decorator\\>\\>"));
 		assertTrue(output.contains("headfirst.decorator.starbuzz.CondimentDecorator\\l\\<\\<decorator\\>\\>"));
-		assertTrue(output.contains("headfirst.decorator.starbuzz.CondimentDecorator -> headfirst.decorator.starbuzz.Beverage [label = \\<\\<decorates\\>\\>]"));
+		assertTrue(output.contains("\"headfirst.decorator.starbuzz.CondimentDecorator\" -> \"headfirst.decorator.starbuzz.Beverage\" [label = \"\\<\\<decorates\\>\\>\"]"));
 
 		assertTrue(!output.contains("headfirst.decorator.starbuzz.StarbuzzCoffee\\l\\<\\<decorator\\>\\>"));
 		assertTrue(!output.contains("headfirst.decorator.io.InputTest\\l\\<\\<decorator\\>\\>"));
