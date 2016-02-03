@@ -18,9 +18,37 @@ public class CompositeCheck implements IPatternCheck {
 	@Override
 	public List<IPattern> check(JavaModel model) {
 		List<IPattern> toReturn = new LinkedList<IPattern>();
-		set.clear();
 		
+		List<AbstractJavaStructure> leafPossibility = new LinkedList<AbstractJavaStructure>();
 		
+		for(AbstractJavaStructure struct: model.getStructures()) {
+			set.clear();
+			if(hasAddRemove(struct)) {
+				for(AbstractJavaStructure component: set) {
+					CompositePattern pattern = containsPattern(toReturn, component);
+					if(pattern != null) {
+						pattern.addComposite(struct);
+					} else {
+						pattern = new CompositePattern(component);
+						pattern.addComposite(struct);
+						
+						for(AbstractJavaStructure leaf: leafPossibility) {
+							if(leaf.isCastableTo(component)) {
+								pattern.addComposite(leaf);
+							}
+						}
+					}
+				}
+			} else {
+				for(IPattern pattern: toReturn) {
+					AbstractJavaStructure comp = ((CompositePattern)pattern).component;
+					if(struct.isCastableTo(comp)) {
+						((CompositePattern)pattern).addLeaf(struct);
+					}
+				}
+				leafPossibility.add(struct);				
+			}
+		}
 		
 		return toReturn;
 	}
@@ -41,9 +69,9 @@ public class CompositeCheck implements IPatternCheck {
 						if(!(ele instanceof JavaMethod)) {
 							continue;
 						}
-						JavaMethod methIn = (JavaMethod) ele;
-						if(meth.name.equalsIgnoreCase("remove")  && meth.arguments.size() == 1) {
-							AbstractJavaStructure argIn = meth.arguments.get(0);
+						JavaMethod methIn = (JavaMethod) eleIn;
+						if(methIn.name.equalsIgnoreCase("remove")  && methIn.arguments.size() == 1) {
+							AbstractJavaStructure argIn = methIn.arguments.get(0);
 							
 							if(arg.equals(argIn)){
 								set.add(arg);
