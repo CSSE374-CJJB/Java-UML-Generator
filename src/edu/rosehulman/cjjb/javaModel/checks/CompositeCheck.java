@@ -86,16 +86,6 @@ public class CompositeCheck implements IPatternCheck {
 		
 		return hasMethods;
 	}
-	
-	public AbstractJavaStructure findComponent(AbstractJavaStructure struct) {
-		for(AbstractJavaStructure interfase: struct.implement) {
-			if(hasAddRemove(interfase)) {
-				AbstractJavaStructure comp = findComponent(interfase);
-			}
-		}
-		
-		return struct;
-	}
 
 	public CompositePattern containsPattern(List<IPattern> patterns, AbstractJavaStructure to) {
 		for(IPattern pattern: patterns) {

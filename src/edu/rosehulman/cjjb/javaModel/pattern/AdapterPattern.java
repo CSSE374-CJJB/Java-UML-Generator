@@ -67,7 +67,7 @@ public class AdapterPattern implements IPattern {
 	
 	@Override
 	public String getRelationName() {
-		return this.RELATION_NAME;
+		return AdapterPattern.RELATION_NAME;
 	}
 
 
