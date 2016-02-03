@@ -7,16 +7,16 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import edu.rosehulman.cjjb.javaModel.checks.CheckFactory;
+import edu.rosehulman.cjjb.javaModel.checks.PatternFindingFactory;
 import edu.rosehulman.cjjb.javaModel.checks.IPattern;
 import edu.rosehulman.cjjb.javaModel.checks.IPatternCheck;
-import edu.rosehulman.cjjb.javaModel.checks.SingletonCheck;
 import edu.rosehulman.cjjb.javaModel.*;
 import edu.rosehulman.cjjb.javaModel.JavaClass;
 import edu.rosehulman.cjjb.javaModel.modifier.IModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.PrivateModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.PublicModifier;
-import edu.rosehulman.cjjb.javaModel.modifier.StaticModifier;;
+import edu.rosehulman.cjjb.javaModel.modifier.StaticModifier;
+import edu.rosehulman.cjjb.javaModel.visitor.SingletonCheck;;
 
 public class SingletonTesting {
 	
@@ -27,7 +27,7 @@ public class SingletonTesting {
 		classes.add("sampleClasses.Singleton");
 		JavaModel model = new JavaModel(classes);
 		JavaClass struct = new JavaClass("sampleClasses.Singleton");
-		model.finalize(CheckFactory.getPatternChecks());
+		model.finalize(PatternFindingFactory.getPatternChecks());
 		
 		List<IPattern> list = model.getPatterns();
 		
@@ -37,7 +37,7 @@ public class SingletonTesting {
 		modifiers.add(new StaticModifier());
 		struct.addSubElement(new JavaField(struct, "instance", new PrivateModifier(), modifiers, struct));
 		model.putStructure("sampleClasses.Singleton", struct);
-		model.finalize(CheckFactory.getPatternChecks());
+		model.finalize(PatternFindingFactory.getPatternChecks());
 		list = model.getPatterns();
 		assertTrue(list.size() == 1);
 	}
@@ -55,7 +55,7 @@ public class SingletonTesting {
 		struct.addSubElement(new JavaMethod(struct, "getInstance", new PublicModifier(), list, 
 				struct, new LinkedList<AbstractJavaStructure>(), false));
 		model.putStructure("sampleClasses.Singleton", struct);
-		model.finalize(CheckFactory.getPatternChecks());
+		model.finalize(PatternFindingFactory.getPatternChecks());
 		
 		List<IPattern> pList = model.getPatterns();
 		assertTrue(pList.size() == 1);

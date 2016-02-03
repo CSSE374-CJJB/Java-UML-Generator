@@ -1,4 +1,4 @@
-package edu.rosehulman.cjjb.javaModel.checks;
+package edu.rosehulman.cjjb.javaModel.visitor;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -10,30 +10,27 @@ import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
 import edu.rosehulman.cjjb.javaModel.JavaClass;
 import edu.rosehulman.cjjb.javaModel.JavaInterface;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
+import edu.rosehulman.cjjb.javaModel.checks.IPattern;
 import edu.rosehulman.cjjb.javaModel.JavaMethod;
 import edu.rosehulman.cjjb.javaModel.modifier.IModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.StaticModifier;
+import edu.rosehulman.cjjb.javaModel.pattern.SingletonPattern;
 
-public class SingletonCheck implements IPatternCheck {
+public class SingletonVisitor implements IStructureVisitor {
 
 	@Override
-	public List<IPattern> check(JavaModel model) {
+	public List<IPattern> visit(JavaModel model, AbstractJavaStructure struct) {
 		List<IPattern> toReturn = new LinkedList<IPattern>();
-		for (AbstractJavaStructure struct: model.getStructures()) {
-			// Only classes can be singletons
-			if(struct instanceof JavaInterface)
-				continue;
-			
-			if(checkForStaticInstance(struct)){
-				toReturn.add(new SingletonPattern((JavaClass)struct));
-				continue;
-			}
-			
-			if(checkForGetInstance(model, struct)) {
-				toReturn.add(new SingletonPattern((JavaClass)struct));
-				continue;
-			}
+		
+		if(struct instanceof JavaInterface) {
+			// Do nothing
 		}
+		else if(checkForStaticInstance(struct)){
+			toReturn.add(new SingletonPattern((JavaClass)struct));
+		}else if(checkForGetInstance(model, struct)) {
+			toReturn.add(new SingletonPattern((JavaClass)struct));
+		}
+		
 		return toReturn;
 	}
 	
@@ -75,5 +72,7 @@ public class SingletonCheck implements IPatternCheck {
 
 		return false;			
 	}
+
+	
 	
 }

@@ -9,6 +9,7 @@ import edu.rosehulman.cjjb.javaModel.JavaClass;
 import edu.rosehulman.cjjb.javaModel.JavaField;
 import edu.rosehulman.cjjb.javaModel.JavaMethod;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
+import edu.rosehulman.cjjb.javaModel.pattern.AdapterPattern;
 
 public class AdapterCheck implements IPatternCheck {
 

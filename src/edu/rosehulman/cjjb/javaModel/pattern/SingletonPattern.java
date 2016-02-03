@@ -1,4 +1,4 @@
-package edu.rosehulman.cjjb.javaModel.checks;
+package edu.rosehulman.cjjb.javaModel.pattern;
 
 
 import java.awt.Color;
@@ -9,6 +9,7 @@ import java.util.List;
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
 import edu.rosehulman.cjjb.javaModel.JavaClass;
 import edu.rosehulman.cjjb.javaModel.Relation;
+import edu.rosehulman.cjjb.javaModel.checks.IPattern;
 
 public class SingletonPattern implements IPattern {
 
@@ -36,7 +37,7 @@ public class SingletonPattern implements IPattern {
 
 	@Override
 	public Color getDefaultColor() {
-		return Color.WHITE;
+		return Color.BLUE;
 	}
 
 	@Override

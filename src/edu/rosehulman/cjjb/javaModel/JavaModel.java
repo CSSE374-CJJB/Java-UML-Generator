@@ -18,10 +18,12 @@ import edu.rosehulman.cjjb.javaModel.modifier.IModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.PublicModifier;
 import edu.rosehulman.cjjb.javaModel.visitor.ISequenceVisitor;
 import edu.rosehulman.cjjb.javaModel.visitor.ISquenceTraverser;
+import edu.rosehulman.cjjb.javaModel.visitor.IStructureTraverser;
+import edu.rosehulman.cjjb.javaModel.visitor.IStructureVisitor;
 import edu.rosehulman.cjjb.javaModel.visitor.IUMLTraverser;
 import edu.rosehulman.cjjb.javaModel.visitor.IUMLVisitor;
 
-public class JavaModel implements IUMLTraverser, ISquenceTraverser {
+public class JavaModel implements IUMLTraverser, ISquenceTraverser, IStructureTraverser {
 
 	HashMap<String, AbstractJavaStructure> map;
 	List<MethodCallGroup> methodGroups;
@@ -146,9 +148,17 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser {
 		}
 	}
 	
-	public void finalize(List<IPatternCheck> patterns) {
+	public void finalize(List<IPatternCheck> patterns, List<IStructureVisitor> structVisitors) {
 		convertMethodCallLinesToStructure();
 		checkForPatterns(patterns);
+		
+		runStructVisitors(structVisitors);
+	}
+	
+	private void runStructVisitors(List<IStructureVisitor> structVisitors) {
+		for(IStructureVisitor v: structVisitors) {
+			this.accept(v);
+		}
 	}
 	
 	private void checkForPatterns(List<IPatternCheck> patterns) {
@@ -177,6 +187,14 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser {
 	@Override
 	public void accept(ISequenceVisitor v) throws IOException {
 		v.visit(this);
+	}
+	
+	@Override
+	public void accept(IStructureVisitor v) {
+		for(AbstractJavaStructure s: this.map.values()) {
+			List<IPattern> list = v.visit(this, s);
+			this.patterns.addAll(list);
+		}
 	}
 	
 	public List<String> getStereotypes(AbstractJavaStructure struct) {

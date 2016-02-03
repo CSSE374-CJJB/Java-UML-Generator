@@ -1,4 +1,4 @@
-package edu.rosehulman.cjjb.javaModel.checks;
+package edu.rosehulman.cjjb.javaModel.pattern;
 
 import java.awt.Color;
 import java.util.LinkedList;
@@ -7,11 +7,12 @@ import java.util.Set;
 
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
 import edu.rosehulman.cjjb.javaModel.Relation;
+import edu.rosehulman.cjjb.javaModel.checks.IPattern;
 
 public class DecoratorPattern implements IPattern {
 	
-	Set<AbstractJavaStructure> set;
-	AbstractJavaStructure struct;
+	public Set<AbstractJavaStructure> set;
+	public AbstractJavaStructure struct;
 	public static final String COMPONENT = "component";
 	public static final String DECORATOR = "decorator";
 	public static final String DECORATOR_NAME = "decorates";

@@ -37,15 +37,17 @@ public class Main {
 		//	"java.util.Calendar"
 		//	"java.util.Enumeration",
 		//	"java.util.Iterator"
-			"org.objectweb.asm.ClassVisitor",
-			"org.objectweb.asm.MethodVisitor"
+		//	"org.objectweb.asm.ClassVisitor",
+		//	"org.objectweb.asm.MethodVisitor"
 			
 	};
 	
 	public static final String[] PACKAGES = {
+
 		"edu.rosehulman.cjjb", "edu.rosehulman.asm", "edu.rosehulman.cjjb.javaModel", 
+		 
 		"edu.rosehulman.cjjb.javaModel.checks", "edu.rosehulman.cjjb.javaModel.modifier", 
-		"edu.rosehulman.cjjb.javaModel.visitor"
+		"edu.rosehulman.cjjb.javaModel.visitor", "edu.rosehulman.cjjb.javaModel.pattern"
 //		"headfirst.factory.pizzaaf", "headfirst.factory.pizzafm"
 		//	 "headfirst.decorator.io",
 		//	 "headfirst.decorator.starbuzz"
@@ -165,9 +167,9 @@ public class Main {
 		IUMLVisitor umlVisitor = new UMLDotVisitor(umlOut, visitor.getModel());
 		visitor.getModel().accept(umlVisitor);
 	
-		visitor.buildSeqModel();
-		ISequenceVisitor seqVisitor = new SDSequenceVisitor("java.util.Collections", qm, 2, seqOut);
-		visitor.getModel().accept(seqVisitor);
+//		visitor.buildSeqModel();
+//		ISequenceVisitor seqVisitor = new SDSequenceVisitor("java.util.Collections", qm, 2, seqOut);
+//		visitor.getModel().accept(seqVisitor);
 	}
 
 	/* From

@@ -11,9 +11,10 @@ import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
 import edu.rosehulman.cjjb.javaModel.JavaClass;
 import edu.rosehulman.cjjb.javaModel.JavaField;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
+import edu.rosehulman.cjjb.javaModel.pattern.DecoratorPattern;
 import edu.rosehulman.cjjb.javaModel.JavaMethod;
 
-public class DecoratorCheck implements IPatternCheck{
+public class DecoratorCheck implements IPatternCheck {
 
 	@Override
 	public List<IPattern> check(JavaModel model) {

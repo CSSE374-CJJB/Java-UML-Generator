@@ -15,7 +15,7 @@ import edu.rosehulman.cjjb.asm.ClassSequnceClassVisitor;
 import edu.rosehulman.cjjb.asm.QualifiedMethod;
 import edu.rosehulman.cjjb.asm.SequenceStructure;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
-import edu.rosehulman.cjjb.javaModel.checks.CheckFactory;
+import edu.rosehulman.cjjb.javaModel.checks.PatternFindingFactory;
 
 public class JavaModelClassVisitor {
 
@@ -54,7 +54,7 @@ public class JavaModelClassVisitor {
 
 			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 		}
-		model.finalize(CheckFactory.getPatternChecks());
+		model.finalize(PatternFindingFactory.getPatternChecks(), PatternFindingFactory.getStructureVisitors());
 	}
 	
 	public void buildSeqModel() throws IOException {
@@ -66,7 +66,7 @@ public class JavaModelClassVisitor {
 			reader.accept(decVisitor, ClassReader.EXPAND_FRAMES);
 		}
 		
-		model.finalize(CheckFactory.getPatternChecks());
+		model.finalize(PatternFindingFactory.getPatternChecks(), PatternFindingFactory.getStructureVisitors());
 	}
 	
 	public JavaModel getModel() {
