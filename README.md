@@ -64,3 +64,14 @@ We added pattern detection and built it around a pattern to allow an arbitary am
 We did change our design single last milestone to refactor out our singletoncheck to make it follow our new pattern, but that did not take much time at all as it was already very abstract and just became a preprocess instead of inline.
 
 Milestone 5 went much the same as Milestone 4 for our programming split. We talke about how we wanted to design the system and then after most of the implementation was done split into finishing the code and test cases.
+
+
+MileStone 6:
+
+<img src="https://raw.githubusercontent.com/CSSE374-CJJB/Java-UML-Generator/master/docs/UML_MANUAL_M5.PNG"/>
+
+We added Compisite pattern detection. We used the same style as the previous multi-structure pattern detection. 
+
+We refactored SingletonCheck to SingletonVisitor and it now follows a visitor pattern though the model.
+
+This MileStone due to our class structure was much easier and allowed us to work togeather on it more.

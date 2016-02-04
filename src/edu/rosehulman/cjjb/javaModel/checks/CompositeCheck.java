@@ -55,8 +55,27 @@ public class CompositeCheck implements IPatternCheck {
 	}
 	
 	public boolean hasAddRemove(AbstractJavaStructure struct) {
-		boolean hasMethods = false;
+		AbstractJavaElement add = struct.getElementByName("add");
+		AbstractJavaElement remove = struct.getElementByName("remove");
 		
+		if(!(add instanceof JavaMethod && remove instanceof JavaMethod)){
+			return false;
+		}
+		
+		JavaMethod addMeth = (JavaMethod) add;
+		JavaMethod removeMeth = (JavaMethod) remove;
+		
+		if(addMeth.arguments.size() != 1 || removeMeth.arguments.size() != 1) {
+			return false;
+		}
+		
+		AbstractJavaStructure added = addMeth.arguments.get(0);
+		if(struct.isCastableTo(added)) {
+			set.add(added);
+			return true;			
+		}
+		return false;
+		/*
 		for(AbstractJavaElement ele: struct.subElements) {
 			if(!(ele instanceof JavaMethod)) {
 				continue;
@@ -83,9 +102,8 @@ public class CompositeCheck implements IPatternCheck {
 				}
 			}
 			
-		}
+		}*/
 		
-		return hasMethods;
 	}
 
 	public CompositePattern containsPattern(List<IPattern> patterns, AbstractJavaStructure to) {

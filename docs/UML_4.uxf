@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="13.3">
-  <zoom_level>10</zoom_level>
+  <zoom_level>4</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>220</x>
-      <y>390</y>
-      <w>400</w>
-      <h>270</h>
+      <x>680</x>
+      <y>448</y>
+      <w>160</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.javaModel::JavaModel
 --
@@ -31,10 +31,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>590</x>
-      <y>520</y>
-      <w>410</w>
-      <h>280</h>
+      <x>272</x>
+      <y>432</y>
+      <w>164</w>
+      <h>112</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.javaModel.visitor::UMLDotVisitor
 --
@@ -59,10 +59,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1060</x>
-      <y>630</y>
-      <w>610</w>
-      <h>230</h>
+      <x>896</x>
+      <y>532</y>
+      <w>244</w>
+      <h>92</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.asm::Utils
 --
@@ -84,10 +84,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>700</x>
-      <y>20</y>
-      <w>300</w>
-      <h>170</h>
+      <x>312</x>
+      <y>40</y>
+      <w>120</w>
+      <h>68</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb::JavaModelClassVisitor
 --
@@ -105,10 +105,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>200</x>
-      <y>0</y>
-      <w>430</w>
-      <h>220</h>
+      <x>88</x>
+      <y>40</y>
+      <w>172</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb::Main
 --
@@ -131,10 +131,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>730</x>
-      <y>1060</y>
-      <w>330</w>
-      <h>200</h>
+      <x>284</x>
+      <y>568</y>
+      <w>132</w>
+      <h>92</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 edu.rosehulman.cjjb.javaModel.visitor::IUMLVisitor
@@ -154,10 +154,10 @@ edu.rosehulman.cjjb.javaModel.visitor::IUMLVisitor
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1060</x>
-      <y>190</y>
-      <w>650</w>
-      <h>150</h>
+      <x>496</x>
+      <y>196</y>
+      <w>260</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.asm::ClassSequnceClassVisitor
 --
@@ -174,10 +174,10 @@ edu.rosehulman.cjjb.javaModel.visitor::IUMLVisitor
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>110</x>
-      <y>890</y>
-      <w>510</w>
-      <h>190</h>
+      <x>896</x>
+      <y>124</y>
+      <w>204</w>
+      <h>76</h>
     </coordinates>
     <panel_attributes>/edu.rosehulman.cjjb.javaModel::AbstractJavaStructure/
 --
@@ -194,10 +194,10 @@ edu.rosehulman.cjjb.javaModel.visitor::IUMLVisitor
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1760</x>
-      <y>350</y>
-      <w>270</w>
-      <h>150</h>
+      <x>896</x>
+      <y>316</y>
+      <w>108</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.javaModel::Method
 --
@@ -214,10 +214,10 @@ edu.rosehulman.cjjb.javaModel.visitor::IUMLVisitor
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>620</x>
-      <y>340</y>
-      <w>410</w>
-      <h>150</h>
+      <x>640</x>
+      <y>352</y>
+      <w>164</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.asm::SequenceStructure
 --
@@ -234,10 +234,10 @@ edu.rosehulman.cjjb.javaModel.visitor::IUMLVisitor
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>260</x>
-      <y>1110</y>
-      <w>340</w>
-      <h>120</h>
+      <x>900</x>
+      <y>60</y>
+      <w>136</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>/edu.rosehulman.cjjb.javaModel::AbstractJavaThing/
 --
@@ -253,10 +253,10 @@ edu.rosehulman.cjjb.javaModel.visitor::IUMLVisitor
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>710</x>
-      <y>1010</y>
-      <w>540</w>
-      <h>130</h>
+      <x>444</x>
+      <y>432</y>
+      <w>216</w>
+      <h>52</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.javaModel.visitor::SDSequenceVisitor
 --
@@ -272,10 +272,10 @@ edu.rosehulman.cjjb.javaModel.visitor::IUMLVisitor
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>270</x>
-      <y>910</y>
-      <w>290</w>
-      <h>100</h>
+      <x>896</x>
+      <y>488</y>
+      <w>116</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.asm::MethodCallGroup
 --
@@ -290,10 +290,10 @@ edu.rosehulman.cjjb.javaModel.visitor::IUMLVisitor
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1770</x>
-      <y>510</y>
-      <w>280</w>
-      <h>110</h>
+      <x>896</x>
+      <y>392</y>
+      <w>112</w>
+      <h>44</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.asm::QualifiedMethod
 --
@@ -308,27 +308,10 @@ edu.rosehulman.cjjb.javaModel.visitor::IUMLVisitor
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>240</x>
-      <y>680</y>
-      <w>260</w>
-      <h>100</h>
-    </coordinates>
-    <panel_attributes>edu.rosehulman.cjjb.javaModel::Relation
---
-+base: AbstractJavaThing
-+other: AbstractJavaThing
---
-+hashCode(): int
-+equals(Object obj): boolean</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1060</x>
-      <y>90</y>
-      <w>590</w>
-      <h>90</h>
+      <x>496</x>
+      <y>116</y>
+      <w>236</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.asm::ClassFieldVisitor
 --
@@ -341,10 +324,10 @@ edu.rosehulman.cjjb.javaModel.visitor::IUMLVisitor
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1060</x>
-      <y>350</y>
-      <w>650</w>
-      <h>90</h>
+      <x>496</x>
+      <y>156</y>
+      <w>260</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.asm::ClassMethodVisitor
 --
@@ -358,10 +341,10 @@ edu.rosehulman.cjjb.javaModel.visitor::IUMLVisitor
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1060</x>
-      <y>530</y>
-      <w>550</w>
-      <h>90</h>
+      <x>496</x>
+      <y>264</y>
+      <w>220</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.asm::ClassSequnceMethodVisitor
 --
@@ -375,10 +358,10 @@ edu.rosehulman.cjjb.javaModel.visitor::IUMLVisitor
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>900</x>
-      <y>910</y>
-      <w>280</w>
-      <h>90</h>
+      <x>896</x>
+      <y>444</y>
+      <w>112</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.asm::MethodCallLine
 --
@@ -392,28 +375,10 @@ edu.rosehulman.cjjb.javaModel.visitor::IUMLVisitor
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>670</x>
-      <y>1050</y>
-      <w>540</w>
-      <h>100</h>
-    </coordinates>
-    <panel_attributes>edu.rosehulman.cjjb.javaModel.checks::SingletonCheck
---
---
-+check(JavaModel model, AbstractJavaStructure structure): boolean
--checkForStaticInstance(AbstractJavaStructure structure): boolean
--checkForModifier(List&lt;IModifier&gt; modifiers, Class&lt;?&gt; c): boolean
--checkForGetInstance(JavaModel model, AbstractJavaStructure structure): boolean
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>270</x>
-      <y>1110</y>
-      <w>260</w>
-      <h>70</h>
+      <x>896</x>
+      <y>236</y>
+      <w>104</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.javaModel::Class
 --
@@ -426,10 +391,10 @@ edu.rosehulman.cjjb.javaModel.visitor::IUMLVisitor
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1060</x>
-      <y>450</y>
-      <w>650</w>
-      <h>70</h>
+      <x>496</x>
+      <y>84</y>
+      <w>260</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.asm::ClassDeclarationVisitor
 --
@@ -442,10 +407,10 @@ edu.rosehulman.cjjb.javaModel.visitor::IUMLVisitor
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1060</x>
-      <y>10</y>
-      <w>550</w>
-      <h>70</h>
+      <x>496</x>
+      <y>308</y>
+      <w>220</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.asm::ClassMethodLineVisitor
 --
@@ -457,10 +422,10 @@ edu.rosehulman.cjjb.javaModel.visitor::IUMLVisitor
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>280</x>
-      <y>890</y>
-      <w>350</w>
-      <h>70</h>
+      <x>896</x>
+      <y>204</y>
+      <w>140</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>/edu.rosehulman.cjjb.javaModel::AbstractJavaElement/
 --
@@ -473,10 +438,10 @@ edu.rosehulman.cjjb.javaModel.visitor::IUMLVisitor
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1590</x>
-      <y>1140</y>
-      <w>280</w>
-      <h>50</h>
+      <x>896</x>
+      <y>268</y>
+      <w>112</w>
+      <h>20</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.javaModel::Interface
 --
@@ -488,26 +453,26 @@ edu.rosehulman.cjjb.javaModel.visitor::IUMLVisitor
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1420</x>
-      <y>960</y>
-      <w>460</w>
-      <h>70</h>
+      <x>952</x>
+      <y>780</y>
+      <w>184</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
-edu.rosehulman.cjjb.javaModel.checks::IModelStructureBooleanCheck
+edu.rosehulman.cjjb.javaModel.checks::IPatternCheck
 --
 --
-+check(JavaModel model, AbstractJavaStructure structure): boolean
++check(JavaModel model): boolean
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>280</x>
-      <y>1180</y>
-      <w>260</w>
-      <h>50</h>
+      <x>896</x>
+      <y>292</y>
+      <w>104</w>
+      <h>20</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.javaModel::Field
 --
@@ -518,10 +483,10 @@ edu.rosehulman.cjjb.javaModel.checks::IModelStructureBooleanCheck
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>660</x>
-      <y>1100</y>
-      <w>370</w>
-      <h>70</h>
+      <x>468</x>
+      <y>572</y>
+      <w>148</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 edu.rosehulman.cjjb.javaModel.visitor::ISequenceVisitor
@@ -535,10 +500,10 @@ edu.rosehulman.cjjb.javaModel.visitor::ISequenceVisitor
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>780</x>
-      <y>1140</y>
-      <w>380</w>
-      <h>70</h>
+      <x>584</x>
+      <y>680</y>
+      <w>152</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 edu.rosehulman.cjjb.javaModel.visitor::ISquenceTraverser
@@ -551,10 +516,10 @@ edu.rosehulman.cjjb.javaModel.visitor::ISquenceTraverser
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1910</x>
-      <y>1160</y>
-      <w>350</w>
-      <h>70</h>
+      <x>436</x>
+      <y>680</y>
+      <w>140</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 edu.rosehulman.cjjb.javaModel.visitor::IUMLTraverser
@@ -566,10 +531,10 @@ edu.rosehulman.cjjb.javaModel.visitor::IUMLTraverser
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>250</x>
-      <y>1630</y>
-      <w>370</w>
-      <h>50</h>
+      <x>1148</x>
+      <y>92</y>
+      <w>148</w>
+      <h>20</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 edu.rosehulman.cjjb.javaModel.modifier::IAccessModifier
@@ -580,10 +545,10 @@ edu.rosehulman.cjjb.javaModel.modifier::IAccessModifier
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>770</x>
-      <y>1630</y>
-      <w>330</w>
-      <h>50</h>
+      <x>1356</x>
+      <y>92</y>
+      <w>132</w>
+      <h>20</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 edu.rosehulman.cjjb.javaModel.modifier::IModifier
@@ -594,10 +559,10 @@ edu.rosehulman.cjjb.javaModel.modifier::IModifier
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>770</x>
-      <y>1790</y>
-      <w>370</w>
-      <h>40</h>
+      <x>1356</x>
+      <y>156</y>
+      <w>148</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.javaModel.modifier::AbstractModifier
 --
@@ -607,10 +572,10 @@ edu.rosehulman.cjjb.javaModel.modifier::IModifier
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>770</x>
-      <y>1840</y>
-      <w>350</w>
-      <h>40</h>
+      <x>1356</x>
+      <y>176</y>
+      <w>140</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.javaModel.modifier::FinalModifier
 --
@@ -621,10 +586,10 @@ edu.rosehulman.cjjb.javaModel.modifier::IModifier
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>770</x>
-      <y>1890</y>
-      <w>360</w>
-      <h>40</h>
+      <x>1356</x>
+      <y>196</y>
+      <w>144</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.javaModel.modifier::NativeModifier
 --
@@ -635,10 +600,10 @@ edu.rosehulman.cjjb.javaModel.modifier::IModifier
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>250</x>
-      <y>1690</y>
-      <w>370</w>
-      <h>40</h>
+      <x>1148</x>
+      <y>116</y>
+      <w>148</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.javaModel.modifier::PrivateModifier
 --
@@ -648,10 +613,10 @@ edu.rosehulman.cjjb.javaModel.modifier::IModifier
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>250</x>
-      <y>1840</y>
-      <w>380</w>
-      <h>40</h>
+      <x>1148</x>
+      <y>176</y>
+      <w>152</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.javaModel.modifier::ProtectedModifier
 --
@@ -661,10 +626,10 @@ edu.rosehulman.cjjb.javaModel.modifier::IModifier
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>250</x>
-      <y>1740</y>
-      <w>430</w>
-      <h>40</h>
+      <x>1148</x>
+      <y>136</y>
+      <w>172</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.javaModel.modifier::ProtectedPrivateModifier
 --
@@ -675,10 +640,10 @@ edu.rosehulman.cjjb.javaModel.modifier::IModifier
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>250</x>
-      <y>1790</y>
-      <w>360</w>
-      <h>40</h>
+      <x>1148</x>
+      <y>156</y>
+      <w>144</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.javaModel.modifier::PublicModifier
 --
@@ -689,10 +654,10 @@ edu.rosehulman.cjjb.javaModel.modifier::IModifier
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>770</x>
-      <y>1690</y>
-      <w>360</w>
-      <h>40</h>
+      <x>1356</x>
+      <y>116</y>
+      <w>144</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.javaModel.modifier::StaticModifier
 --
@@ -703,10 +668,10 @@ edu.rosehulman.cjjb.javaModel.modifier::IModifier
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>770</x>
-      <y>1740</y>
-      <w>410</w>
-      <h>40</h>
+      <x>1356</x>
+      <y>136</y>
+      <w>164</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>edu.rosehulman.cjjb.javaModel.modifier::SynchronizedModifier
 --
@@ -717,12 +682,838 @@ edu.rosehulman.cjjb.javaModel.modifier::IModifier
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>20</x>
-      <y>1250</y>
-      <w>190</w>
-      <h>30</h>
+      <x>1292</x>
+      <y>92</y>
+      <w>72</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>160.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1112</x>
+      <y>96</y>
+      <w>44</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;170.0;10.0</additional_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0;10.0;220.0;90.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1112</x>
+      <y>160</y>
+      <w>44</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1112</x>
+      <y>140</y>
+      <w>44</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1112</x>
+      <y>120</y>
+      <w>44</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1320</x>
+      <y>100</y>
+      <w>44</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0;10.0;260.0;90.0;260.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1320</x>
+      <y>180</y>
+      <w>44</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1320</x>
+      <y>160</y>
+      <w>44</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1320</x>
+      <y>140</y>
+      <w>44</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1320</x>
+      <y>120</y>
+      <w>44</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>256</x>
+      <y>68</y>
+      <w>64</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>140.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>472</x>
+      <y>204</y>
+      <w>32</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0;60.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>472</x>
+      <y>232</y>
+      <w>32</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0;60.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>472</x>
+      <y>60</y>
+      <w>32</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>60.0;10.0;10.0;10.0;10.0;370.0;60.0;370.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>864</x>
+      <y>72</y>
+      <w>44</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>864</x>
+      <y>144</y>
+      <w>40</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0;80.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>896</x>
+      <y>640</y>
+      <w>108</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel::Relation
+--
++base: AbstractJavaThing
++other: AbstractJavaThing
+--
++hashCode(): int
++equals(Object obj): boolean
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>908</x>
+      <y>788</y>
+      <w>52</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>328</x>
+      <y>540</y>
+      <w>12</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>836</x>
+      <y>412</y>
+      <w>68</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>150.0;10.0;70.0;10.0;70.0;230.0;10.0;230.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>472</x>
+      <y>268</y>
+      <w>32</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0;60.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>592</x>
+      <y>820</y>
+      <w>320</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel.checks::DecoratorCheck
+--
+--
++check(JavaModel model): List&lt;IPattern&gt;
++checkForPotentialDecorator(AbstractJavaStructure structure): boolean
++PopulateListOfClassesToOther(Set&lt;AbstractJavaStructure&gt; set, AbstractJavaStructure struct, AbstractJavaStructure to): void
++hasField(AbstractJavaStructure structure, AbstractJavaStructure of): boolean
++hasFieldCastableTo(List&lt;AbstractJavaElement&gt; elements, AbstractJavaStructure to): boolean
++containsPattern(List&lt;IPattern&gt; patterns, AbstractJavaStructure to): DecoratorPattern</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>644</x>
+      <y>880</y>
+      <w>268</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel.checks::AdapterCheck
+--
+--
++check(JavaModel model): List&lt;IPattern&gt;
++checkMethodsForCallTo(List&lt;AbstractJavaElement&gt; subElements, AbstractJavaStructure arg): boolean
++hasFieldCastableTo(List&lt;AbstractJavaElement&gt; subElements, AbstractJavaStructure to): boolean
++checkInheritance(JavaClass struct): AbstractJavaStructure</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>908</x>
+      <y>788</y>
+      <w>28</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>50.0;10.0;50.0;140.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>908</x>
+      <y>840</y>
+      <w>28</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>50.0;10.0;50.0;140.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>996</x>
+      <y>816</y>
+      <w>140</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+IPattern
+--
+--
++getStereotype(AbstractJavaStructure struct): String
++getInvolvedStructes(): List&lt;AbstractJavaStructure&gt;
++getDefaultColor(): Color
++getTopLevelRelations(): List&lt;Relation&gt;
+-getRelationName(): String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>496</x>
+      <y>60</y>
+      <w>68</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>ClassVisitor</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>472</x>
+      <y>176</y>
+      <w>32</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>472</x>
+      <y>140</y>
+      <w>32</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>472</x>
+      <y>92</y>
+      <w>32</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>428</x>
+      <y>44</y>
+      <w>88</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>200.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>864</x>
+      <y>172</y>
+      <w>40</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0;80.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>864</x>
+      <y>208</y>
+      <w>40</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0;80.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>864</x>
+      <y>244</y>
+      <w>40</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0;80.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>864</x>
+      <y>276</y>
+      <w>40</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0;80.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>864</x>
+      <y>296</y>
+      <w>40</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0;80.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>860</x>
+      <y>500</y>
+      <w>44</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>860</x>
+      <y>456</y>
+      <w>44</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>860</x>
+      <y>500</y>
+      <w>44</w>
+      <h>164</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>90.0;390.0;10.0;390.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>860</x>
+      <y>560</y>
+      <w>44</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>744</x>
+      <y>680</y>
+      <w>88</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+IStructureTraverser
+--
++accept(IStructureVisitor v) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>544</x>
+      <y>480</y>
+      <w>12</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;230.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>756</x>
+      <y>552</y>
+      <w>12</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;320.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>668</x>
+      <y>620</y>
+      <w>100</w>
+      <h>68</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;10.0;230.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>520</x>
+      <y>620</y>
+      <w>160</w>
+      <h>68</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;10.0;380.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>656</x>
+      <y>460</y>
+      <w>32</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>432</x>
+      <y>492</y>
+      <w>256</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;620.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>824</x>
+      <y>60</y>
+      <w>84</w>
+      <h>396</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>190.0;10.0;10.0;10.0;10.0;970.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1192</x>
+      <y>672</y>
+      <w>156</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel.pattern::CompositePattern
+--
++component: AbstractJavaStructure
+~composites: Set&lt;AbstractJavaStructure&gt;
+~leaves: Set&lt;AbstractJavaStructure&gt;
++COMPONENT = "Component": String
++LEAF = "Leaf": String
++COMPOSITE = "Composite": String
+--
++CompositePattern(AbstractJavaStructure component): ctor
++getStereotype(AbstractJavaStructure struct): String
++getInvolvedStructes(): List&lt;AbstractJavaStructure&gt;
++getDefaultColor(): Color
++getTopLevelRelations(): List&lt;Relation&gt;
++getRelationName(): String
++addLeaf(AbstractJavaStructure struct): void
++addComposite(AbstractJavaStructure struct): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1132</x>
+      <y>828</y>
+      <w>68</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;150.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1164</x>
+      <y>804</y>
+      <w>36</w>
+      <h>92</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;210.0;70.0;210.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1164</x>
+      <y>880</y>
+      <w>36</w>
+      <h>92</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;210.0;70.0;210.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1192</x>
+      <y>940</y>
+      <w>140</w>
+      <h>92</h>
+    </coordinates>
+    <panel_attributes>AdapterPattern
+--
+AbstractJavaStructure from
+AbstractJavaStructure to
+JavaClass adapter
++ static final String TARGET
++ static final String ADAPTEE
++ static final String ADAPTER
++ static final String RELATION_NAME
+--
++getStereotype(AbstractJavaStructure struct): String
++getInvolvedStructes(): List&lt;AbstractJavaStructure&gt;
++getDefaultColor(): Color
++getTopLevelRelations(): List&lt;Relation&gt;
+-getRelationName(): String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1192</x>
+      <y>856</y>
+      <w>140</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>DecoratorPattern
+--
+Set&lt;AbstractJavaStructure&gt; set
+AbstractJavaStructure struct
++ static final String COMPONENT
++ static final String DECORATOR
++ static final String DECORATOR_NAME
+--
++getStereotype(AbstractJavaStructure struct): String
++getInvolvedStructes(): List&lt;AbstractJavaStructure&gt;
++getDefaultColor(): Color
++getTopLevelRelations(): List&lt;Relation&gt;
+-getRelationName(): String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1192</x>
+      <y>792</y>
+      <w>140</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>SingletonPattern
+--
+JavaClass struct
++ static final String STEREOTYPE
+--
++getStereotype(AbstractJavaStructure struct): String
++getInvolvedStructes(): List&lt;AbstractJavaStructure&gt;
++getDefaultColor(): Color
++getTopLevelRelations(): List&lt;Relation&gt;
+-getRelationName(): String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1164</x>
+      <y>732</y>
+      <w>36</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;190.0;10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>688</x>
+      <y>764</y>
+      <w>224</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel.checks::CompositeCheck
+--
+~set = new HashSet&lt;AbstractJavaStructure&gt;(): Set&lt;AbstractJavaStructure&gt;
+--
++check(JavaModel model): List&lt;IPattern&gt;
++hasAddRemove(AbstractJavaStructure struct): boolean
++containsPattern(List&lt;IPattern&gt; patterns, AbstractJavaStructure to): CompositePattern
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>740</x>
+      <y>408</y>
+      <w>12</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1032</x>
+      <y>68</y>
+      <w>196</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>470.0;60.0;470.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1216</x>
+      <y>68</y>
+      <w>196</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>470.0;60.0;470.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>460</x>
+      <y>720</y>
+      <w>164</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel.checks::PatternFindingFactory
+--
+--
++getPatternChecks(): List&lt;IPatternCheck&gt;
++getStructureVisitors(): List&lt;IStructureVisitor&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>620</x>
+      <y>732</y>
+      <w>156</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>370.0;80.0;370.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>764</x>
+      <y>704</y>
+      <w>12</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>40</x>
+      <y>432</y>
+      <w>220</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel.visitor::SingletonVisitor
+--
+--
++visit(JavaModel model, AbstractJavaStructure struct): List&lt;IPattern&gt;
+-checkForStaticInstance(AbstractJavaStructure structure): boolean
+-checkForModifier(List&lt;IModifier&gt; modifiers, Class&lt;?&gt; c): boolean
+-checkForGetInstance(JavaModel model, AbstractJavaStructure structure): boolean
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>568</y>
+      <w>172</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+edu.rosehulman.cjjb.javaModel.visitor::IStructureVisitor
+--
+--
+~visit(JavaModel model, AbstractJavaStructure s): List&lt;IPattern&gt;
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>136</x>
+      <y>476</y>
+      <w>12</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;230.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>

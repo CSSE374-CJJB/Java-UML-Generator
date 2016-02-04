@@ -52,4 +52,32 @@ public class DecoratorTest {
 		assertTrue(!output.contains("headfirst.decorator.io.InputTest\\l\\<\\<decorator\\>\\>"));
 	}
 	
+	@Test
+	public void testCheckForOtherDecorators() throws IOException {
+		Set<String> classes = new HashSet<String>();
+		classes.add("sampleClasses.Decorator");
+		classes.add("sampleClasses.InitialDecorator");
+		classes.add("sampleClasses.SecondLevelDecorator");
+		classes.add("sampleClasses.ThirdLevelDecorator");
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes, out);
+		visitor.buildUMLModel();
+		
+		UMLDotVisitor umlVis = new UMLDotVisitor(out, visitor.getModel());
+		visitor.getModel().accept(umlVis);
+		String output = new String(out.toByteArray());
+		
+		System.out.println("\n\n");
+		System.out.println(output);
+		
+		assertTrue(output.contains("sampleClasses.Decorator\\l\\<\\<component\\>\\>"));
+		assertTrue(output.contains("sampleClasses.InitialDecorator\\l\\<\\<decorator\\>\\>"));
+		assertTrue(output.contains("sampleClasses.SecondLevelDecorator\\l\\<\\<decorator\\>\\>"));
+		assertTrue(output.contains("sampleClasses.ThirdLevelDecorator\\l\\<\\<decorator\\>\\>"));
+
+		assertTrue(output.contains("\"sampleClasses.InitialDecorator\" -> \"sampleClasses.Decorator\" [label = \"\\<\\<decorates\\>\\>"));
+		assertTrue(output.contains("\"sampleClasses.SecondLevelDecorator\" -> \"sampleClasses.Decorator\" [label = \"\\<\\<decorates\\>\\>"));
+		assertTrue(output.contains("\"sampleClasses.ThirdLevelDecorator\" -> \"sampleClasses.Decorator\" [label = \"\\<\\<decorates\\>\\>"));
+	}
+	
 }

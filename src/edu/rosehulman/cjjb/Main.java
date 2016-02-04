@@ -39,18 +39,21 @@ public class Main {
 		//	"java.util.Iterator"
 		//	"org.objectweb.asm.ClassVisitor",
 		//	"org.objectweb.asm.MethodVisitor"
-			"headfirst.composite.menu.Menu",
+		/*	"headfirst.composite.menu.Menu",
 			"headfirst.composite.menu.MenuItem",
 			"headfirst.composite.menu.MenuComponent",
 			
 			"headfirst.composite.menuiterator.Menu",
 			"headfirst.composite.menuiterator.MenuItem",
 			"headfirst.composite.menuiterator.MenuComponent"
-		
+		*/
+		"problem.client.AnimatorApp"
 	};
 	
 	public static final String[] PACKAGES = {
-		"headfirst.composite.menu", "headfirst.composite.menuiterator"
+		// "headfirst.composite.menu", "headfirst.composite.menuiterator"
+		"problem.graphics",
+		"problem.sprites"
 			/*
 		"edu.rosehulman.cjjb", "edu.rosehulman.asm", "edu.rosehulman.cjjb.javaModel",  
 		"edu.rosehulman.cjjb.javaModel.checks", "edu.rosehulman.cjjb.javaModel.modifier", 
