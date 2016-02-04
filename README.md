@@ -68,7 +68,7 @@ Milestone 5 went much the same as Milestone 4 for our programming split. We talk
 
 MileStone 6:
 
-<img src="https://raw.githubusercontent.com/CSSE374-CJJB/Java-UML-Generator/master/docs/UML_MANUAL_M5.PNG"/>
+<img src="https://raw.githubusercontent.com/CSSE374-CJJB/Java-UML-Generator/master/docs/UML_MANUAL_M6.png"/>
 
 We added Compisite pattern detection. We used the same style as the previous multi-structure pattern detection. 
 

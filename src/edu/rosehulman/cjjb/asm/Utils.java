@@ -102,9 +102,13 @@ public class Utils {
 
 	public static String[] getGenericsPart(String signiture) {
 		String[] split = signiture.split("<");
+		
+		if(split.length <= 1) {
+			return new String[0];
+		}
 
 		ArrayList<String> toReturn = new ArrayList<String>();
-
+		
 		for (String s : split[1].split(";")) {
 			if (s.equals(">"))
 				break;

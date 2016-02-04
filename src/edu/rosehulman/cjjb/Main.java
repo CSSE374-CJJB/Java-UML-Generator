@@ -48,6 +48,7 @@ public class Main {
 			"headfirst.composite.menuiterator.MenuComponent"
 		*/
 		"problem.client.AnimatorApp"
+		
 	};
 	
 	public static final String[] PACKAGES = {

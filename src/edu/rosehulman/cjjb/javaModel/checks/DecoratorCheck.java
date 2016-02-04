@@ -41,7 +41,7 @@ public class DecoratorCheck implements IPatternCheck {
 	public AbstractJavaStructure checkForPotentialDecorator(AbstractJavaStructure struct) {
 		for(JavaMethod meth: struct.getConstructors()) {
 			for(AbstractJavaStructure arg: meth.arguments) {
-				if(struct.isCastableTo(arg)) {
+				if(!arg.name.equals("java.lang.Object") && struct.isCastableTo(arg)) {
 					if(hasField(struct, arg))
 						return arg;
 				}
