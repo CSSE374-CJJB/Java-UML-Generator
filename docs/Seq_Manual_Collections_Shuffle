@@ -1,0 +1,21 @@
+start:Collections
+/rnd:Random
+System:System[a]
+list:List<?>
+it:ListIterator
+
+start:rnd.new()
+	rnd:.seedUniquifier()
+	rnd:time=System.nanoTime()
+	rnd:rnd.this(long)
+start:start.shuffle(List<?>, Random)
+	start:size=list.size()
+	start:.swap(List<?>, int, int)
+	start:list.toArray()
+	start:.swap(List<?>, int, int)
+	start:it=list.listIterator()
+	start:it.next()
+	start:it.set(Object)
+	
+
+

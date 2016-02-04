@@ -1,0 +1,728 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>220</x>
+      <y>390</y>
+      <w>400</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel::JavaModel
+--
+~map: HashMap&lt;String, AbstractJavaStructure&gt;
+~methodGroups: List&lt;MethodCallGroup&gt;
+~includedClasses: Set&lt;String&gt;
+--
++containsStructure(String name): boolean
++putStructure(String name, AbstractJavaStructure struct): void
++getStructure(String name): AbstractJavaStructure
++getChildParrentIncludedRelations(): List&lt;Relation&gt;
++getIncludedInterfaceRelations(): List&lt;Relation&gt;
++getIncludedUsesRelations(): List&lt;Relation&gt;
++getIncludedAssociationReltiations(): List&lt;Relation&gt;
++addMethodCallGroup(MethodCallGroup group): void
++convertMethodCallLinesToStructure(): void
++accept(IUMLVisitor v): void
++accept(ISequenceVisitor v): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>590</x>
+      <y>520</y>
+      <w>410</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel.visitor::UMLDotVisitor
+--
+-out: OutputStream
+-model: JavaModel
++BOILER_PLATE = "digraph G ...
+--
++UMLDotVisitor(OutputStream out, JavaModel model): ctor
++visitStart(): void
++visit(Class clazz): void
++visit(Interface clazz): void
++visit(Field clazz): void
++visitEndFields(): void
++visit(Method clazz): void
++visitEndStructure(): void
++visitEnd(): void
+-getAccessModifierString(IAccessModifier modifier): String
+-getArgumentString(List&lt;AbstractJavaStructure&gt; args): String
++visitRelations(JavaModel model): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1060</x>
+      <y>630</y>
+      <w>610</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.asm::Utils
+--
+--
++getAccessModifier(int access): IAccessModifier
++getModifiers(int access): List&lt;IModifier&gt;
++getInstanceOrJavaStructure(JavaModel model, String name): AbstractJavaStructure
++getInstanceOrJavaStructures(JavaModel model, String[] names): List&lt;AbstractJavaStructure&gt;
++getCleanName(String name): String
++getCleanNames(String[] names): String[]
++getGenericsPart(String signiture): String[]
++getReturnType(String desc): String
++getListOfArgs(String desc): List&lt;String&gt;
++isInterface(String name): boolean
++shortName(String name): String
++getAsmName(String c): String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>700</x>
+      <y>20</y>
+      <w>300</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb::JavaModelClassVisitor
+--
++classes: Set&lt;String&gt;
+-model: JavaModel
+-classSearch: String
+-methodSearch: QualifiedMethod
+-depth: int
+--
++buildUMLModel(): void
++buildSeqModel(): void
++getModel(): JavaModel</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>200</x>
+      <y>0</y>
+      <w>430</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb::Main
+--
++CLASSES = { "java.util.Calendar" }: String[]
++PACKAGES = {}: String[]
+--
++main(String[] args): void
+-getClassFromArgs(String[] args): String
+-getDescFromArgs(String[] args): String
+-getMethodFromArgs(String[] args): String
+-getPackagesFromArgs(String[] args): List&lt;String&gt;
+-getClassesFromArgs(String[] args): List&lt;String&gt;
+-exampleCall(OutputStream umlOut, OutputStream seqOut): void
+-getClasses(String packageName): List&lt;String&gt;
+-findClasses(File directory, String packageName): List&lt;String&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>730</x>
+      <y>1060</y>
+      <w>330</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+edu.rosehulman.cjjb.javaModel.visitor::IUMLVisitor
+--
+--
+~visitStart(): void
+~visit(Class clazz): void
+~visit(Interface clazz): void
+~visit(Field clazz): void
+~visitEndFields(): void
+~visit(Method clazz): void
+~visitEndStructure(): void
+~visitRelations(JavaModel model): void
+~visitEnd(): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1060</x>
+      <y>190</y>
+      <w>650</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.asm::ClassSequnceClassVisitor
+--
+-model: JavaModel
+-methodsToFind: Set&lt;QualifiedMethod&gt;
+-depth: int
+-seqStructure: SequenceStructure
+-className: String
+--
++visitMethod(int access, String name, String desc, String signature, String[] exceptions): MethodVisitor
++visitEnd(): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>110</x>
+      <y>890</y>
+      <w>510</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>/edu.rosehulman.cjjb.javaModel::AbstractJavaStructure/
+--
++subElements: List&lt;AbstractJavaElement&gt;
++implement: List&lt;AbstractJavaStructure&gt;
+--
++addSubElement(AbstractJavaElement element): void
++accept(IUMLVisitor v): void
++getElementByName(String name): AbstractJavaElement
++getMethodByQualifiedName(QualifiedMethod meth, JavaModel model): Method
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1760</x>
+      <y>350</y>
+      <w>270</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel::Method
+--
++structure: AbstractJavaStructure
++arguments: List&lt;AbstractJavaStructure&gt;
++methodCalls: List&lt;Method&gt;
++isConstructor: boolean
+--
++accept(IUMLVisitor v): void
++addMethodCall(Method method): void
++argumentsToString(): String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>620</x>
+      <y>340</y>
+      <w>410</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.asm::SequenceStructure
+--
+-classMethod: Map&lt;String, Set&lt;QualifiedMethod&gt;&gt;
+-visitedMethods: Map&lt;String, Set&lt;QualifiedMethod&gt;&gt;
+--
++SequenceStructure(): ctor
++addMethod(String clazz, QualifiedMethod method): void
++getClassMethods(): Map&lt;String, Set&lt;QualifiedMethod&gt;&gt;
++vistedAll(): void
++visitedMethod(String clazz, QualifiedMethod method): boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>260</x>
+      <y>1110</y>
+      <w>340</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>/edu.rosehulman.cjjb.javaModel::AbstractJavaThing/
+--
++name: String
++access: IAccessModifier
++modifiers: List&lt;IModifier&gt;
+--
++hashCode(): int
++equals(Object obj): boolean
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>710</x>
+      <y>1010</y>
+      <w>540</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel.visitor::SDSequenceVisitor
+--
+-className: String
+-method: QualifiedMethod
+-depth: int
+-out: OutputStream
+--
++visit(JavaModel model): void
++addCalls(int depth, Set&lt;String&gt; objects, List&lt;String&gt; sdCalls, Method method): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>270</x>
+      <y>910</y>
+      <w>290</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.asm::MethodCallGroup
+--
++classCaller: String
++method: QualifiedMethod
++lines: List&lt;MethodCallLine&gt;
+--
++addLine(MethodCallLine line): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1770</x>
+      <y>510</y>
+      <w>280</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.asm::QualifiedMethod
+--
++methodName: String
++methodDesc: String
+--
++hashCode(): int
++equals(Object obj): boolean
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>240</x>
+      <y>680</y>
+      <w>260</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel::Relation
+--
++base: AbstractJavaThing
++other: AbstractJavaThing
+--
++hashCode(): int
++equals(Object obj): boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1060</x>
+      <y>90</y>
+      <w>590</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.asm::ClassFieldVisitor
+--
+-className: String
+-model: JavaModel
+--
++visitField(int access, String name, String desc, String signature, Object value): FieldVisitor</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1060</x>
+      <y>350</y>
+      <w>650</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.asm::ClassMethodVisitor
+--
+-className: String
+-model: JavaModel
+--
++visitMethod(int access, String name, String desc, String signature, String[] exceptions): MethodVisitor
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1060</x>
+      <y>530</y>
+      <w>550</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.asm::ClassSequnceMethodVisitor
+--
+-depth: int
+-seqStructure: SequenceStructure
+--
++visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>900</x>
+      <y>910</y>
+      <w>280</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.asm::MethodCallLine
+--
++classOf: String
++method: QualifiedMethod
++returnType: String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>670</x>
+      <y>1050</y>
+      <w>540</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel.checks::SingletonCheck
+--
+--
++check(JavaModel model, AbstractJavaStructure structure): boolean
+-checkForStaticInstance(AbstractJavaStructure structure): boolean
+-checkForModifier(List&lt;IModifier&gt; modifiers, Class&lt;?&gt; c): boolean
+-checkForGetInstance(JavaModel model, AbstractJavaStructure structure): boolean
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>270</x>
+      <y>1110</y>
+      <w>260</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel::Class
+--
++superClass: AbstractJavaStructure
+--
++accept(IUMLVisitor v): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1060</x>
+      <y>450</y>
+      <w>650</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.asm::ClassDeclarationVisitor
+--
+-model: JavaModel
+--
++visit(int version, int access, String name, String signature, String superName, String[] interfaces): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1060</x>
+      <y>10</y>
+      <w>550</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.asm::ClassMethodLineVisitor
+--
+-method: MethodCallGroup
+--
++visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>280</x>
+      <y>890</y>
+      <w>350</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>/edu.rosehulman.cjjb.javaModel::AbstractJavaElement/
+--
++owner: AbstractJavaStructure
++type: AbstractJavaStructure
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1590</x>
+      <y>1140</y>
+      <w>280</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel::Interface
+--
+--
++accept(IUMLVisitor v): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1420</x>
+      <y>960</y>
+      <w>460</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+edu.rosehulman.cjjb.javaModel.checks::IModelStructureBooleanCheck
+--
+--
++check(JavaModel model, AbstractJavaStructure structure): boolean
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>280</x>
+      <y>1180</y>
+      <w>260</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel::Field
+--
+--
++accept(IUMLVisitor v): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>660</x>
+      <y>1100</y>
+      <w>370</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+edu.rosehulman.cjjb.javaModel.visitor::ISequenceVisitor
+--
+--
+~visit(JavaModel model): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>780</x>
+      <y>1140</y>
+      <w>380</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+edu.rosehulman.cjjb.javaModel.visitor::ISquenceTraverser
+--
+--
++accept(ISequenceVisitor v): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1910</x>
+      <y>1160</y>
+      <w>350</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+edu.rosehulman.cjjb.javaModel.visitor::IUMLTraverser
+--
+--
++accept(IUMLVisitor v): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>250</x>
+      <y>1630</y>
+      <w>370</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+edu.rosehulman.cjjb.javaModel.modifier::IAccessModifier
+--
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>770</x>
+      <y>1630</y>
+      <w>330</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+edu.rosehulman.cjjb.javaModel.modifier::IModifier
+--
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>770</x>
+      <y>1790</y>
+      <w>370</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel.modifier::AbstractModifier
+--
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>770</x>
+      <y>1840</y>
+      <w>350</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel.modifier::FinalModifier
+--
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>770</x>
+      <y>1890</y>
+      <w>360</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel.modifier::NativeModifier
+--
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>250</x>
+      <y>1690</y>
+      <w>370</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel.modifier::PrivateModifier
+--
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>250</x>
+      <y>1840</y>
+      <w>380</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel.modifier::ProtectedModifier
+--
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>250</x>
+      <y>1740</y>
+      <w>430</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel.modifier::ProtectedPrivateModifier
+--
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>250</x>
+      <y>1790</y>
+      <w>360</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel.modifier::PublicModifier
+--
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>770</x>
+      <y>1690</y>
+      <w>360</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel.modifier::StaticModifier
+--
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>770</x>
+      <y>1740</y>
+      <w>410</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>edu.rosehulman.cjjb.javaModel.modifier::SynchronizedModifier
+--
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>20</x>
+      <y>1250</y>
+      <w>190</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;170.0;10.0</additional_attributes>
+  </element>
+</diagram>
