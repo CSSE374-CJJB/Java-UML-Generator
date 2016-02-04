@@ -7,28 +7,26 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import edu.rosehulman.cjjb.javaModel.checks.PatternFindingFactory;
 import edu.rosehulman.cjjb.javaModel.checks.IPattern;
-import edu.rosehulman.cjjb.javaModel.checks.IPatternCheck;
 import edu.rosehulman.cjjb.javaModel.*;
 import edu.rosehulman.cjjb.javaModel.JavaClass;
 import edu.rosehulman.cjjb.javaModel.modifier.IModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.PrivateModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.PublicModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.StaticModifier;
-import edu.rosehulman.cjjb.javaModel.visitor.SingletonCheck;;
+import edu.rosehulman.cjjb.javaModel.visitor.IStructureVisitor;
+import edu.rosehulman.cjjb.javaModel.visitor.SingletonVisitor;;
 
 public class SingletonTesting {
 	
 	@Test
 	public void testCheckForStaticFieldInstance() {
-		IPatternCheck singleCheck = new SingletonCheck();
 		Set<String> classes = new HashSet<String>();
 		classes.add("sampleClasses.Singleton");
 		JavaModel model = new JavaModel(classes);
 		JavaClass struct = new JavaClass("sampleClasses.Singleton");
-		model.finalize(PatternFindingFactory.getPatternChecks());
-		
+		IStructureVisitor v = new SingletonVisitor();
+		model.accept(v);
 		List<IPattern> list = model.getPatterns();
 		
 		assertTrue(list.size() == 0);
@@ -37,14 +35,13 @@ public class SingletonTesting {
 		modifiers.add(new StaticModifier());
 		struct.addSubElement(new JavaField(struct, "instance", new PrivateModifier(), modifiers, struct));
 		model.putStructure("sampleClasses.Singleton", struct);
-		model.finalize(PatternFindingFactory.getPatternChecks());
+		model.accept(v);
 		list = model.getPatterns();
 		assertTrue(list.size() == 1);
 	}
 	
 	@Test
 	public void testCheckForGetInstanceMethod() {
-		IPatternCheck singleCheck = new SingletonCheck();
 		Set<String> classes = new HashSet<String>();
 		classes.add("sampleClasses.Singleton");
 		JavaModel model = new JavaModel(classes);
@@ -55,7 +52,8 @@ public class SingletonTesting {
 		struct.addSubElement(new JavaMethod(struct, "getInstance", new PublicModifier(), list, 
 				struct, new LinkedList<AbstractJavaStructure>(), false));
 		model.putStructure("sampleClasses.Singleton", struct);
-		model.finalize(PatternFindingFactory.getPatternChecks());
+		IStructureVisitor v = new SingletonVisitor();
+		model.accept(v);
 		
 		List<IPattern> pList = model.getPatterns();
 		assertTrue(pList.size() == 1);
