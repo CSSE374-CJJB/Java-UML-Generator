@@ -47,4 +47,17 @@ public class JavaClass extends AbstractJavaStructure {
 			this.superClass.getSuperClasses(set);
 		super.getSuperClasses(set);
 	}
+	
+	@Override
+	public AbstractJavaElement getElementByName(String name) {
+		AbstractJavaElement element = super.getElementByName(name);
+		
+		if(element != null)
+			return element;
+		
+		if(superClass != null)
+			return superClass.getElementByName(name);
+		
+		return null;
+	}
 }

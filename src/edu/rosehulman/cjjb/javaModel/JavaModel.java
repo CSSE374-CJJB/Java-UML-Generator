@@ -139,7 +139,9 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser, IStructureTr
 				JavaMethod otherMethod = (JavaMethod) other.getMethodByQualifiedName(line.method, this);
 				
 				if (otherMethod == null) {
-					otherMethod = new JavaMethod(other, line.method.methodName,  new PublicModifier(), new LinkedList<IModifier>(), Utils.getInstanceOrJavaStructure(this, line.returnType), Utils.getInstanceOrJavaStructures(this, Utils.getListOfArgs(line.method.methodDesc).toArray(new String[0])), true);
+					boolean isConstuctor = other.name.equals(line.method.methodName);
+					
+					otherMethod = new JavaMethod(other, line.method.methodName,  new PublicModifier(), new LinkedList<IModifier>(), Utils.getInstanceOrJavaStructure(this, line.returnType), Utils.getInstanceOrJavaStructures(this, Utils.getListOfArgs(line.method.methodDesc).toArray(new String[0])), isConstuctor);
 					other.addSubElement(otherMethod);
 				}
 				
