@@ -39,15 +39,23 @@ public class Main {
 		//	"java.util.Iterator"
 		//	"org.objectweb.asm.ClassVisitor",
 		//	"org.objectweb.asm.MethodVisitor"
+			"headfirst.composite.menu.Menu",
+			"headfirst.composite.menu.MenuItem",
+			"headfirst.composite.menu.MenuComponent",
 			
+			"headfirst.composite.menuiterator.Menu",
+			"headfirst.composite.menuiterator.MenuItem",
+			"headfirst.composite.menuiterator.MenuComponent"
+		
 	};
 	
 	public static final String[] PACKAGES = {
-
-		"edu.rosehulman.cjjb", "edu.rosehulman.asm", "edu.rosehulman.cjjb.javaModel", 
-		 
+		"headfirst.composite.menu", "headfirst.composite.menuiterator"
+			/*
+		"edu.rosehulman.cjjb", "edu.rosehulman.asm", "edu.rosehulman.cjjb.javaModel",  
 		"edu.rosehulman.cjjb.javaModel.checks", "edu.rosehulman.cjjb.javaModel.modifier", 
 		"edu.rosehulman.cjjb.javaModel.visitor", "edu.rosehulman.cjjb.javaModel.pattern"
+		*/
 //		"headfirst.factory.pizzaaf", "headfirst.factory.pizzafm"
 		//	 "headfirst.decorator.io",
 		//	 "headfirst.decorator.starbuzz"
@@ -186,10 +194,8 @@ public class Main {
 	 * @throws IOException
 	 */	
 	private static List<String> getClasses(String packageName) throws ClassNotFoundException, IOException {
-		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-		assert classLoader != null;
 		String path = packageName.replace('.', '/');
-		Enumeration<URL> resources = classLoader.getResources(path);
+		Enumeration<URL> resources = ClassLoader.getSystemClassLoader().getResources(path);
 		List<File> dirs = new ArrayList<File>();
 		while (resources.hasMoreElements()) {
 			URL resource = resources.nextElement();

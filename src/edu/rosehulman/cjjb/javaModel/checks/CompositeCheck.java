@@ -37,6 +37,7 @@ public class CompositeCheck implements IPatternCheck {
 								pattern.addComposite(leaf);
 							}
 						}
+						toReturn.add(pattern);
 					}
 				}
 			} else {
@@ -66,7 +67,7 @@ public class CompositeCheck implements IPatternCheck {
 				AbstractJavaStructure arg = meth.arguments.get(0);
 				if (struct.isCastableTo(arg)) {
 					for(AbstractJavaElement eleIn: struct.subElements) {
-						if(!(ele instanceof JavaMethod)) {
+						if(!(eleIn instanceof JavaMethod)) {
 							continue;
 						}
 						JavaMethod methIn = (JavaMethod) eleIn;
