@@ -36,11 +36,11 @@ public class CompositeTest {
 		
 		assertTrue(output.contains("problem.sprites.RectangleSprite\\l\\<\\<Composite\\>\\>"));
 		assertTrue(output.contains("problem.sprites.CircleSprite\\l\\<\\<Composite\\>\\>"));
-		assertTrue(output.contains("problem.sprites.RectangleTower\\l\\<\\<decorator\\>\\>\\l\\<\\<Composite\\>\\>"));
-		assertTrue(output.contains("problem.sprites.AbstractSprite\\l\\<\\<decorator\\>\\>\\l\\<\\<Composite\\>\\>"));
-		assertTrue(output.contains("problem.sprites.CompositeSprite\\l\\<\\<decorator\\>\\>\\l\\<\\<Composite\\>\\>"));
-		assertTrue(output.contains("problem.sprites.CrystalBall\\l\\<\\<decorator\\>\\>\\l\\<\\<Leaf\\>\\>"));
-		assertTrue(output.contains("problem.sprites.ISprite\\l\\<\\<component\\>\\>"));
+		assertTrue(output.contains("problem.sprites.RectangleTower\\l\\<\\<Composite\\>\\>"));
+		assertTrue(output.contains("problem.sprites.AbstractSprite\\l\\<\\<Composite\\>\\>"));
+		assertTrue(output.contains("problem.sprites.CompositeSprite\\l\\<\\<Composite\\>\\>"));
+		assertTrue(output.contains("problem.sprites.CrystalBall\\l\\<\\<Composite\\>\\>"));
+		assertTrue(output.contains("problem.sprites.ISprite\\l\\<\\<Component\\>\\>"));
 	}
 	
 	@Test
@@ -49,7 +49,7 @@ public class CompositeTest {
 		classes.add("sampleClasses.IComponent");
 		classes.add("sampleClasses.TopComponent");
 		classes.add("sampleClasses.SecondComponent");
-		classes.add("sampleClasses.ThirdComponentLeaf");
+		classes.add("sampleClasses.ThirdComponent");
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes, out);
 		visitor.buildUMLModel();
@@ -60,6 +60,9 @@ public class CompositeTest {
 		System.out.println("\n\n");
 		System.out.println(output);
 		
-		
+		assertTrue(output.contains("sampleClasses.IComponent\\l\\<\\<Component\\>\\>"));
+		assertTrue(output.contains("sampleClasses.TopComponent\\l\\<\\<Composite\\>\\>"));
+		assertTrue(output.contains("sampleClasses.SecondComponent\\l\\<\\<Composite\\>\\>"));
+		assertTrue(output.contains("sampleClasses.ThirdComponent\\l\\<\\<Leaf\\>\\>"));
 	}
 }
