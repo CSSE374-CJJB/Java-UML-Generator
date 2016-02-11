@@ -88,8 +88,8 @@ public class CompositeTest {
 		assertTrue(output.contains("CompositeTest.IComponent2\\l\\<\\<Component\\>\\>"));
 		assertTrue(output.contains("CompositeTest.TopComponent2\\l\\<\\<Composite\\>\\>"));
 		assertTrue(output.contains("CompositeTest.OtherTopComponent2\\l\\<\\<Composite\\>\\>"));
-		assertTrue(output.contains("CompositeTest.Leaf\\l\\<\\<Leaf\\>\\>"));
-		assertTrue(output.contains("CompositeTest.Leaf2\\l\\<\\<Leaf\\>\\>"));
+		assertTrue(output.contains("CompositeTest.Leaf\\l\\<\\<Composite\\>\\>"));
+		assertTrue(output.contains("CompositeTest.Leaf2\\l\\<\\<Composite\\>\\>"));
 	}
 	
 	@Test
@@ -109,11 +109,11 @@ public class CompositeTest {
 		System.out.println("\n\n");
 		System.out.println(output);
 		
-		assertTrue(output.contains("CompositeTest.Decorator\\l\\<\\<Component\\>\\>"));
-		assertTrue(output.contains("CompositeTest.InitialDecorator\\l\\<\\<Composite\\>\\>"));
-		assertTrue(output.contains("CompositeTest.SecondLevelDecorator\\l\\<\\<Composite\\>\\>"));
-		assertTrue(output.contains("CompositeTest.ThirdLevelDecorator\\l\\<\\<Leaf\\>\\>"));
-		assertTrue(output.contains("CompositeTest.Leaf2\\l\\<\\<Leaf\\>\\>"));
+		assertTrue(!output.contains("CompositeTest.Decorator\\l\\<\\<Component\\>\\>"));
+		assertTrue(!output.contains("CompositeTest.InitialDecorator\\l\\<\\<Composite\\>\\>"));
+		assertTrue(!output.contains("CompositeTest.SecondLevelDecorator\\l\\<\\<Composite\\>\\>"));
+		assertTrue(!output.contains("CompositeTest.ThirdLevelDecorator\\l\\<\\<Leaf\\>\\>"));
+		assertTrue(!output.contains("CompositeTest.Leaf2\\l\\<\\<Leaf\\>\\>"));
 	}
 	
 	@Test
@@ -133,10 +133,10 @@ public class CompositeTest {
 		System.out.println("\n\n");
 		System.out.println(output);
 		
-		assertTrue(output.contains("CompositeTest.IBrokenComponent\\l\\<\\<Component\\>\\>"));
-		assertTrue(output.contains("CompositeTest.BrokenTopComponent\\l\\<\\<Composite\\>\\>"));
-		assertTrue(output.contains("CompositeTest.BrokenSecondComponent\\l\\<\\<Composite\\>\\>"));
-		assertTrue(output.contains("CompositeTest.BrokenThirdComponent\\l\\<\\<Leaf\\>\\>"));
-		assertTrue(output.contains("CompositeTest.Leaf2\\l\\<\\<Leaf\\>\\>"));
+		assertTrue(!output.contains("CompositeTest.IBrokenComponent\\l\\<\\<Component\\>\\>"));
+		assertTrue(!output.contains("CompositeTest.BrokenTopComponent\\l\\<\\<Composite\\>\\>"));
+		assertTrue(!output.contains("CompositeTest.BrokenSecondComponent\\l\\<\\<Composite\\>\\>"));
+		assertTrue(!output.contains("CompositeTest.BrokenThirdComponent\\l\\<\\<Leaf\\>\\>"));
+		assertTrue(!output.contains("CompositeTest.Leaf2\\l\\<\\<Leaf\\>\\>"));
 	}
 }
