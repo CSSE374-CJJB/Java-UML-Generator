@@ -1,0 +1,11 @@
+package DecoratorTest;
+
+public class ThirdLevelDecorator extends Decorator {
+	
+	Decorator dec;
+	
+	public ThirdLevelDecorator(Decorator dec) {
+		this.dec = dec;
+	}
+
+}
