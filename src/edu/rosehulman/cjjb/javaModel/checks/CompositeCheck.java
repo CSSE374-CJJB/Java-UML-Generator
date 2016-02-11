@@ -55,26 +55,39 @@ public class CompositeCheck implements IPatternCheck {
 	}
 	
 	public boolean hasAddRemove(AbstractJavaStructure struct) {
-		AbstractJavaElement add = struct.getElementByName("add");
-		AbstractJavaElement remove = struct.getElementByName("remove");
+		List<AbstractJavaElement> addList = struct.getElementByName("add");
+		List<AbstractJavaElement> removeList = struct.getElementByName("remove");
 		
-		if(!(add instanceof JavaMethod && remove instanceof JavaMethod)){
+		Set<AbstractJavaStructure> castedTo = new HashSet<AbstractJavaStructure>();
+		
+		boolean passing = false;
+		for(AbstractJavaElement add: addList) {
+			if(add instanceof JavaMethod && ((JavaMethod)add).arguments.size() == 1){
+				passing = true;
+				castedTo.add(((JavaMethod)add).arguments.get(0));
+			}	
+		}
+		if(!passing)
 			return false;
+		
+		for(AbstractJavaElement remove: removeList) {
+			if(remove instanceof JavaMethod  && ((JavaMethod)remove).arguments.size() == 1){
+				passing = true;
+				break;
+			}	
 		}
-		
-		JavaMethod addMeth = (JavaMethod) add;
-		JavaMethod removeMeth = (JavaMethod) remove;
-		
-		if(addMeth.arguments.size() != 1 || removeMeth.arguments.size() != 1) {
+		if(!passing)
 			return false;
+		
+		passing = false;
+		for(AbstractJavaStructure otherStruct: castedTo) {
+			if(struct.isCastableTo(otherStruct)) {
+				set.add(otherStruct);
+				passing = true;			
+			}			
 		}
 		
-		AbstractJavaStructure added = addMeth.arguments.get(0);
-		if(struct.isCastableTo(added)) {
-			set.add(added);
-			return true;			
-		}
-		return false;
+		return passing;
 		/*
 		for(AbstractJavaElement ele: struct.subElements) {
 			if(!(ele instanceof JavaMethod)) {

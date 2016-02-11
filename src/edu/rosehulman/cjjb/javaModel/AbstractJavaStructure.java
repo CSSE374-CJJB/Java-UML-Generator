@@ -50,13 +50,14 @@ public abstract class AbstractJavaStructure extends AbstractJavaThing {
 		v.visitEndStructure();
 	}
 	
-	public AbstractJavaElement getElementByName(String name) {
+	public List<AbstractJavaElement> getElementByName(String name) {
+		List<AbstractJavaElement> toReturn = new LinkedList<AbstractJavaElement>();
 		for(AbstractJavaElement element: this.subElements) {
 			if(element.name.equals(name)){
-				return element;
+				toReturn.add(element);
 			}
 		}
-		return null;
+		return toReturn;
 	}
 	
 	public JavaMethod getMethodByQualifiedName(QualifiedMethod meth, JavaModel model) {
