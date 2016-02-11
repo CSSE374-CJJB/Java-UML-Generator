@@ -49,15 +49,12 @@ public class JavaClass extends AbstractJavaStructure {
 	}
 	
 	@Override
-	public AbstractJavaElement getElementByName(String name) {
-		AbstractJavaElement element = super.getElementByName(name);
-		
-		if(element != null)
-			return element;
+	public List<AbstractJavaElement> getElementByName(String name) {
+		List<AbstractJavaElement> element = super.getElementByName(name);
 		
 		if(superClass != null)
-			return superClass.getElementByName(name);
+			element.addAll(superClass.getElementByName(name));
 		
-		return null;
+		return element;
 	}
 }
