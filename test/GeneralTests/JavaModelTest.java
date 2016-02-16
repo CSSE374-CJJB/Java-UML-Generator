@@ -22,14 +22,14 @@ public class JavaModelTest {
 	@Test
 	public void testGetChildParentIncludedRelations() {
 		Set<String> set = new HashSet<String>();
-		set.add("sampleClasses.Class1");
-		set.add("sampleClasses.Class2");
+		set.add("GeneralTests.Class1");
+		set.add("GeneralTests.Class2");
 		JavaModel mod = new JavaModel(set);
-		JavaClass clazz1 = new JavaClass("sampleClasses.Class1");
-		JavaClass clazz2 = new JavaClass("sampleClasses.Class2");
+		JavaClass clazz1 = new JavaClass("GeneralTests.Class1");
+		JavaClass clazz2 = new JavaClass("GeneralTests.Class2");
 		clazz2.superClass = clazz1;
-		mod.putStructure("sampleClasses.Class1", clazz1);
-		mod.putStructure("sampleClasses.Class2", clazz2);
+		mod.putStructure("GeneralTests.Class1", clazz1);
+		mod.putStructure("GeneralTests.Class2", clazz2);
 		
 		List<Relation> correct = new LinkedList<Relation>();
 		correct.add(new Relation(clazz2, clazz1));
@@ -40,14 +40,14 @@ public class JavaModelTest {
 	@Test
 	public void testGetIncludedInterfaceRelations() {
 		Set<String> set = new HashSet<String>();
-		set.add("sampleClasses.Class1");
-		set.add("sampleClasses.Inter1");
+		set.add("GeneralTests.Class1");
+		set.add("GeneralTests.Inter1");
 		JavaModel mod = new JavaModel(set);
-		AbstractJavaStructure clazz = new JavaClass("sampleClasses.Class1", (IAccessModifier)new PublicModifier(), new LinkedList<IModifier>(),
+		AbstractJavaStructure clazz = new JavaClass("GeneralTests.Class1", (IAccessModifier)new PublicModifier(), new LinkedList<IModifier>(),
 				new LinkedList<AbstractJavaElement>(), new LinkedList<AbstractJavaStructure>(), (AbstractJavaStructure)new JavaClass("Class2"));
-		AbstractJavaStructure inter = new JavaInterface("sampleClasses.Inter1");
+		AbstractJavaStructure inter = new JavaInterface("GeneralTests.Inter1");
 		clazz.implement.add(inter);
-		mod.putStructure("sampleClasses.Class1", clazz);
+		mod.putStructure("GeneralTests.Class1", clazz);
 		
 		List<Relation> correct = new LinkedList<Relation>();
 		correct.add(new Relation(clazz, inter));
@@ -58,18 +58,18 @@ public class JavaModelTest {
 	@Test
 	public void testGetIncludedUsesRelations() {
 		Set<String> set = new HashSet<String>();
-		set.add("sampleClasses.Class1");
-		set.add("sampleClasses.Class2");
+		set.add("GeneralTests.Class1");
+		set.add("GeneralTests.Class2");
 		JavaModel mod = new JavaModel(set);
-		AbstractJavaStructure clazz = new JavaClass("sampleClasses.Class1", (IAccessModifier)new PublicModifier(), new LinkedList<IModifier>(),
+		AbstractJavaStructure clazz = new JavaClass("GeneralTests.Class1", (IAccessModifier)new PublicModifier(), new LinkedList<IModifier>(),
 				new LinkedList<AbstractJavaElement>(), new LinkedList<AbstractJavaStructure>(), (AbstractJavaStructure)new JavaClass("Class2"));
-		JavaClass clazz2 = new JavaClass("sampleClasses.Class2");
+		JavaClass clazz2 = new JavaClass("GeneralTests.Class2");
 		JavaMethod meth = new JavaMethod(clazz, "getClass2", (IAccessModifier) new PublicModifier(), new LinkedList<IModifier>(),
 				clazz2, new LinkedList<AbstractJavaStructure>(), false);
 		clazz.addSubElement(meth);
 		
-		mod.putStructure("sampleClasses.Class1", clazz);
-		mod.putStructure("sampleClasses.Class2", clazz2);
+		mod.putStructure("GeneralTests.Class1", clazz);
+		mod.putStructure("GeneralTests.Class2", clazz2);
 		
 		List<Relation> correct = new LinkedList<Relation>();
 		correct.add(new Relation(clazz, clazz2));
@@ -80,18 +80,18 @@ public class JavaModelTest {
 	@Test
 	public void testGetIncludedAssociationRelations() {
 		Set<String> set = new HashSet<String>();
-		set.add("sampleClasses.Class1");
-		set.add("sampleClasses.Class2");
+		set.add("GeneralTests.Class1");
+		set.add("GeneralTests.Class2");
 		JavaModel mod = new JavaModel(set);
-		AbstractJavaStructure clazz2 = new JavaClass("sampleClasses.Class2", (IAccessModifier)new PublicModifier(), new LinkedList<IModifier>(),
+		AbstractJavaStructure clazz2 = new JavaClass("GeneralTests.Class2", (IAccessModifier)new PublicModifier(), new LinkedList<IModifier>(),
 				new LinkedList<AbstractJavaElement>(), new LinkedList<AbstractJavaStructure>(), (AbstractJavaStructure)new JavaClass("Class1"));
-		JavaClass clazz = new JavaClass("sampleClasses.Class1");
-		JavaField field = new JavaField(clazz2, "sampleClasses.Class1", (IAccessModifier) new PublicModifier(), new LinkedList<IModifier>(),
+		JavaClass clazz = new JavaClass("GeneralTests.Class1");
+		JavaField field = new JavaField(clazz2, "GeneralTests.Class1", (IAccessModifier) new PublicModifier(), new LinkedList<IModifier>(),
 				clazz);
 		clazz2.addSubElement(field);
 		
-		mod.putStructure("sampleClasses.Class1", clazz);
-		mod.putStructure("sampleClasses.Class2", clazz2);
+		mod.putStructure("GeneralTests.Class1", clazz);
+		mod.putStructure("GeneralTests.Class2", clazz2);
 		
 		List<Relation> correct = new LinkedList<Relation>();
 		correct.add(new Relation(clazz2, clazz));

@@ -23,9 +23,9 @@ public class SingletonTesting {
 	@Test
 	public void testCheckForStaticFieldInstance() {
 		Set<String> classes = new HashSet<String>();
-		classes.add("sampleClasses.Singleton");
+		classes.add("SingletonTest.Singleton");
 		JavaModel model = new JavaModel(classes);
-		JavaClass struct = new JavaClass("sampleClasses.Singleton");
+		JavaClass struct = new JavaClass("SingletonTest.Singleton");
 		IStructureVisitor v = new SingletonVisitor();
 		model.accept(v);
 		List<IPattern> list = model.getPatterns();
@@ -35,7 +35,7 @@ public class SingletonTesting {
 		LinkedList<IModifier> modifiers = new LinkedList<IModifier>();
 		modifiers.add(new StaticModifier());
 		struct.addSubElement(new JavaField(struct, "instance", new PrivateModifier(), modifiers, struct));
-		model.putStructure("sampleClasses.Singleton", struct);
+		model.putStructure("SingletonTest.Singleton", struct);
 		model.accept(v);
 		list = model.getPatterns();
 		assertTrue(list.size() == 1);
@@ -44,15 +44,15 @@ public class SingletonTesting {
 	@Test
 	public void testCheckForGetInstanceMethod() {
 		Set<String> classes = new HashSet<String>();
-		classes.add("sampleClasses.Singleton");
+		classes.add("SingletonTest.Singleton");
 		JavaModel model = new JavaModel(classes);
-		JavaClass struct = new JavaClass("sampleClasses.Singleton");
+		JavaClass struct = new JavaClass("SingletonTest.Singleton");
 		
 		LinkedList<IModifier> list = new LinkedList<IModifier>();
 		list.add(new StaticModifier());
 		struct.addSubElement(new JavaMethod(struct, "getInstance", new PublicModifier(), list, 
 				struct, new LinkedList<AbstractJavaStructure>(), false));
-		model.putStructure("sampleClasses.Singleton", struct);
+		model.putStructure("SingletonTest.Singleton", struct);
 		IStructureVisitor v = new SingletonVisitor();
 		model.accept(v);
 		

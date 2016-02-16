@@ -56,10 +56,10 @@ public class DecoratorTest {
 	@Test
 	public void testCheckForOtherDecorators() throws IOException {
 		Set<String> classes = new HashSet<String>();
-		classes.add("sampleClasses.Decorator");
-		classes.add("sampleClasses.InitialDecorator");
-		classes.add("sampleClasses.SecondLevelDecorator");
-		classes.add("sampleClasses.ThirdLevelDecorator");
+		classes.add("DecoratorTest.Decorator");
+		classes.add("DecoratorTest.InitialDecorator");
+		classes.add("DecoratorTest.SecondLevelDecorator");
+		classes.add("DecoratorTest.ThirdLevelDecorator");
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes, out);
 		visitor.buildUMLModel();
@@ -71,14 +71,14 @@ public class DecoratorTest {
 		System.out.println("\n\n");
 		System.out.println(output);
 		
-		assertTrue(output.contains("sampleClasses.Decorator\\l\\<\\<component\\>\\>"));
-		assertTrue(output.contains("sampleClasses.InitialDecorator\\l\\<\\<decorator\\>\\>"));
-		assertTrue(output.contains("sampleClasses.SecondLevelDecorator\\l\\<\\<decorator\\>\\>"));
-		assertTrue(output.contains("sampleClasses.ThirdLevelDecorator\\l\\<\\<decorator\\>\\>"));
+		assertTrue(output.contains("DecoratorTest.Decorator\\l\\<\\<component\\>\\>"));
+		assertTrue(output.contains("DecoratorTest.InitialDecorator\\l\\<\\<decorator\\>\\>"));
+		assertTrue(output.contains("DecoratorTest.SecondLevelDecorator\\l\\<\\<decorator\\>\\>"));
+		assertTrue(output.contains("DecoratorTest.ThirdLevelDecorator\\l\\<\\<decorator\\>\\>"));
 
-		assertTrue(output.contains("\"sampleClasses.InitialDecorator\" -> \"sampleClasses.Decorator\" [label = \"\\<\\<decorates\\>\\>"));
-		assertTrue(output.contains("\"sampleClasses.SecondLevelDecorator\" -> \"sampleClasses.Decorator\" [label = \"\\<\\<decorates\\>\\>"));
-		assertTrue(output.contains("\"sampleClasses.ThirdLevelDecorator\" -> \"sampleClasses.Decorator\" [label = \"\\<\\<decorates\\>\\>"));
+		assertTrue(output.contains("\"DecoratorTest.InitialDecorator\" -> \"DecoratorTest.Decorator\" [label = \"\\<\\<decorates\\>\\>"));
+		assertTrue(output.contains("\"DecoratorTest.SecondLevelDecorator\" -> \"DecoratorTest.Decorator\" [label = \"\\<\\<decorates\\>\\>"));
+		assertTrue(output.contains("\"DecoratorTest.ThirdLevelDecorator\" -> \"DecoratorTest.Decorator\" [label = \"\\<\\<decorates\\>\\>"));
 	}
 	
 }

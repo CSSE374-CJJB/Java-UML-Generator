@@ -44,11 +44,11 @@ public class AdapterTest {
 	@Test
 	public void testCheckForOtherAdapters() throws IOException {
 		Set<String> classes = new HashSet<String>();
-		classes.add("sampleClasses.ToAdapt");
-		classes.add("sampleClasses.ToAdaptTo");
-		classes.add("sampleClasses.ToAdaptToClass");
-		classes.add("sampleClasses.Core");
-		classes.add("sampleClasses.ToAdaptClass");
+		classes.add("AdapterTest.ToAdapt");
+		classes.add("AdapterTest.ToAdaptTo");
+		classes.add("AdapterTest.ToAdaptToClass");
+		classes.add("AdapterTest.Core");
+		classes.add("AdapterTest.ToAdaptClass");
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes, out);
 		visitor.buildUMLModel();
@@ -59,10 +59,10 @@ public class AdapterTest {
 		System.out.println("\n\n");
 		System.out.println(output);
 		
-		assertTrue(output.contains("sampleClasses.ToAdapt\\l\\<\\<adaptee\\>\\>"));
-		assertTrue(output.contains("sampleClasses.ToAdaptTo\\l\\<\\<target\\>\\>"));
-		assertTrue(output.contains("sampleClasses.Core\\l\\<\\<adapter\\>\\>"));
-		assertTrue(output.contains("\"sampleClasses.Core\" -> \"sampleClasses.ToAdapt\" [label = \"\\<\\<adapts\\>\\>"));
+		assertTrue(output.contains("AdapterTest.ToAdapt\\l\\<\\<adaptee\\>\\>"));
+		assertTrue(output.contains("AdapterTest.ToAdaptTo\\l\\<\\<target\\>\\>"));
+		assertTrue(output.contains("AdapterTest.Core\\l\\<\\<adapter\\>\\>"));
+		assertTrue(output.contains("\"AdapterTest.Core\" -> \"AdapterTest.ToAdapt\" [label = \"\\<\\<adapts\\>\\>"));
 	}
 	
 }
