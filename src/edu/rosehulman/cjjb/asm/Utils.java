@@ -85,8 +85,6 @@ public class Utils {
 	}
 
 	public static String getCleanName(String name) {
-		Type type = Type.getType(name);
-		name = type.getInternalName();
 		return name.replaceAll("\\/", ".");
 	}
 
