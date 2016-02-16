@@ -37,6 +37,8 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser, IStructureTr
 		this.includedClasses = includedClasses;
 		
 		this.methodGroups = new LinkedList<MethodCallGroup>();
+		
+		this.patterns = new LinkedList<IPattern>();
 	}
 
 	public boolean containsStructure(String name) {
@@ -163,9 +165,7 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser, IStructureTr
 		}
 	}
 	
-	private void checkForPatterns(List<IPatternCheck> patterns) {
-		this.patterns = new LinkedList<IPattern>();
-		
+	private void checkForPatterns(List<IPatternCheck> patterns) {		
 		for(IPatternCheck check: patterns) {
 			List<IPattern> list = check.check(this);
 			this.patterns.addAll(list);
