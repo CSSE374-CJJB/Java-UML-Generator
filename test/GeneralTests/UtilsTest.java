@@ -26,9 +26,9 @@ public class UtilsTest {
 	@Test
 	public void testSyntax() throws IOException {
 		Set<String> classes = new HashSet<String>();
-		classes.add("sampleClasses.Class1");
-		classes.add("sampleClasses.Class2");
-		classes.add("sampleClasses.Inter1");
+		classes.add("GeneralTests.Class1");
+		classes.add("GeneralTests.Class2");
+		classes.add("GeneralTests.Inter1");
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes, out);
 		visitor.buildUMLModel();
@@ -40,9 +40,9 @@ public class UtilsTest {
 		assertTrue(result.contains("Class1"));
 		assertTrue(result.contains("Class2"));
 		assertTrue(result.contains("Inter1"));
-		assertTrue(result.contains("\"sampleClasses.Class1\" -> \"sampleClasses.Inter1\""));
-		assertTrue(result.contains("\"sampleClasses.Class1\" -> \"sampleClasses.Class2\""));
-		assertTrue(result.contains("\"sampleClasses.Class2\" -> \"sampleClasses.Class1\""));
+		assertTrue(result.contains("\"GeneralTests.Class1\" -> \"GeneralTests.Inter1\""));
+		assertTrue(result.contains("\"GeneralTests.Class1\" -> \"GeneralTests.Class2\""));
+		assertTrue(result.contains("\"GeneralTests.Class2\" -> \"GeneralTests.Class1\""));
 		
 		assertEquals(countString("\\{", result), countString("\\}", result));
 		assertEquals(countString("\\[", result), countString("\\]", result));
@@ -93,20 +93,20 @@ public class UtilsTest {
 	@Test
 	public void testGetInstanceOrJavaStructure() {
 		Set<String> set = new HashSet<String>();
-		set.add("sampleClasses.Class1");
+		set.add("GeneralTests.Class1");
 		JavaModel mod = new JavaModel(set);
-		AbstractJavaStructure clazz = Utils.getInstanceOrJavaStructure(mod, "sampleClasses.Class1");
-		assertEquals(clazz, Utils.getInstanceOrJavaStructure(mod, "sampleClasses.Class1"));
+		AbstractJavaStructure clazz = Utils.getInstanceOrJavaStructure(mod, "GeneralTests.Class1");
+		assertEquals(clazz, Utils.getInstanceOrJavaStructure(mod, "GeneralTests.Class1"));
 	}
 	
 	@Test
 	public void testGetInstanceOrJavaStructures() {
 		Set<String> set = new HashSet<String>();
-		set.add("sampleClasses.Class1");
+		set.add("GeneralTests.Class1");
 		JavaModel mod = new JavaModel(set);
 		String[] names = new String[2];
-		names[0] = "sampleClasses.Class1";
-		names[1] = "sampleClasses.Inter1";
+		names[0] = "GeneralTests.Class1";
+		names[1] = "GeneralTests.Inter1";
 		
 		List<AbstractJavaStructure> list = Utils.getInstanceOrJavaStructures(mod, names);
 		
@@ -116,12 +116,12 @@ public class UtilsTest {
 	@Test
 	public void testGetCleanNames() {
 		String[] names = new String[2];
-		names[0] = "samplesClasses/Class1";
-		names[1] = "samplesClasses/Inter1";
+		names[0] = "GeneralTests/Class1";
+		names[1] = "GeneralTests/Inter1";
 		
 		String[] correct = new String[2];
-		correct[0] = "samplesClasses.Class1";
-		correct[1] = "samplesClasses.Inter1";
+		correct[0] = "GeneralTests.Class1";
+		correct[1] = "GeneralTests.Inter1";
 		
 		assertArrayEquals(correct, Utils.getCleanNames(names));
 		

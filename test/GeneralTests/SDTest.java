@@ -16,7 +16,7 @@ import edu.rosehulman.cjjb.javaModel.visitor.SDSequenceVisitor;
 public class SDTest {
 	@Test
 	public void testSDDiagram() throws IOException {
-		String clazz = "sampleClasses.Class1";
+		String clazz = "GeneralTests.Class1";
 		QualifiedMethod method = new QualifiedMethod("publicVoidMethod", "()V");
 		
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -28,10 +28,10 @@ public class SDTest {
 		
 		System.out.println(result);
 		
-		assertTrue(result.contains("sampleClasses\\.Class1:sampleClasses\\.Class1"));
-		assertTrue(result.contains("sampleClasses\\.Class2:sampleClasses\\.Class2"));
+		assertTrue(result.contains("GeneralTests\\.Class1:GeneralTests\\.Class1"));
+		assertTrue(result.contains("GeneralTests\\.Class2:GeneralTests\\.Class2"));
 		
-		assertTrue(result.contains("sampleClasses\\.Class1:void=sampleClasses\\.Class2.protectedVoidMethod()"));
-		assertTrue(result.contains("sampleClasses\\.Class2:sampleClasses.Class2=sampleClasses\\.Class1.getClass2()"));
+		assertTrue(result.contains("GeneralTests\\.Class1:void=GeneralTests\\.Class2.protectedVoidMethod()"));
+		assertTrue(result.contains("GeneralTests\\.Class2:GeneralTests.Class2=GeneralTests\\.Class1.getClass2()"));
 	}
 }
