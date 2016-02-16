@@ -57,4 +57,13 @@ public class JavaClass extends AbstractJavaStructure {
 		
 		return element;
 	}
+	
+	@Override
+	protected <T extends AbstractJavaElement> void getElementsOfType(List<T> list, Class<T> clazz) {
+		super.getElementsOfType(list, clazz);
+		
+		if(superClass != null) {
+			superClass.getElementsOfType(list, clazz);
+		}
+	}
 }

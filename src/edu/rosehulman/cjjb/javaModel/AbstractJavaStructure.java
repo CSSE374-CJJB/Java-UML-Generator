@@ -128,4 +128,24 @@ public abstract class AbstractJavaStructure extends AbstractJavaThing {
 				struct.getSuperClasses(set);
 			}
 	}
+	
+	public <T extends AbstractJavaElement> List<T> getElementsOfType(Class<T> clazz) {
+		List<T> list = new LinkedList<T>();
+		getElementsOfType(list, clazz);
+		return list;
+	}
+	
+	// This is checked via isInstance 
+	@SuppressWarnings("unchecked")
+	protected <T extends AbstractJavaElement> void getElementsOfType(List<T> list, Class<T> clazz) {
+		for(AbstractJavaElement ele: subElements) {
+			if(clazz.isInstance(ele)) {
+				list.add((T) ele);
+			}
+		}
+		
+		for(AbstractJavaStructure struct: implement) {
+			struct.getElementsOfType(list, clazz);
+		}
+	}
 }

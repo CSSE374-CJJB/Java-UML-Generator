@@ -10,8 +10,6 @@ import edu.rosehulman.cjjb.javaModel.modifier.IModifier;
 import edu.rosehulman.cjjb.javaModel.visitor.IUMLVisitor;
 
 public class JavaMethod extends AbstractJavaElement {
-	public AbstractJavaStructure structure;
-	
 	public List<AbstractJavaStructure> arguments;
 	
 	public List<JavaMethod> methodCalls;

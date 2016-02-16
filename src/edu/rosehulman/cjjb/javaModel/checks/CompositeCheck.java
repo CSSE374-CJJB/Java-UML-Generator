@@ -7,6 +7,7 @@ import java.util.Set;
 
 import edu.rosehulman.cjjb.javaModel.AbstractJavaElement;
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
+import edu.rosehulman.cjjb.javaModel.JavaField;
 import edu.rosehulman.cjjb.javaModel.JavaMethod;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
 import edu.rosehulman.cjjb.javaModel.pattern.CompositePattern;
@@ -23,7 +24,7 @@ public class CompositeCheck implements IPatternCheck {
 		
 		for(AbstractJavaStructure struct: model.getStructures()) {
 			set.clear();
-			if(hasAddRemove(struct)) {
+			if(hasAddRemove(struct) /*&& checkForCollection(struct)*/) {
 				for(AbstractJavaStructure component: set) {
 					CompositePattern pattern = containsPattern(toReturn, component);
 					if(pattern != null) {
@@ -127,5 +128,16 @@ public class CompositeCheck implements IPatternCheck {
 			}
 		}
 		return null;
+	}
+	
+	private boolean checkForCollection(AbstractJavaStructure struct) {
+		for(AbstractJavaElement ele: struct.subElements) {
+			if(ele instanceof JavaField) {
+				if(ele.type.name == "java.util.Collection") {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }
