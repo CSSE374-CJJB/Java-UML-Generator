@@ -1,4 +1,4 @@
-package DecoratorTest;
+package sampleClasses;
 
 public class ThirdLevelDecorator2 extends Decorator2 {
 	
