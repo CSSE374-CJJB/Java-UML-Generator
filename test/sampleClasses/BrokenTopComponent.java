@@ -1,4 +1,4 @@
-package CompositeTest;
+package sampleClasses;
 
 public class BrokenTopComponent implements IBrokenComponent {
 	

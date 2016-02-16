@@ -1,7 +1,7 @@
-package CompositeTest;
+package sampleClasses;
 
-public class TopComponent2 implements IComponent2 {
-
+public class OtherTopComponent2 implements IComponent2 {
+	
 	public void add(IComponent2 comp) {
 		// TODO Auto-generated method stub
 		
