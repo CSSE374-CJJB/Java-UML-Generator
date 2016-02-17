@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.google.gson.Gson;
@@ -51,13 +53,15 @@ public class JsonHandler {
 		
 		FileOutputStream stream;
 		try {
+			List<String> phaseList = Arrays.asList(config.Phases);
+			
 			stream = new FileOutputStream(folder);
 			JavaModelClassVisitor visitor = new JavaModelClassVisitor(classesToVisit);
 			
 			visitor.buildUMLModelOnly();
-			visitor.runPatternDetection(PatternFindingFactory.getPatternChecks(config.Phases), PatternFindingFactory.getStructureVisitors(config.Phases));
+			visitor.runPatternDetection(PatternFindingFactory.getPatternChecks(phaseList), PatternFindingFactory.getStructureVisitors(phaseList));
 			
-			if(config.Phases.contains("DOT-Generation")) {
+			if(phaseList.contains("DOT-Generation")) {
 				IUMLVisitor umlVisitor = new UMLDotVisitor(stream, visitor.getModel());
 				visitor.getModel().accept(umlVisitor);				
 			}

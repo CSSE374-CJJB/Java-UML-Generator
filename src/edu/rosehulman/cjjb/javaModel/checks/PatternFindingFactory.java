@@ -34,7 +34,7 @@ public class PatternFindingFactory {
 		return toReturn;
 	}
 	
-	public static List<IPatternCheck> getPatternChecks(String phases) {
+	public static List<IPatternCheck> getPatternChecks(List<String> phases) {
 		List<IPatternCheck> toReturn = new LinkedList<IPatternCheck>();
 
 		for(String s: patterns.keySet()) {
@@ -60,7 +60,7 @@ public class PatternFindingFactory {
 		return toReturn;
 	}
 	
-	public static List<IStructureVisitor> getStructureVisitors(String phases) {
+	public static List<IStructureVisitor> getStructureVisitors(List<String> phases) {
 		List<IStructureVisitor> toReturn = new LinkedList<IStructureVisitor>();
 		
 		for(String s: visitors.keySet()) {
