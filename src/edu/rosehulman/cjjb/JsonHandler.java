@@ -26,7 +26,7 @@ public class JsonHandler {
 		FileReader reader;
 		jsonConfig = null;
 		try {
-			reader = new FileReader(arguments[0]);
+			reader = new FileReader(arguments[1]);
 			jsonConfig = gson.fromJson(reader, JsonConfig.class);
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
