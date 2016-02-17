@@ -19,19 +19,25 @@ import edu.rosehulman.cjjb.javaModel.visitor.UMLDotVisitor;
 
 public class JsonHandler {
 	
+	private JsonConfig jsonConfig;
+	
 	public JsonHandler(String[] arguments) {
 		Gson gson = new Gson();
 		FileReader reader;
-		JsonConfig config = null;
+		jsonConfig = null;
 		try {
 			reader = new FileReader(arguments[0]);
-			config = gson.fromJson(reader, JsonConfig.class);
+			jsonConfig = gson.fromJson(reader, JsonConfig.class);
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
 			System.exit(0);
 		}
 		
-		run(config);
+	}
+	
+	public void run() {
+		run(jsonConfig);
+		
 	}
 	
 	public void run(JsonConfig config) {

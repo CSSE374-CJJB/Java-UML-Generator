@@ -106,7 +106,7 @@ public class Main {
 			exampleCall(new FileOutputStream("umlOutput.txt"), new FileOutputStream("seqOutput.txt"));
 			break;
 		case "JSON" :
-			
+			new JsonHandler(args).run();
 			break;
 		default:
 			System.out.println("Not a valid diagram type. Valid Types: SEQ|UML|EXAMPLE");
