@@ -26,8 +26,8 @@ public class CompositeTest {
 		classes.add("problem.sprites.RectangleTower");
 		classes.add("problem.sprites.SpriteFactory");
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes, out);
-		visitor.buildUMLModel();
+		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes);
+		visitor.buildUMLModelDefault();
 		UMLDotVisitor umlVis = new UMLDotVisitor(out, visitor.getModel());
 		visitor.getModel().accept(umlVis);
 		String output = new String(out.toByteArray());
@@ -52,8 +52,8 @@ public class CompositeTest {
 		classes.add("sampleClasses.SecondComponent");
 		classes.add("sampleClasses.ThirdComponent");
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes, out);
-		visitor.buildUMLModel();
+		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes);
+		visitor.buildUMLModelDefault();
 		UMLDotVisitor umlVis = new UMLDotVisitor(out, visitor.getModel());
 		visitor.getModel().accept(umlVis);
 		String output = new String(out.toByteArray());
@@ -76,8 +76,8 @@ public class CompositeTest {
 		classes.add("sampleClasses.Leaf");
 		classes.add("sampleClasses.Leaf2");
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes, out);
-		visitor.buildUMLModel();
+		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes);
+		visitor.buildUMLModelDefault();
 		UMLDotVisitor umlVis = new UMLDotVisitor(out, visitor.getModel());
 		visitor.getModel().accept(umlVis);
 		String output = new String(out.toByteArray());
@@ -100,8 +100,8 @@ public class CompositeTest {
 		classes.add("sampleClasses.SecondLevelDecorator");
 		classes.add("sampleClasses.ThirdLevelDecorator");
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes, out);
-		visitor.buildUMLModel();
+		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes);
+		visitor.buildUMLModelDefault();
 		UMLDotVisitor umlVis = new UMLDotVisitor(out, visitor.getModel());
 		visitor.getModel().accept(umlVis);
 		String output = new String(out.toByteArray());
@@ -124,8 +124,8 @@ public class CompositeTest {
 		classes.add("sampleClasses.BrokenSecondComponent");
 		classes.add("sampleClasses.BrokenThirdComponent");
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes, out);
-		visitor.buildUMLModel();
+		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes);
+		visitor.buildUMLModelDefault();
 		UMLDotVisitor umlVis = new UMLDotVisitor(out, visitor.getModel());
 		visitor.getModel().accept(umlVis);
 		String output = new String(out.toByteArray());

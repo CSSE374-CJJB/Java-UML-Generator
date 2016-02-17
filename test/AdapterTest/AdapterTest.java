@@ -23,8 +23,8 @@ public class AdapterTest {
 		classes.add("java.util.Enumeration");
 		classes.add("java.util.Iterator");
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes, out);
-		visitor.buildUMLModel();
+		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes);
+		visitor.buildUMLModelDefault();
 		UMLDotVisitor umlVis = new UMLDotVisitor(out, visitor.getModel());
 		visitor.getModel().accept(umlVis);
 		String output = new String(out.toByteArray());
@@ -50,8 +50,8 @@ public class AdapterTest {
 		classes.add("AdapterTest.Core");
 		classes.add("AdapterTest.ToAdaptClass");
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes, out);
-		visitor.buildUMLModel();
+		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes);
+		visitor.buildUMLModelDefault();
 		UMLDotVisitor umlVis = new UMLDotVisitor(out, visitor.getModel());
 		visitor.getModel().accept(umlVis);
 		String output = new String(out.toByteArray());

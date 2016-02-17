@@ -1,7 +1,7 @@
 package edu.rosehulman.cjjb;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.util.List;
 import java.util.Set;
 
 import org.objectweb.asm.ClassReader;
@@ -15,7 +15,9 @@ import edu.rosehulman.cjjb.asm.ClassSequnceClassVisitor;
 import edu.rosehulman.cjjb.asm.QualifiedMethod;
 import edu.rosehulman.cjjb.asm.SequenceStructure;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
+import edu.rosehulman.cjjb.javaModel.checks.IPatternCheck;
 import edu.rosehulman.cjjb.javaModel.checks.PatternFindingFactory;
+import edu.rosehulman.cjjb.javaModel.visitor.IStructureVisitor;
 
 public class JavaModelClassVisitor {
 
@@ -27,7 +29,7 @@ public class JavaModelClassVisitor {
 	private int depth;
 	
 
-	public JavaModelClassVisitor(Set<String> classes, OutputStream out) {
+	public JavaModelClassVisitor(Set<String> classes) {
 		this(classes, null, null, 0);
 	}
 
@@ -45,7 +47,7 @@ public class JavaModelClassVisitor {
 		this.depth = depth;
 	}
 
-	public void buildUMLModel() throws IOException{
+	public void buildUMLModelDefault() throws IOException{
 		for (String className : this.classes) {
 			try {
 				ClassReader reader = new ClassReader(className); 
@@ -62,7 +64,27 @@ public class JavaModelClassVisitor {
 		model.finalize(PatternFindingFactory.getPatternChecks(), PatternFindingFactory.getStructureVisitors());
 	}
 	
-	public void buildSeqModel() throws IOException {
+	public void buildUMLModelOnly() {
+		for (String className : this.classes) {
+			try {
+				ClassReader reader = new ClassReader(className); 
+				ClassVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, model);
+				ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, decVisitor, className, model);
+				ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor, className, model);
+				
+				reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
+			} catch (IOException e) {
+				System.out.println("Class not Found: " + className);
+				System.exit(1);
+			}
+		}
+	}
+	
+	public void runPatternDetection(List<IPatternCheck> patterns, List<IStructureVisitor> visitors) {
+		model.finalize(patterns, visitors);
+	}
+	
+	public void buildSeqModelDefault() throws IOException {
 		if (depth != 0) {
 			ClassReader reader = new ClassReader(classSearch);
 			

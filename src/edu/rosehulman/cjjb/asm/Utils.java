@@ -163,9 +163,12 @@ public class Utils {
 	}
 
 	public static String getWithoutGenerics(String signature) {
-		if(signature.contains("<")) {
-			signature = signature.replaceAll("<{1}.*>{1}", "");
+		Type type = Type.getType(signature);
+		String namePartial = type.getClassName();
+		if(namePartial.contains("<")) {
+			namePartial = namePartial.replaceAll("<{1}.*>{1}", "");
+			namePartial = namePartial.replaceAll("<.*", "");
 		}
-		return Utils.getCleanName(signature);
+		return Utils.getCleanName(namePartial);
 	}
 }

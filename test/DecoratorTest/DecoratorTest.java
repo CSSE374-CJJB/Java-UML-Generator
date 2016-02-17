@@ -31,8 +31,8 @@ public class DecoratorTest {
 		classes.add("headfirst.decorator.starbuzz.StarbuzzCoffee");
 		classes.add("headfirst.decorator.starbuzz.Whip");
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes, out);
-		visitor.buildUMLModel();
+		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes);
+		visitor.buildUMLModelDefault();
 		
 		UMLDotVisitor umlVis = new UMLDotVisitor(out, visitor.getModel());
 		visitor.getModel().accept(umlVis);
@@ -61,8 +61,8 @@ public class DecoratorTest {
 		classes.add("sampleClasses.SecondLevelDecorator2");
 		classes.add("sampleClasses.ThirdLevelDecorator2");
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes, out);
-		visitor.buildUMLModel();
+		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes);
+		visitor.buildUMLModelDefault();
 		
 		UMLDotVisitor umlVis = new UMLDotVisitor(out, visitor.getModel());
 		visitor.getModel().accept(umlVis);

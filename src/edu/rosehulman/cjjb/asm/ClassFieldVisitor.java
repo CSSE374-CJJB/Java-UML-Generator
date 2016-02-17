@@ -26,7 +26,7 @@ public class ClassFieldVisitor extends ClassVisitor {
 		AbstractJavaStructure structure = model.getStructure(Utils.getCleanName(this.className));
 
 		if (signature == null) {
-			JavaField typeClass = new JavaField(Utils.getInstanceOrJavaStructure(model, className), name, Utils.getAccessModifier(access), Utils.getModifiers(access),
+			JavaField typeClass = new JavaField(structure, name, Utils.getAccessModifier(access), Utils.getModifiers(access),
 					Utils.getInstanceOrJavaStructure(model, type));
 
 			structure.addSubElement(typeClass);
@@ -34,10 +34,10 @@ public class ClassFieldVisitor extends ClassVisitor {
 			for (String s : Utils.getGenericsPart(signature)) {
 				JavaField typeClass;
 				if(s != null) {
-					typeClass = new JavaField(Utils.getInstanceOrJavaStructure(model, className), name, Utils.getAccessModifier(access), Utils.getModifiers(access),
+					typeClass = new JavaField(structure, name, Utils.getAccessModifier(access), Utils.getModifiers(access),
 							Utils.getInstanceOrJavaStructure(model, s));
 				} else {
-					typeClass = new JavaField(Utils.getInstanceOrJavaStructure(model, className), name, Utils.getAccessModifier(access), Utils.getModifiers(access),
+					typeClass = new JavaField(structure, name, Utils.getAccessModifier(access), Utils.getModifiers(access),
 							Utils.getInstanceOrJavaStructure(model, Utils.getWithoutGenerics(signature)));
 				}
 				structure.addSubElement(typeClass);					

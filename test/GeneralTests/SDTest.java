@@ -21,7 +21,7 @@ public class SDTest {
 		
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		JavaModelClassVisitor vis = new JavaModelClassVisitor(clazz, method, 2);
-		vis.buildSeqModel();
+		vis.buildSeqModelDefault();
 		ISequenceVisitor seqVisitor = new SDSequenceVisitor(clazz, method, 2, out);
 		vis.getModel().accept(seqVisitor);
 		String result = new String(out.toByteArray());

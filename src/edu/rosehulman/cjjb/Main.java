@@ -84,7 +84,7 @@ public class Main {
 			String clazz = getClassFromArgs(args);
 			JavaModelClassVisitor visitor = new JavaModelClassVisitor(clazz, qm, 2);
 			
-			visitor.buildSeqModel();
+			visitor.buildSeqModelDefault();
 			ISequenceVisitor seqVisitor = new SDSequenceVisitor(clazz, qm, 2, out);
 			visitor.getModel().accept(seqVisitor);
 			break;
@@ -97,13 +97,16 @@ public class Main {
 			}
 			System.out.println(classesToVisit);
 			
-			visitor = new JavaModelClassVisitor(classesToVisit, out);
-			visitor.buildUMLModel();
+			visitor = new JavaModelClassVisitor(classesToVisit);
+			visitor.buildUMLModelDefault();
 			IUMLVisitor umlVisitor = new UMLDotVisitor(out, visitor.getModel());
 			visitor.getModel().accept(umlVisitor);
 			break;
 		case "EXAMPLE":
 			exampleCall(new FileOutputStream("umlOutput.txt"), new FileOutputStream("seqOutput.txt"));
+			break;
+		case "JSON" :
+			
 			break;
 		default:
 			System.out.println("Not a valid diagram type. Valid Types: SEQ|UML|EXAMPLE");
@@ -175,7 +178,7 @@ public class Main {
 		QualifiedMethod qm = new QualifiedMethod("shuffle", "(Ljava/util/List;)V");
 		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classesToVisit, "java.util.Collections", qm, 2);
 		
-		visitor.buildUMLModel();
+		visitor.buildUMLModelDefault();
 		IUMLVisitor umlVisitor = new UMLDotVisitor(umlOut, visitor.getModel());
 		visitor.getModel().accept(umlVisitor);
 	

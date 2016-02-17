@@ -30,8 +30,8 @@ public class UtilsTest {
 		classes.add("GeneralTests.Class2");
 		classes.add("GeneralTests.Inter1");
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes, out);
-		visitor.buildUMLModel();
+		JavaModelClassVisitor visitor = new JavaModelClassVisitor(classes);
+		visitor.buildUMLModelDefault();
 		IUMLVisitor umlVisitor = new UMLDotVisitor(out, visitor.getModel());
 		visitor.getModel().accept(umlVisitor);
 		
