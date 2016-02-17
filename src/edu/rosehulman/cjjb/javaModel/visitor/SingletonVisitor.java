@@ -8,7 +8,6 @@ import edu.rosehulman.cjjb.asm.Utils;
 import edu.rosehulman.cjjb.javaModel.AbstractJavaElement;
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
 import edu.rosehulman.cjjb.javaModel.JavaClass;
-import edu.rosehulman.cjjb.javaModel.JavaField;
 import edu.rosehulman.cjjb.javaModel.JavaInterface;
 import edu.rosehulman.cjjb.javaModel.JavaModel;
 import edu.rosehulman.cjjb.javaModel.checks.IPattern;

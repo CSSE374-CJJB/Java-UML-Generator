@@ -14,7 +14,6 @@ import edu.rosehulman.cjjb.javaModel.JavaModel;
 import edu.rosehulman.cjjb.javaModel.JavaMethod;
 import edu.rosehulman.cjjb.javaModel.Relation;
 import edu.rosehulman.cjjb.javaModel.checks.IPattern;
-import edu.rosehulman.cjjb.javaModel.checks.IPatternCheck;
 import edu.rosehulman.cjjb.javaModel.modifier.IAccessModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.PrivateModifier;
 import edu.rosehulman.cjjb.javaModel.modifier.ProtectedModifier;

@@ -4,18 +4,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FilterWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 import com.google.gson.Gson;
 
-import edu.rosehulman.cjjb.asm.QualifiedMethod;
 import edu.rosehulman.cjjb.javaModel.checks.PatternFindingFactory;
 import edu.rosehulman.cjjb.javaModel.visitor.IUMLVisitor;
 import edu.rosehulman.cjjb.javaModel.visitor.UMLDotVisitor;
