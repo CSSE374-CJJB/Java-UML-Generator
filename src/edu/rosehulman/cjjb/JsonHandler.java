@@ -37,7 +37,7 @@ public class JsonHandler {
 	public void run(JsonConfig config) {
 		Set<String> classesToVisit = getClassList(config);
 	
-		File file = new File(config.InputFolder);
+		File file = new File(config.OutputDirectory);
 		String folder = file.getAbsoluteFile().getName();
 		if(folder.endsWith(File.separator)) {
 			folder += File.separator + "umlOutput.txt";
