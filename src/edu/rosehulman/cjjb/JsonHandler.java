@@ -31,7 +31,7 @@ public class JsonHandler {
 			reader = new FileReader(arguments[1]);
 			jsonConfig = gson.fromJson(reader, JsonConfig.class);
 		} catch (FileNotFoundException e) {
-			System.out.println("File not found");
+			System.out.println("Json File not found");
 			System.exit(0);
 		}
 		
@@ -43,12 +43,20 @@ public class JsonHandler {
 	}
 	
 	public void run(JsonConfig config) {
-		Set<String> classesToVisit = getClassList(config);
+ 		Set<String> classesToVisit = getClassList(config);
 	
 		File file = new File(config.OutputDirectory);
-		String folder = file.getAbsoluteFile().getName();
-		if(folder.endsWith(File.separator)) {
-			folder += File.separator + "umlOutput.txt";
+		String folder = null;
+		try {
+			folder = file.getCanonicalPath();
+			if(!folder.endsWith(File.separator)) {
+				folder += File.separator ;
+			}
+			folder += "umlOutput.txt";
+		} catch (IOException e1) {
+			System.out.println("Unable to find output folder.");
+			e1.printStackTrace();
+			System.exit(0);
 		}
 		
 		FileOutputStream stream;
@@ -94,7 +102,7 @@ public class JsonHandler {
 		for(String name: config.InputClasses) {
 			try {
 				try {
-					ClassLoader.getSystemClassLoader().loadClass(name);
+					Class.forName(name);
 				} catch (ClassNotFoundException e1) {
 					cl.loadClass(name);
 				}

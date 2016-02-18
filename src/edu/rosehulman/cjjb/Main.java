@@ -21,7 +21,7 @@ import edu.rosehulman.cjjb.javaModel.visitor.UMLDotVisitor;
 public class Main {
 
 	public static final String[] CLASSES = { 
-		//"org.objectweb.asm.ClassVisitor", "java.util.Set"
+		"org.objectweb.asm.ClassVisitor", "java.util.Set"
 		/*
 		 * "problem.AppLauncher", "problem.HtmlWatcher",
 		 * "problem.JarWatcher", "problem.TextPrinterWatcher",
@@ -47,19 +47,19 @@ public class Main {
 			"headfirst.composite.menuiterator.MenuItem",
 			"headfirst.composite.menuiterator.MenuComponent"
 		*/
-		"problem.client.AnimatorApp"
+		// "problem.client.AnimatorApp"
 		
 	};
 	
 	public static final String[] PACKAGES = {
 		// "headfirst.composite.menu", "headfirst.composite.menuiterator"
-		"problem.graphics",
-		"problem.sprites"
-			/*
+		// "problem.graphics",
+		//"problem.sprites"
+			
 		"edu.rosehulman.cjjb", "edu.rosehulman.asm", "edu.rosehulman.cjjb.javaModel",  
 		"edu.rosehulman.cjjb.javaModel.checks", "edu.rosehulman.cjjb.javaModel.modifier", 
 		"edu.rosehulman.cjjb.javaModel.visitor", "edu.rosehulman.cjjb.javaModel.pattern"
-		*/
+		
 //		"headfirst.factory.pizzaaf", "headfirst.factory.pizzafm"
 		//	 "headfirst.decorator.io",
 		//	 "headfirst.decorator.starbuzz"
