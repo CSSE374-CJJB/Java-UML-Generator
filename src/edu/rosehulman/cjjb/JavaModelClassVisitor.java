@@ -48,19 +48,7 @@ public class JavaModelClassVisitor {
 	}
 
 	public void buildUMLModelDefault() throws IOException{
-		for (String className : this.classes) {
-			try {
-				ClassReader reader = new ClassReader(className); 
-				ClassVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, model);
-				ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, decVisitor, className, model);
-				ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor, className, model);
-				
-				reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
-			} catch (IOException e) {
-				System.out.println("Class not Found: " + className);
-				System.exit(1);
-			}
-		}
+		buildUMLModelOnly();
 		model.finalize(PatternFindingFactory.getPatternChecks(), PatternFindingFactory.getStructureVisitors());
 	}
 	
@@ -76,6 +64,7 @@ public class JavaModelClassVisitor {
 				reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 			} catch (IOException e) {
 				System.out.println("Class not Found: " + className);
+				e.printStackTrace();
 				System.exit(1);
 			}
 		}

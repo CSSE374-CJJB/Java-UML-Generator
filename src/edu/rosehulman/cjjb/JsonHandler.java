@@ -44,6 +44,7 @@ public class JsonHandler {
 	}
 	
 	public void run(JsonConfig config) {
+		loadClassesInFolder(config.InputFolder);
  		Set<String> classesToVisit = getClassList(config);
 	
 		File file = new File(config.OutputDirectory);
@@ -88,10 +89,8 @@ public class JsonHandler {
 		}
 	}
 	
-	public Set<String> getClassList(JsonConfig config) {
-		Set<String> classesToVisit = new HashSet<String>();
-		
-		File folder = new File(config.InputFolder);
+	private void loadClassesInFolder(String inputFolder) {
+		File folder = new File(inputFolder);
 		URL[] urls = null;
 		try {
 			urls = new URL[] {folder.toURI().toURL()};
@@ -101,25 +100,45 @@ public class JsonHandler {
 			System.exit(0);
 		}
 		
-		URLClassLoader cl = new URLClassLoader(urls);
+		URLClassLoader cl = URLClassLoader.newInstance(urls, this.getClass().getClassLoader());// new URLClassLoader(urls, );
+		loadFilesRecur("", folder.listFiles(), cl);
+		
+//		try {
+//			//cl.close();
+//		} catch (IOException e) {
+//		}
+	
+	}
+	
+	private void loadFilesRecur(String path, File[] files, URLClassLoader UCL) {
+		for(File name: files) {
+			if(name.isDirectory()) {
+				loadFilesRecur(path + name.getName() + ".", name.listFiles(), UCL);
+			} else {
+				if(name.getName().endsWith(".class")) {
+					try {
+						String className = path + name.getName().replace(".class", "");
+						Class<?> o = UCL.loadClass(className);
+						System.out.println(o.getName());
+						//System.out.println("Loaded Class: " + className);
+					} catch (ClassNotFoundException e) {
+						System.out.println("Class does not exist in folder or class path.");
+						e.printStackTrace();
+						//System.exit(0);
+					} catch (NoClassDefFoundError e) {
+						System.out.println("Class Could not be loaded");
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
+
+	public Set<String> getClassList(JsonConfig config) {
+		Set<String> classesToVisit = new HashSet<String>();
 		
 		for(String name: config.InputClasses) {
-			try {
-				try {
-					Class.forName(name);
-				} catch (ClassNotFoundException e1) {
-					cl.loadClass(name);
-				}
-				classesToVisit.add(name);
-			} catch (ClassNotFoundException e) {
-				System.out.println("Class does not exist in folder or class path.");
-				e.printStackTrace();
-				System.exit(0);
-			}			
-		}
-		try {
-			cl.close();
-		} catch (IOException e) {
+			classesToVisit.add(name);		
 		}
 		
 		return classesToVisit;
