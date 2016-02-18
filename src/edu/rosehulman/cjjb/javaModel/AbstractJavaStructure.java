@@ -143,9 +143,10 @@ public abstract class AbstractJavaStructure extends AbstractJavaThing {
 				list.add((T) ele);
 			}
 		}
-		
-		for(AbstractJavaStructure struct: implement) {
-			struct.getElementsOfType(list, clazz);
+		if(this.implement != null) {
+			for(AbstractJavaStructure struct: implement) {
+				struct.getElementsOfType(list, clazz);
+			}
 		}
 	}
 }

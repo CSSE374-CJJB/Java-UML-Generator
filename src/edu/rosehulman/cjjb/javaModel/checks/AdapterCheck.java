@@ -3,6 +3,7 @@ package edu.rosehulman.cjjb.javaModel.checks;
 import java.util.LinkedList;
 import java.util.List;
 
+import edu.rosehulman.cjjb.JsonConfig;
 import edu.rosehulman.cjjb.javaModel.AbstractJavaElement;
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
 import edu.rosehulman.cjjb.javaModel.JavaClass;
@@ -12,6 +13,8 @@ import edu.rosehulman.cjjb.javaModel.JavaModel;
 import edu.rosehulman.cjjb.javaModel.pattern.AdapterPattern;
 
 public class AdapterCheck implements IPatternCheck {
+
+	private int adaptedMethodCount;
 
 	@Override
 	public List<IPattern> check(JavaModel model) {
@@ -43,23 +46,21 @@ public class AdapterCheck implements IPatternCheck {
 	}
 	
 	private boolean checkMethodsForCallTo(List<AbstractJavaElement> subElements, AbstractJavaStructure arg) {
+		int counter = 0;
+		
 		for(AbstractJavaElement ele: subElements) {
 			if(ele instanceof JavaMethod) {
 				if(((JavaMethod) ele).isConstructor)
 					continue;
-				boolean valid = false;
 				for(JavaMethod meth :((JavaMethod) ele).methodCalls) {
 					if(meth.owner.equals(arg)) {
-						valid = true;
+						counter++;
 						break;
 					}
 				}
-				
-				if(!valid)
-					return false;
 			}
 		}
-		return true;
+		return counter >= this.adaptedMethodCount;
 	}
 
 	public boolean hasFieldCatableTo(List<AbstractJavaElement> elements, AbstractJavaStructure to) {
@@ -90,6 +91,11 @@ public class AdapterCheck implements IPatternCheck {
 		}
 		
 		return supers == null ? implments : supers;
+	}
+
+	@Override
+	public void setSettings(JsonConfig config) {
+		this.adaptedMethodCount = config.Adapter_MethodDelegation;
 	}
 
 }

@@ -1,10 +1,12 @@
 package edu.rosehulman.cjjb.javaModel.checks;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import edu.rosehulman.cjjb.JsonConfig;
 import edu.rosehulman.cjjb.javaModel.visitor.IStructureVisitor;
 import edu.rosehulman.cjjb.javaModel.visitor.SingletonVisitor;
 
@@ -34,8 +36,10 @@ public class PatternFindingFactory {
 		return toReturn;
 	}
 	
-	public static List<IPatternCheck> getPatternChecks(List<String> phases) {
+	public static List<IPatternCheck> getPatternChecks(JsonConfig config) {
 		List<IPatternCheck> toReturn = new LinkedList<IPatternCheck>();
+		
+		List<String> phases = Arrays.asList(config.Phases);
 
 		for(String s: patterns.keySet()) {
 			if(phases.contains(s)) {
@@ -60,13 +64,15 @@ public class PatternFindingFactory {
 		return toReturn;
 	}
 	
-	public static List<IStructureVisitor> getStructureVisitors(List<String> phases) {
+	public static List<IStructureVisitor> getStructureVisitors(JsonConfig config) {
 		List<IStructureVisitor> toReturn = new LinkedList<IStructureVisitor>();
-		
+		List<String> phases = Arrays.asList(config.Phases);
 		for(String s: visitors.keySet()) {
 			if(phases.contains(s)) {
 				try {
-					toReturn.add(visitors.get(s).newInstance());
+					IStructureVisitor vis = visitors.get(s).newInstance();
+					vis.setSettings(config);
+					toReturn.add(vis);
 				} catch (InstantiationException | IllegalAccessException e) {
 					System.out.println("Invalid IPatternCheck Class");
 					e.printStackTrace();

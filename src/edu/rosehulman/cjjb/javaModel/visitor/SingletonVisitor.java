@@ -3,6 +3,7 @@ package edu.rosehulman.cjjb.javaModel.visitor;
 import java.util.LinkedList;
 import java.util.List;
 
+import edu.rosehulman.cjjb.JsonConfig;
 import edu.rosehulman.cjjb.asm.QualifiedMethod;
 import edu.rosehulman.cjjb.asm.Utils;
 import edu.rosehulman.cjjb.javaModel.AbstractJavaElement;
@@ -17,6 +18,9 @@ import edu.rosehulman.cjjb.javaModel.modifier.StaticModifier;
 import edu.rosehulman.cjjb.javaModel.pattern.SingletonPattern;
 
 public class SingletonVisitor implements IStructureVisitor {
+	
+	private boolean requireGetInstance = true;
+	
 
 	@Override
 	public List<IPattern> visit(JavaModel model, AbstractJavaStructure struct) {
@@ -25,7 +29,7 @@ public class SingletonVisitor implements IStructureVisitor {
 		if(struct instanceof JavaInterface) {
 			// Do nothing
 		}
-		else if(checkForStaticInstance(struct)){
+		else if(checkForStaticInstance(struct) && !requireGetInstance){
 			toReturn.add(new SingletonPattern((JavaClass)struct));
 		}else if(checkForGetInstance(model, struct)) {
 			toReturn.add(new SingletonPattern((JavaClass)struct));
@@ -70,5 +74,10 @@ public class SingletonVisitor implements IStructureVisitor {
 			return true;
 
 		return false;			
+	}
+
+	@Override
+	public void setSettings(JsonConfig config) {
+		requireGetInstance = config.Singleton_RequireGetInstance;
 	}
 }

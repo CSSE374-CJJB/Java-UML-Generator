@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import edu.rosehulman.cjjb.JsonConfig;
 import edu.rosehulman.cjjb.javaModel.AbstractJavaElement;
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
 import edu.rosehulman.cjjb.javaModel.JavaClass;
@@ -102,5 +103,10 @@ public class DecoratorCheck implements IPatternCheck {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public void setSettings(JsonConfig config) {
+		// TODO Decorator Settings
 	}
 }

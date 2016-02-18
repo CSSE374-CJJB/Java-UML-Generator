@@ -226,7 +226,7 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser, IStructureTr
 	
 	public boolean isStructureIncluded(String s) {
 		if(this.includedClasses.contains(s)) {
-			if(this.exclusion != null && !this.exclusion.contains(s)) {
+			if(this.exclusion == null || !this.exclusion.contains(s)) {
 				return true;
 			}
 		}

@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import edu.rosehulman.cjjb.JsonConfig;
 import edu.rosehulman.cjjb.javaModel.AbstractJavaElement;
 import edu.rosehulman.cjjb.javaModel.AbstractJavaStructure;
 import edu.rosehulman.cjjb.javaModel.JavaField;
@@ -24,7 +25,7 @@ public class CompositeCheck implements IPatternCheck {
 		
 		for(AbstractJavaStructure struct: model.getStructures()) {
 			set.clear();
-			if(hasAddRemove(struct) /*&& checkForCollection(struct)*/) {
+			if(hasAddRemove(struct) /* && checkForCollection(struct, model) */) {
 				for(AbstractJavaStructure component: set) {
 					CompositePattern pattern = containsPattern(toReturn, component);
 					if(pattern != null) {
@@ -130,14 +131,28 @@ public class CompositeCheck implements IPatternCheck {
 		return null;
 	}
 	
-	private boolean checkForCollection(AbstractJavaStructure struct) {
-		for(AbstractJavaElement ele: struct.subElements) {
+	private boolean checkForCollection(AbstractJavaStructure struct, JavaModel model) {
+		AbstractJavaStructure collection = model.getStructure("java.util.Collection");
+		
+		for(AbstractJavaElement ele: struct.getElementsOfType(JavaField.class)) {
 			if(ele instanceof JavaField) {
-				if(ele.type.name == "java.util.Collection") {
+				if(ele.type.isCastableTo(collection)) {
 					return true;
+				} else {
+					for(AbstractJavaStructure component: set) {
+						if(ele.type.isCastableTo(component)) {
+							return true;
+						}
+					}
 				}
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void setSettings(JsonConfig config) {
+		// TODO Auto-generated method stub
+		
 	}
 }

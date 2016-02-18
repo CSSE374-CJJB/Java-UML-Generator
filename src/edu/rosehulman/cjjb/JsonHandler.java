@@ -67,7 +67,7 @@ public class JsonHandler {
 			stream = new FileOutputStream(folder);
 			JavaModelClassVisitor visitor = new JavaModelClassVisitor(classesToVisit);
 			visitor.buildUMLModelOnly();
-			visitor.runPatternDetection(PatternFindingFactory.getPatternChecks(phaseList), PatternFindingFactory.getStructureVisitors(phaseList));
+			visitor.runPatternDetection(PatternFindingFactory.getPatternChecks(config), PatternFindingFactory.getStructureVisitors(config));
 			
 			JavaModel model = visitor.getModel();
 			
