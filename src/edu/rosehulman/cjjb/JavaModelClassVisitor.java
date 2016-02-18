@@ -65,6 +65,7 @@ public class JavaModelClassVisitor {
 	}
 	
 	public void buildUMLModelOnly() {
+		System.out.println("Building UML Model");
 		for (String className : this.classes) {
 			try {
 				ClassReader reader = new ClassReader(className); 

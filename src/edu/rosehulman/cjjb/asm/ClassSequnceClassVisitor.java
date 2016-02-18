@@ -43,8 +43,6 @@ public class ClassSequnceClassVisitor extends ClassDeclarationVisitor {
 	public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
 		MethodVisitor toDecorate = super.visitMethod(access, name, desc, signature, exceptions);
 
-		System.out.println(name + " " + desc);
-		
 		boolean isConstructor = false;
 		if(name.contains("<init>")) {
 			isConstructor = true;

@@ -137,7 +137,6 @@ public class Utils {
 		} catch (ClassNotFoundException e) {
 			return false;
 		}
-
 	}
 	
 	public static String shortName(String name) {

@@ -36,7 +36,6 @@ public class SingletonVisitor implements IStructureVisitor {
 	
 	private boolean checkForStaticInstance(AbstractJavaStructure structure) {
 		for(AbstractJavaElement element: structure.subElements) {
-			System.out.println(element.name);
 			if(element.name.equalsIgnoreCase("instance"))
 				if(checkForModifier(element.modifiers, StaticModifier.class))
 					return true;

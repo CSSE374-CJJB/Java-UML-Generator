@@ -21,8 +21,6 @@ public class ClassMethodVisitor extends ClassVisitor {
 
 	@Override
 	public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
-		//System.out.println("Method: " + className + " : " + name);
-		System.out.println(name + "  " + desc);
 		MethodVisitor toDecorate = super.visitMethod(access, name, desc, signature, exceptions);
 		boolean isConstructor = false;
 		

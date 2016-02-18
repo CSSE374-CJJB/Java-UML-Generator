@@ -166,12 +166,14 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser, IStructureTr
 	
 	private void runStructVisitors(List<IStructureVisitor> structVisitors) {
 		for(IStructureVisitor v: structVisitors) {
+			System.out.println("Running Structure Visitor Class: " + v.getClass().getName());
 			this.accept(v);
 		}
 	}
 	
 	private void checkForPatterns(List<IPatternCheck> patterns) {		
 		for(IPatternCheck check: patterns) {
+			System.out.println("Running Pattern Check Class: " + check.getClass().getName());
 			List<IPattern> list = check.check(this);
 			this.patterns.addAll(list);
 		}
@@ -179,6 +181,8 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser, IStructureTr
 
 	@Override
 	public void accept(IUMLVisitor v) throws IOException {
+		System.out.println("Running IUMLVisitor: " + v.getClass().getName());
+		
 		v.visitStart();
 
 		for (String name : map.keySet()) {

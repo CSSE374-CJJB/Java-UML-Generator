@@ -76,7 +76,7 @@ public class Main {
 			System.out.println("EXAMPLE");
 			return;
 		}
-		OutputStream out = new FileOutputStream("output.txt");
+		OutputStream out;
 		switch (args[0]) {
 		case "SEQ":
 			QualifiedMethod qm = new QualifiedMethod(getMethodFromArgs(args), getDescFromArgs(args));
@@ -85,6 +85,7 @@ public class Main {
 			JavaModelClassVisitor visitor = new JavaModelClassVisitor(clazz, qm, 2);
 			
 			visitor.buildSeqModelDefault();
+			out = new FileOutputStream("output.txt");
 			ISequenceVisitor seqVisitor = new SDSequenceVisitor(clazz, qm, 2, out);
 			visitor.getModel().accept(seqVisitor);
 			break;
@@ -99,6 +100,7 @@ public class Main {
 			
 			visitor = new JavaModelClassVisitor(classesToVisit);
 			visitor.buildUMLModelDefault();
+			out = new FileOutputStream("output.txt");
 			IUMLVisitor umlVisitor = new UMLDotVisitor(out, visitor.getModel());
 			visitor.getModel().accept(umlVisitor);
 			break;
