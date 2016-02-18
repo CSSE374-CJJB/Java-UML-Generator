@@ -233,4 +233,8 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser, IStructureTr
 		
 		return false;
 	}
+	
+	public void addToIncluded(String s) {
+		this.includedClasses.add(s);
+	}
 }

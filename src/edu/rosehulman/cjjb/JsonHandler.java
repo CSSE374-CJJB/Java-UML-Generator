@@ -1,16 +1,20 @@
 package edu.rosehulman.cjjb;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.google.gson.Gson;
@@ -44,7 +48,7 @@ public class JsonHandler {
 	}
 	
 	public void run(JsonConfig config) {
-		loadClassesInFolder(config.InputFolder);
+		Map<String,InputStream> extra = loadClassesInFolder(config.InputFolder);
  		Set<String> classesToVisit = getClassList(config);
 	
 		File file = new File(config.OutputDirectory);
@@ -66,8 +70,27 @@ public class JsonHandler {
 			List<String> phaseList = Arrays.asList(config.Phases);
 			
 			stream = new FileOutputStream(folder);
+			
+			Set<String> toReAdd = new HashSet<String>();
+			
+			for(String s: extra.keySet()) {
+				classesToVisit.remove(s);
+				toReAdd.add(s);
+			}
+			
 			JavaModelClassVisitor visitor = new JavaModelClassVisitor(classesToVisit);
+			
 			visitor.buildUMLModelOnly();
+			
+			
+			for(String s: extra.keySet()) {
+				visitor.extendUMLModelFile(s, extra.get(s));
+			}
+
+			for(String s: toReAdd) {
+				visitor.getModel().addToIncluded(s);				
+			}
+			
 			visitor.runPatternDetection(PatternFindingFactory.getPatternChecks(config), PatternFindingFactory.getStructureVisitors(config));
 			
 			JavaModel model = visitor.getModel();
@@ -89,45 +112,28 @@ public class JsonHandler {
 		}
 	}
 	
-	private void loadClassesInFolder(String inputFolder) {
+	private Map<String,InputStream> loadClassesInFolder(String inputFolder) {
+		Map<String, InputStream> map = new HashMap<String,InputStream>();
+		
 		File folder = new File(inputFolder);
-		URL[] urls = null;
-		try {
-			urls = new URL[] {folder.toURI().toURL()};
-		} catch (MalformedURLException e1) {
-			System.out.println("Input Folder in bad format.");
-			e1.printStackTrace();
-			System.exit(0);
-		}
 		
-		URLClassLoader cl = URLClassLoader.newInstance(urls, this.getClass().getClassLoader());// new URLClassLoader(urls, );
-		loadFilesRecur("", folder.listFiles(), cl);
+		loadFilesRecur(map, "", folder.listFiles());
 		
-//		try {
-//			//cl.close();
-//		} catch (IOException e) {
-//		}
-	
+		return map;
 	}
 	
-	private void loadFilesRecur(String path, File[] files, URLClassLoader UCL) {
+	private void loadFilesRecur(Map<String,InputStream> map, String path, File[] files) {
 		for(File name: files) {
 			if(name.isDirectory()) {
-				loadFilesRecur(path + name.getName() + ".", name.listFiles(), UCL);
+				loadFilesRecur(map, path + name.getName() + ".", name.listFiles());
 			} else {
 				if(name.getName().endsWith(".class")) {
 					try {
 						String className = path + name.getName().replace(".class", "");
-						Class<?> o = UCL.loadClass(className);
-						System.out.println(o.getName());
-						//System.out.println("Loaded Class: " + className);
-					} catch (ClassNotFoundException e) {
-						System.out.println("Class does not exist in folder or class path.");
-						e.printStackTrace();
-						//System.exit(0);
-					} catch (NoClassDefFoundError e) {
-						System.out.println("Class Could not be loaded");
-						e.printStackTrace();
+						map.put(className, new FileInputStream(name));
+					} catch (FileNotFoundException e) {
+						System.out.println("File was deleted in middle of reading");
+						System.exit(0);
 					}
 				}
 			}

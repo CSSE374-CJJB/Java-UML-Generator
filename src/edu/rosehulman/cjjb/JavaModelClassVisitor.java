@@ -1,6 +1,7 @@
 package edu.rosehulman.cjjb;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
 
@@ -67,6 +68,21 @@ public class JavaModelClassVisitor {
 				e.printStackTrace();
 				System.exit(1);
 			}
+		}
+	}
+	
+	public void extendUMLModelFile(String className, InputStream in) {
+		try {
+			ClassReader reader = new ClassReader(in); 
+			ClassVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, model);
+			ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, decVisitor, className, model);
+			ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor, className, model);
+			
+			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
+		} catch (IOException e) {
+			System.out.println("Class not Found: " + className);
+			e.printStackTrace();
+			System.exit(1);
 		}
 	}
 	
