@@ -28,6 +28,7 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser, IStructureTr
 	HashMap<String, AbstractJavaStructure> map;
 	List<MethodCallGroup> methodGroups;
 	Set<String> includedClasses;
+	List<String> exclusion;
 	
 	List<IPattern> patterns;
 
@@ -39,6 +40,10 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser, IStructureTr
 		this.methodGroups = new LinkedList<MethodCallGroup>();
 		
 		this.patterns = new LinkedList<IPattern>();
+	}
+	
+	public void setExclusionList(List<String> exclusion) {
+		this.exclusion = exclusion;
 	}
 
 	public boolean containsStructure(String name) {
@@ -57,10 +62,10 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser, IStructureTr
 		List<Relation> relations = new LinkedList<Relation>();
 		for (AbstractJavaStructure struct : map.values()) {
 			if (struct instanceof JavaClass) {
-				if (includedClasses.contains(struct.name)) {
+				if (isStructureIncluded(struct.name)) {
 					JavaClass clazz = (JavaClass) struct;
 					if (clazz.superClass != null) {
-						if (includedClasses.contains(clazz.superClass.name)) {
+						if (isStructureIncluded(clazz.superClass.name)) {
 							relations.add(new Relation(clazz, clazz.superClass));
 						}
 					}
@@ -73,9 +78,9 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser, IStructureTr
 	public List<Relation> getIncludedInterfaceRelations() {
 		List<Relation> relations = new LinkedList<Relation>();
 		for (AbstractJavaStructure struct : map.values()) {
-			if (includedClasses.contains(struct.name)) {
+			if (isStructureIncluded(struct.name)) {
 				for (AbstractJavaStructure other : struct.implement) {
-					if (includedClasses.contains(other.name)) {
+					if (isStructureIncluded(other.name)) {
 						relations.add(new Relation(struct, other));
 					}
 				}
@@ -87,15 +92,15 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser, IStructureTr
 	public List<Relation> getIncludedUsesRelations() {
 		Set<Relation> relations = new HashSet<Relation>();
 		for (AbstractJavaStructure struct : map.values()) {
-			if (includedClasses.contains(struct.name)) {
+			if (isStructureIncluded(struct.name)) {
 				for (AbstractJavaElement other : struct.subElements) {
 					if (other instanceof JavaMethod) {
-						if (includedClasses.contains(other.type.name)) {
+						if (isStructureIncluded(other.type.name)) {
 							relations.add(new Relation(struct, other.type));
 						}
 
 						for (AbstractJavaStructure arg : ((JavaMethod) other).arguments) {
-							if (includedClasses.contains(arg.name)) {
+							if (isStructureIncluded(arg.name)) {
 								relations.add(new Relation(struct, arg));
 							}
 						}
@@ -110,9 +115,9 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser, IStructureTr
 	public List<Relation> getIncludedAssociationReltiations() {
 		Set<Relation> relations = new HashSet<Relation>();
 		for (AbstractJavaStructure struct : map.values()) {
-			if (includedClasses.contains(struct.name)) {
+			if (isStructureIncluded(struct.name)) {
 				for (AbstractJavaElement other : struct.subElements) {
-					if (includedClasses.contains(other.name)) {
+					if (isStructureIncluded(other.name)) {
 						if (other instanceof JavaField) {
 							relations.add(new Relation(struct, other.type));
 						}
@@ -177,7 +182,7 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser, IStructureTr
 		v.visitStart();
 
 		for (String name : map.keySet()) {
-			if (includedClasses.contains(name))
+			if (isStructureIncluded(name))
 				map.get(name).accept(v);
 		}
 		v.visitRelations(this);
@@ -213,5 +218,15 @@ public class JavaModel implements IUMLTraverser, ISquenceTraverser, IStructureTr
 
 	public List<IPattern> getPatterns() {
 		return patterns;
+	}
+	
+	public boolean isStructureIncluded(String s) {
+		if(this.includedClasses.contains(s)) {
+			if(this.exclusion != null && !this.exclusion.contains(s)) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }

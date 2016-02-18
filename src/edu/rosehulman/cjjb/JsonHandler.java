@@ -15,6 +15,7 @@ import java.util.Set;
 
 import com.google.gson.Gson;
 
+import edu.rosehulman.cjjb.javaModel.JavaModel;
 import edu.rosehulman.cjjb.javaModel.checks.PatternFindingFactory;
 import edu.rosehulman.cjjb.javaModel.visitor.IUMLVisitor;
 import edu.rosehulman.cjjb.javaModel.visitor.UMLDotVisitor;
@@ -69,9 +70,13 @@ public class JsonHandler {
 			visitor.buildUMLModelOnly();
 			visitor.runPatternDetection(PatternFindingFactory.getPatternChecks(phaseList), PatternFindingFactory.getStructureVisitors(phaseList));
 			
+			JavaModel model = visitor.getModel();
+			
+			model.setExclusionList(config.exclusion);
+			
 			if(phaseList.contains("DOT-Generation")) {
-				IUMLVisitor umlVisitor = new UMLDotVisitor(stream, visitor.getModel());
-				visitor.getModel().accept(umlVisitor);				
+				IUMLVisitor umlVisitor = new UMLDotVisitor(stream, model);
+				model.accept(umlVisitor);				
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println("Unable to create file at output directory");
