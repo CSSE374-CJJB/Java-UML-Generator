@@ -144,12 +144,16 @@ public class UMLDotVisitor implements IUMLVisitor {
 	public void visitPatterns(JavaModel javaModel) throws IOException {
 		for(IPattern pattern: javaModel.getPatterns()) {
 			for(AbstractJavaStructure struct: pattern.getInvolvedStructes()) {
-				Color c = pattern.getDefaultColor();
-				out.write(String.format("\"%s\" [style=filled color=black fillcolor=\"#%02x%02x%02x\"]\n", struct.name, c.getRed(), c.getGreen(), c.getBlue()).getBytes());
+				if(javaModel.isStructureIncluded(struct.name)) {
+					Color c = pattern.getDefaultColor();
+					out.write(String.format("\"%s\" [style=filled color=black fillcolor=\"#%02x%02x%02x\"]\n", struct.name, c.getRed(), c.getGreen(), c.getBlue()).getBytes());					
+				}
 			}
 			
 			for(Relation r: pattern.getTopLevelRelations()) {
-				out.write(String.format("\"%s\" -> \"%s\" [label = \"\\<\\<%s\\>\\>\"]\n", r.base.name, r.other.name, pattern.getRelationName()).getBytes());
+				if(javaModel.isStructureIncluded(r.base.name) && javaModel.isStructureIncluded(r.other.name)) {
+					out.write(String.format("\"%s\" -> \"%s\" [label = \"\\<\\<%s\\>\\>\"]\n", r.base.name, r.other.name, pattern.getRelationName()).getBytes());					
+				}
 			}
 			
 			
